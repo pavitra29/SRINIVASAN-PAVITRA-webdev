@@ -10,8 +10,7 @@ app.use(express.static(__dirname + '/public'));
 
 require ("./test/app.js")(app);
 
-var ipaddress = process.env.IP;
-var port      = process.env.PORT || 3000;
-
-app.listen(port, ipaddress);
+app.set('ipaddress', (process.env.IP));
+app.set('port', (process.env.PORT || 3000));
+app.listen(app.get('port'), app.get('ipaddress'));
 
