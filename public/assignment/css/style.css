@@ -3,5 +3,18 @@ input.form-control {
 }
 
 body {
-    padding-top: 36px;
+    padding-top: 65px;
+}
+
+.navbar-default {
+    background-color: #1e90ff;
+}
+
+.navbar-default .navbar-brand {
+    color: white;
+}
+
+.glyphicon {
+    margin-right: 15px;
+    color: white;
 }
