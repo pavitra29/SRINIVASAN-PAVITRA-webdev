@@ -4,17 +4,39 @@ input.form-control {
 
 body {
     padding-top: 65px;
+    padding-bottom: 65px;
 }
 
-.navbar-default {
+.templates-websites-navbar {
     background-color: #1e90ff;
 }
 
-.navbar-default .navbar-brand {
-    color: white;
+.profile-websites-navbar-text {
+    color: white !important;
 }
 
 .glyphicon {
-    margin-right: 15px;
+    margin-right: 10px;
+    margin-left: 10px;
+    color: black;
+}
+
+
+.templates-websites-navbar .glyphicon {
+    margin-right: 10px;
+    margin-left: 10px;
     color: white;
+}
+
+.glyphicon-cog {
+    color: dodgerblue;
+}
+
+.pages-widgets-glyphicon-user {
+    color: dodgerblue;
+}
+
+.align-glyphicons {
+    float: right;
+    padding-right: 10px;
 }
