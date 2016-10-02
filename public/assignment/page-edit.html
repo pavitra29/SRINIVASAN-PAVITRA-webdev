@@ -2,27 +2,75 @@
 <html lang="en">
 <head>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
     <meta charset="UTF-8">
     <title>Title</title>
     <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
 <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
+    <div class="container-fluid">
+        <div class="col-sm-5 hidden-xs">
             <p class="navbar-text pull-left">
                 <a href="page-list.html" class="glyphicon glyphicon-chevron-left"></a>
             </p>
-            <a class="navbar-brand" href="#">Edit Page</a>
+            <p class="navbar-text pull-left-custom">
+                <a href="page-new.html" class="glyphicon glyphicon-plus"></a>
+            </p>
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Pages</a>
+            </div>
+        </div>
+        <div class="col-sm-7">
+            <p class="navbar-text pull-left visible-xs">
+                <a href="page-list.html" class="glyphicon glyphicon-chevron-left"></a>
+            </p>
             <p class="navbar-text pull-right">
                 <a href="page-list.html" class="glyphicon glyphicon-ok"></a>
             </p>
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Edit Page</a>
             </div>
+        </div>
     </div>
 </nav>
-    <div class="container">
-
+<div class="container-fluid">
+    <div class="hidden-xs col-sm-4">
+        <form>
+            <div class="form-group">
+                <a href="widget-list.html">Blog Post</a>
+                <p class="pull-right">
+                    <a href="page-edit.html" class="glyphicon glyphicon-cog"></a>
+                </p>
+            </div>
+            <div class="form-group">
+                <a href="widget-list.html">Blog</a>
+                <p class="pull-right">
+                    <a href="page-edit.html" class="glyphicon glyphicon-cog"></a>
+                </p>
+            </div>
+            <div class="form-group">
+                <a href="widget-list.html">Home</a>
+                <p class="pull-right">
+                    <a href="page-edit.html" class="glyphicon glyphicon-cog"></a>
+                </p>
+            </div>
+            <div class="form-group">
+                <a href="page-list.html">About</a>
+                <p class="pull-right">
+                    <a href="page-edit.html" class="glyphicon glyphicon-cog"></a>
+                </p>
+            </div>
+            <div class="form-group">
+                <a href="widget-list.html">Contact Us</a>
+                <p class="pull-right">
+                    <a href="page-edit.html" class="glyphicon glyphicon-cog"></a>
+                </p>
+            </div>
+        </form>
+    </div>
+    <div class="vertical-line hidden-xs"></div>
+    <div class="col-xs-12 col-sm-8">
         <form>
             <div class="form-group">
                 <label for="name">Name</label>
@@ -34,8 +82,8 @@
             </div>
             <a href="page-list.html" class="btn btn-danger btn-block">Delete</a>
         </form>
-
     </div>
+</div>
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container">
         <p class="navbar-text pull-right">
