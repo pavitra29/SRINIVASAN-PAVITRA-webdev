@@ -44,10 +44,6 @@ body {
     color: dodgerblue;
 }
 
-.pull-left-custom {
-    float: right !important;
-}
-
 .vertical-line {
     width:1px;
     height:100%;
