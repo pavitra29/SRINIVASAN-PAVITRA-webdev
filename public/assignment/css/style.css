@@ -32,11 +32,12 @@ body {
     color: dodgerblue;
     margin-right: 2px;
     margin-left: 5px;
+    padding-right: 5px;
 }
 
 .glyphicon-align-justify {
     margin-right: 2px;
-    margin-left: 2px;
+    margin-left: 0px;
 }
 
 .pages-widgets-glyphicon-user {
@@ -44,8 +45,7 @@ body {
 }
 
 .pull-left-custom {
-    position: absolute;
-    right: 50px;
+    float: right !important;
 }
 
 .vertical-line {
