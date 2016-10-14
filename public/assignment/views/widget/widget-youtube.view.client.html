@@ -1,20 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link href="css/style.css" rel="stylesheet">
-</head>
-<body>
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <p class="navbar-text pull-left">
-            <a href="widget-list.html" class="glyphicon glyphicon-chevron-left"></a>
+            <a href="#/user/:uid/website/:wid/page/:pid/widget" class="glyphicon glyphicon-chevron-left"></a>
         </p>
         <p class="navbar-text pull-right">
-            <a href="widget-list.html" class="glyphicon glyphicon-ok"></a>
+            <a href="#/user/:uid/website/:wid/page/:pid/widget" class="glyphicon glyphicon-ok"></a>
         </p>
         <div class="navbar-header">
             <a class="navbar-brand" href="#">Widget Edit</a>
@@ -39,15 +29,13 @@
             <label for="width">Width</label>
             <input type="number" class="form-control" id="width" placeholder="100%">
         </div>
-        <a href="widget-list.html" class="btn btn-danger btn-block">Delete</a>
+        <a href="#/user/:uid/website/:wid/page/:pid/widget" class="btn btn-danger btn-block">Delete</a>
     </form>
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
         <p class="navbar-text pull-right">
-            <a href="profile.html" class="glyphicon glyphicon-user pages-widgets-glyphicon-user"></a>
+            <a href="#/user/:uid" class="glyphicon glyphicon-user pages-widgets-glyphicon-user"></a>
         </p>
     </div>
 </nav>
-</body>
-</html>

@@ -1,19 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link href="css/style.css" rel="stylesheet">
-</head>
-<body>
 <nav class="navbar navbar-default navbar-fixed-top templates-websites-navbar">
     <div class="container-fluid">
         <div class="col-sm-4 hidden-xs">
             <div class="navbar-header">
                 <p class="navbar-text pull-left">
-                    <a href="website-list.html" class="glyphicon glyphicon-chevron-left"></a>
+                    <a href="#/user/:uid/website" class="glyphicon glyphicon-chevron-left"></a>
                 </p>
             </div>
             <div>
@@ -21,16 +11,16 @@
             </div>
             <div class="pull-right">
                 <p class="navbar-text">
-                    <a href="website-new.html" class="glyphicon glyphicon-plus"></a>
+                    <a href="#/user/:uid/website/new" class="glyphicon glyphicon-plus"></a>
                 </p>
             </div>
         </div>
         <div class="col-sm-8">
             <p class="navbar-text pull-left visible-xs">
-                <a href="website-list.html" class="glyphicon glyphicon-chevron-left"></a>
+                <a href="#/user/:uid/website" class="glyphicon glyphicon-chevron-left"></a>
             </p>
             <p class="navbar-text pull-right">
-                <a href="website-list.html" class="glyphicon glyphicon-ok"></a>
+                <a href="#/user/:uid/website" class="glyphicon glyphicon-ok"></a>
             </p>
             <div class="navbar-header">
                 <a class="navbar-brand profile-websites-navbar-text" href="#">Edit Website</a>
@@ -42,27 +32,27 @@
     <div class="hidden-xs col-sm-4">
         <form>
             <div class="form-group">
-                <a href="page-list.html">Address Book App</a>
+                <a href="#/user/:uid/website/:wid/page">Address Book App</a>
                 <p class="pull-right">
-                    <a href="website-edit.html" class="glyphicon glyphicon-cog"></a>
+                    <a href="#/user/:uid/website/:wid" class="glyphicon glyphicon-cog"></a>
                 </p>
             </div>
             <div class="form-group">
-                <a href="page-list.html">Blogger</a>
+                <a href="#/user/:uid/website/:wid/page">Blogger</a>
                 <p class="pull-right">
-                    <a href="website-edit.html" class="glyphicon glyphicon-cog"></a>
+                    <a href="#/user/:uid/website/:wid" class="glyphicon glyphicon-cog"></a>
                 </p>
             </div>
             <div class="form-group">
-                <a href="page-list.html">Blogger App</a>
+                <a href="#/user/:uid/website/:wid/page">Blogger App</a>
                 <p class="pull-right">
-                    <a href="website-edit.html" class="glyphicon glyphicon-cog"></a>
+                    <a href="#/user/:uid/website/:wid" class="glyphicon glyphicon-cog"></a>
                 </p>
             </div>
             <div class="form-group">
-                <a href="page-list.html">Script Testing App</a>
+                <a href="#/user/:uid/website/:wid/page">Script Testing App</a>
                 <p class="pull-right">
-                    <a href="website-edit.html" class="glyphicon glyphicon-cog"></a>
+                    <a href="#/user/:uid/website/:wid" class="glyphicon glyphicon-cog"></a>
                 </p>
             </div>
         </form>
@@ -78,16 +68,14 @@
             <label for="description">Website Description</label>
             <textarea placeholder="Description" rows="4" cols="50" class="form-control" id="description"></textarea>
         </div>
-        <a href="website-list.html" class="btn btn-danger btn-block">Delete</a>
+        <a href="#/user/:uid/website" class="btn btn-danger btn-block">Delete</a>
     </form>
     </div>
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom templates-websites-navbar">
     <div class="container-fluid">
         <p class="navbar-text pull-right">
-            <a href="profile.html" class="glyphicon glyphicon-user"></a>
+            <a href="#/user/:uid" class="glyphicon glyphicon-user"></a>
         </p>
     </div>
 </nav>
-</body>
-</html>
