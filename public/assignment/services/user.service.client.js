@@ -4,11 +4,6 @@
         .factory("UserService",UserService);
     
     function UserService() {
-        // var users = [
-        //     {username: 'alice', password:'ewq', _id: 123, first: 'Alice', last: 'Wonderland', email: 'alice@wonderland.com'},
-        //     {username: 'bob', password:'ewq', _id: 234, first: 'Bob', last: 'Dylan', email: 'bob@dylan.com'},
-        //     {username: 'charlie', password:'ewq', _id: 345, first: 'Charlie', last: 'Brown', email: 'charlie@brown.com'}
-        // ];
 
         var users = [
             {_id: "123", username: "alice",    password: "alice",    firstName: "Alice",  lastName: "Wonder"  },

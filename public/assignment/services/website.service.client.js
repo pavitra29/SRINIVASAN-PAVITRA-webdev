@@ -4,18 +4,6 @@
         .factory("WebsiteService", WebsiteService);
 
     function WebsiteService() {
-        // var websites = [
-        //     {name: 'Facebook', uid: 123},
-        //     {name: 'Twitter', uid: 123},
-        //     {name: 'Instagram', uid: 123},
-        //     {name: 'Wikipedia', uid: 234},
-        //     {name: 'Gizmodo', uid: 234},
-        //     {name: 'LinkedIn', uid: 345},
-        //     {name: 'Indeed', uid: 345},
-        //     {name: 'Monster', uid: 345},
-        //     {name: 'Jobs', uid: 345}
-        // ];
-
 
         var websites = [
             { "_id": "123", "name": "Facebook",    "developerId": "456" },

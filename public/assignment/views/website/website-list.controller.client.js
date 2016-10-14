@@ -8,7 +8,7 @@
 
         var userId = parseInt($routeParams['uid']);
 
-        vm.websites = WebsiteService.findWebsitesForUser(userId);
+        vm.websites = WebsiteService.findWebsitesByUser(userId);
 
 
     }
