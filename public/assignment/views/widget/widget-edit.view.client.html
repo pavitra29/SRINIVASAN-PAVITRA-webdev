@@ -1,0 +1,15 @@
+<div>
+
+    <form>
+        {{model.widget}}
+
+        <div ng-include="'views/widget/widget-'+model.widget.widgetType+'.view.client.html'">
+
+        </div>
+
+    </form>
+
+    <!--<div ng-include="'views/widget/widget-header.view.client.html'"></div>-->
+    <!--<div ng-include="'views/widget/widget-image.view.client.html'"></div>-->
+    <!--<div ng-include="'views/widget/widget-youtube.view.client.html'"></div>-->
+</div>

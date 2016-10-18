@@ -4,9 +4,9 @@
     </div>
     <h1>Login</h1>
     <label for="username">Username</label>
-    <input type="text" class="form-control" ng-model="model.username" id="username" placeholder="Alice">
+    <input type="text" class="form-control" ng-model="model.user.username" id="username" placeholder="Alice">
     <label for="password">Password</label>
-    <input type="password" class="form-control" ng-model="model.password" id="password" placeholder="xyz123">
-    <a ng-click="model.login(model.username,model.password)" class="btn btn-primary btn-block">Login</a>
+    <input type="password" class="form-control" ng-model="model.user.password" id="password" placeholder="xyz123">
+    <a ng-click="model.login(model.user.username,model.user.password)" class="btn btn-primary btn-block">Login</a>
     <a href="#/register" class="btn btn-success btn-block">Register</a>
 </div>

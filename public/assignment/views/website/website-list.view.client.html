@@ -13,9 +13,9 @@
 </nav>
 <div class="container-fluid">
     <ul class="list-group">
-        <li ng-repeat="website in model.websites">
-            <a href="#/user/:uid/website/:wid/page">{{website.name}}</a>
-            <a href="#/user/:uid/website/:wid" class="pull-right">
+        <li ng-repeat="website in model.websites" class="list-group-item">
+            <a ng-click="#/user/{{model.userId}}/website/{{model.website._id}}/page">{{website.name}}</a>
+            <a ng-click="#/user/{{model.userId}}/website/{{model.website._id}}" class="pull-right">
                     <span class="glyphicon glyphicon-cog">
                     </span>
             </a>

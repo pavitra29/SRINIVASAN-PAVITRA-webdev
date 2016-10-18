@@ -12,23 +12,54 @@
     </div>
 </nav>
 <div class="container-fluid">
+
+    <div ng-switch="widget.widgetType" ng-repeat="widget in model.widgets">
+        <a href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget/{{widget._id}}" class="pull-right">
+            <span class="glyphicon glyphicon-cog">
+            </span>
+        </a>
+        <!--{{widget}}-->
+        <div ng-switch="widget.size" ng-switch-when="HEADER">
+
+            <h1 ng-switch-when="1">{{widget.text}}</h1>
+            <h2 ng-switch-when="2">{{widget.text}}</h2>
+            <h3 ng-switch-when="3">{{widget.text}}</h3>
+            <h4 ng-switch-when="4">{{widget.text}}</h4>
+            <h5 ng-switch-when="5">{{widget.text}}</h5>
+            <h6 ng-switch-when="6">{{widget.text}}</h6>
+
+        </div>
+        <div ng-switch-when="YOUTUBE">
+            <iframe width="560" height="315" ng-src="{{model.checkSafeYouTubeUrl(widget.url)}}" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div ng-switch-when="IMAGE">
+            image
+        </div>
+        <div ng-switch-when="HTML" ng-bind-html="model.checkSafeHtml(widget.text)">
+
+            {{widget.text}}
+
+        </div>
+
+    </div>
+
     <div class="form-group">
         <div class="pull-right">
-            <a href="#/widget-heading.view.client.html" class="glyphicon glyphicon-cog"></a>
+            <a href="#/user/:uid/website/:wid/page/:pid/widget/:wgid" class="glyphicon glyphicon-cog"></a>
             <span class="glyphicon glyphicon-align-justify"></span>
         </div>
         <h1>GIZMODO</h1>
     </div>
     <div class="form-group">
         <div class="pull-right">
-            <a href="#/widget-heading.view.client.html" class="glyphicon glyphicon-cog"></a>
+            <a href="#/user/:uid/website/:wid/page/:pid/widget/:wgid" class="glyphicon glyphicon-cog"></a>
             <span class="glyphicon glyphicon-align-justify"></span>
         </div>
         <h4>The Best Hidden Features in iOS 10</h4>
     </div>
     <div class="form-group relative-position">
         <div class="pull-right absolute-position overlay_glyphicons zero-right-padding">
-            <a href="#/widget-image.view.client.html" class="glyphicon glyphicon-cog"></a>
+            <a href="#/user/:uid/website/:wid/page/:pid/widget/:wgid" class="glyphicon glyphicon-cog"></a>
             <span class="glyphicon glyphicon-align-justify"></span>
         </div>
         <img class="img-responsive zero-right-padding" src="https://i.ytimg.com/vi/ymVXuT0Yfl4/maxresdefault.jpg"
@@ -36,21 +67,21 @@
     </div>
     <div class="form-group">
         <div class="pull-right">
-            <a href="#/widget-heading.view.client.html" class="glyphicon glyphicon-cog"></a>
+            <a href="#/user/:uid/website/:wid/page/:pid/widget/:wgid" class="glyphicon glyphicon-cog"></a>
             <span class="glyphicon glyphicon-align-justify"></span>
         </div>
         <p align="justify">By now, you’ve probably had some time to play around with iOS 10 and get acquainted with all the new features. We’ve already told you about most of them, but there are all kinds of tweaks and new settings hidden deep within the software. Here are some of the best features hidden inside iOS 10.</p>
     </div>
     <div class="form-group">
         <div class="pull-right">
-            <a href="#/widget-heading.view.client.html" class="glyphicon glyphicon-cog"></a>
+            <a href="#/user/:uid/website/:wid/page/:pid/widget/:wgid" class="glyphicon glyphicon-cog"></a>
             <span class="glyphicon glyphicon-align-justify"></span>
         </div>
         <h4>Search for tabs in Safari</h4>
     </div>
     <div class="form-group relative-position">
         <div class="pull-right absolute-position overlay_glyphicons zero-right-padding">
-            <a href="#/widget-youtube.view.client.html" class="glyphicon glyphicon-cog"></a>
+            <a href="#/user/:uid/website/:wid/page/:pid/widget/:wgid" class="glyphicon glyphicon-cog"></a>
             <span class="glyphicon glyphicon-align-justify"></span>
         </div>
         <div class="embed-responsive embed-responsive-16by9 relative-position">
@@ -59,7 +90,7 @@
     </div>
     <div class="form-group">
         <div class="pull-right">
-            <a href="#/widget-heading.view.client.html" class="glyphicon glyphicon-cog"></a>
+            <a href="#/user/:uid/website/:wid/page/:pid/widget/:wgid" class="glyphicon glyphicon-cog"></a>
             <span class="glyphicon glyphicon-align-justify"></span>
         </div>
         <p align="justify">Good news! The iOS 10 version of Safari lets you open up an unlimited number of tabs while you’re browsing. That does bring its own problems though, including not being able to keep track of your browsing, and that’s where tab search comes in.

@@ -6,13 +6,18 @@
     function ProfileController($routeParams, UserService) {
         var vm = this;
 
-        var userId = parseInt($routeParams.uid);
+        var userId = $routeParams["uid"];
+        function init() {
 
-        var user = UserService.findUserById(userId);
+            user = UserService.findUserById(userId);
 
-        if(user != null) {
-            vm.user = user;
+            if(user != null) {
+                vm.user = user;
+            }
+
         }
+        init();
+
 
     }
 })();
