@@ -4,26 +4,39 @@
         .controller("EditWebsiteController", EditWebsiteController);
     
     
-    function EditWebsiteController($routeParams, WebsiteService) {
+    function EditWebsiteController($routeParams, $location, WebsiteService) {
         var vm = this;
 
-        var websiteId = $routeParams.wid;
+        vm.websiteId = $routeParams.wid;
 
         vm.userId = $routeParams.uid;
 
+        vm.remove = remove;
+        vm.update = update;
+
         function init() {
-            vm.website = WebsiteService.findWebsiteById(websiteId);
+
+            vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
+
+            vm.website = WebsiteService.findWebsiteById(vm.websiteId);
 
         }
         init();
 
-        // var userId = $routeParams["uid"];
-        // function init() {
-        //     vm.website = WebsiteService.findWebsitesByUser(userId);
-        // }
-        // init();
 
+        function remove(wid) {
 
+            WebsiteService.deleteWebsite(wid);
+            vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
+            $location.url("/user/"+vm.userId+"/website");
+
+        }
+
+        function update(website) {
+            WebsiteService.updateWebsite(website._id,website);
+            vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
+            $location.url("/user/"+vm.userId+"/website");
+        }
     }
     
 })();

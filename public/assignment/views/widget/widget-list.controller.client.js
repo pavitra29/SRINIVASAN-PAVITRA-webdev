@@ -7,9 +7,9 @@
         var vm = this;
 
         vm.uid = $routeParams.pid;
-        vm.wid = $routeParams.pid;
+        vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
-        vm.wgid = $routeParams.pid;
+        vm.wgid = $routeParams.wgid;
 
         vm.checkSafeHtml = checkSafeHtml;
         vm.checkSafeYouTubeUrl = checkSafeYouTubeUrl;

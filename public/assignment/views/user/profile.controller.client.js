@@ -40,8 +40,6 @@
 
             vm.user = UserService.deleteUser(userId);
 
-            vm.success = "User successfully deleted!";
-
             $location.url("/login");
         }
     }
