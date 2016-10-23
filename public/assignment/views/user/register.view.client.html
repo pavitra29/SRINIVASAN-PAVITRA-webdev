@@ -1,4 +1,7 @@
 <div class="container-fluid">
+    <div ng-show="model.error" class="alert alert-danger" role="alert">
+        {{model.error}}
+    </div>
     <h1>Register</h1>
     <form>
         <div class="form-group">
@@ -13,7 +16,8 @@
             <label for="password2">Verify Password</label>
             <input ng-model="model.user.password2" type="password" class="form-control" id="password2" placeholder="xyz123">
         </div>
-        <a href="#/user/:uid" class="btn btn-primary btn-block">Register</a>
+        <a ng-click="model.register(model.user)"
+           class="btn btn-primary btn-block">Register</a>
         <a href="#/login" class="btn btn-danger btn-block">Cancel</a>
     </form>
 </div>

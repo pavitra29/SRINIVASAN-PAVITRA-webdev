@@ -24,7 +24,20 @@
         return api;
 
         function createUser(user) {
+
+            console.log([user._id, user.username, user.password, user.firstName, user.lastName, user.email]);
+
+            var userId = parseInt(Math.floor(Math.random()*900) + 100);
+
+            console.log(userId);
+
+            user._id = userId;
+
+            console.log([user._id, user.username, user.password, user.firstName, user.lastName, user.email]);
+
             users.push(user);
+
+            return user;
         }
 
         function findUserById(userId) {
@@ -39,7 +52,7 @@
         
         function findUserByUsername(username) {
             for(var u in users) {
-                user = user[u];
+                user = users[u];
                 if(user.username === username) {
                     return user;
                 }
@@ -58,17 +71,33 @@
         }
 
         function updateUser(userId, user) {
+
+            console.log([userId, user.username, user.email, user.firstName, user.lastName]);
+
             for(var u in users) {
                 var existingUser = users[u];
                 if(existingUser._id === userId) {
-                    existingUser = user;
+                    existingUser.username = user.username;
+                    existingUser.email = user.email;
+                    existingUser.firstName = user.firstName;
+                    existingUser.lastName = user.lastName;
+
+                    return existingUser;
                 }
             }
+            return null;
         }
 
         
         function deleteUser(userId) {
-            
+            for(var u in users) {
+                var user = users[u];
+
+                if(user._id === userId) {
+                    console.log("User "+ user.username+" deleted");
+                    users.splice(u,1);
+                }
+            }
         }
     }
 })();

@@ -1,15 +1,22 @@
 <nav class="navbar navbar-default navbar-fixed-top templates-websites-navbar">
     <div class="container-fluid">
         <p class="navbar-text pull-right">
-            <a href="#" class="glyphicon glyphicon-ok"></a>
+            <a ng-click="model.update(model.user._id, model.user)" class="glyphicon glyphicon-ok"></a>
         </p>
         <div class="navbar-header">
-            <a class="navbar-brand profile-websites-navbar-text" href="#">Profile</a>
+            <a class="navbar-brand profile-websites-navbar-text" href="#">
+                Profile
+            </a>
         </div>
     </div>
 </nav>
 <div class="container-fluid">
-
+    <div ng-show="model.success" class="alert alert-success" role="alert">
+        {{model.success}}
+    </div>
+    <div ng-show="model.error" class="alert alert-danger" role="alert">
+        {{model.error}}
+    </div>
     <form>
         <div class="form-group">
             <label for="username">Username</label>
@@ -28,7 +35,8 @@
             <input ng-model="model.user.lastName" type="text" class="form-control" id="last" placeholder="Wonderland">
         </div>
         <a href="#/user/{{model.user._id}}/website" class="btn btn-primary btn-block">Websites</a>
-        <a href="#/login" class="btn btn-danger btn-block">Logout</a>
+        <a ng-click="model.remove(model.user._id)" class="btn btn-danger btn-block">Delete</a>
+        <a href="#/login" class="btn btn-warning btn-block">Logout</a>
     </form>
 
 </div>
