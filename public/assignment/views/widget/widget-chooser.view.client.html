@@ -1,49 +1,55 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <p class="navbar-text pull-left">
-            <a href="#/user/:uid/website/:wid/page/:pid/widget" class="glyphicon glyphicon-chevron-left"></a>
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget"
+               class="glyphicon glyphicon-chevron-left"></a>
         </p>
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Choose Widget</a>
+            <a class="navbar-brand"
+               href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new">
+                Choose Widget</a>
         </div>
     </div>
 </nav>
 <div class="container-fluid">
-    <div class="form-group">
-        <a href="#/widget-heading.view.client.html">Header</a>
+    <div ng-show="model.success" class="alert alert-success" role="alert">
+        {{model.success}}
     </div>
     <div class="form-group">
-        <a>Label</a>
+        <a ng-click="model.create({'widgetType':'HEADER'})">Header</a>
     </div>
     <div class="form-group">
-        <a>HTML</a>
+        <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new">Label</a>
     </div>
     <div class="form-group">
-        <a>Text Input</a>
+        <a ng-click="model.create({'widgetType':'HTML'})">HTML</a>
     </div>
     <div class="form-group">
-        <a>Link</a>
+        <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new">Text Input</a>
     </div>
     <div class="form-group">
-        <a>Button</a>
+        <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new">Link</a>
     </div>
     <div class="form-group">
-        <a href="#/widget-image.view.client.html">Image</a>
+        <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new">Button</a>
     </div>
     <div class="form-group">
-        <a href="#/widget-youtube.view.client.html">Youtube</a>
+        <a ng-click="model.create({'widgetType':'IMAGE'})">Image</a>
     </div>
     <div class="form-group">
-        <a>Data Table</a>
+        <a ng-click="model.create({'widgetType':'YOUTUBE'})">Youtube</a>
     </div>
     <div class="form-group">
-        <a>Repeater</a>
+        <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new">Data Table</a>
+    </div>
+    <div class="form-group">
+        <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new">Repeater</a>
     </div>
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
         <p class="navbar-text pull-right">
-            <a href="#/user/:uid" class="glyphicon glyphicon-user pages-widgets-glyphicon-user"></a>
+            <a href="#/user/{{model.userId}}" class="glyphicon glyphicon-user pages-widgets-glyphicon-user"></a>
         </p>
     </div>
 </nav>

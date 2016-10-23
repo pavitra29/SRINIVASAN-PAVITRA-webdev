@@ -1,24 +1,33 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <p class="navbar-text pull-left">
-            <a href="#/user/:uid/website/:wid/page" class="glyphicon glyphicon-chevron-left"></a>
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page" class="glyphicon glyphicon-chevron-left"></a>
         </p>
         <p class="navbar-text pull-right">
-            <a href="#/user/:uid/website/:wid/page/:pid/widget/new" class="glyphicon glyphicon-plus"></a>
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new"
+               class="glyphicon glyphicon-plus">
+            </a>
         </p>
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Widgets</a>
+            <a class="navbar-brand"
+               href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget">
+                Widgets
+            </a>
         </div>
     </div>
 </nav>
 <div class="container-fluid">
 
-    <div ng-switch="widget.widgetType" ng-repeat="widget in model.widgets">
-        <a href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget/{{widget._id}}" class="pull-right">
+    <div ng-switch="widget.widgetType" ng-repeat="widget in model.widgets" class="list-group">
+        <div class="pull-right">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{widget._id}}">
             <span class="glyphicon glyphicon-cog">
             </span>
-        </a>
-        <!--{{widget}}-->
+            </a>
+            <span class="glyphicon glyphicon-align-justify">
+        </span>
+        </div>
+
         <div ng-switch="widget.size" ng-switch-when="HEADER">
 
             <h1 ng-switch-when="1">{{widget.text}}</h1>
@@ -29,11 +38,13 @@
             <h6 ng-switch-when="6">{{widget.text}}</h6>
 
         </div>
-        <div ng-switch-when="YOUTUBE">
-            <iframe width="560" height="315" ng-src="{{model.checkSafeYouTubeUrl(widget.url)}}" frameborder="0" allowfullscreen></iframe>
+        <div ng-switch-when="YOUTUBE" class="embed-responsive embed-responsive-16by9 relative-position">
+            <iframe width="{{widget.width}}" ng-src="{{model.checkSafeYouTubeUrl(widget.url)}}" frameborder="0"
+                    allowfullscreen></iframe>
         </div>
         <div ng-switch-when="IMAGE">
-            image
+            <img class="img-responsive" ng-src="{{model.checkSafeImage(widget.url)}}" width="{{widget.width}}"
+                 height="100%">
         </div>
         <div ng-switch-when="HTML" ng-bind-html="model.checkSafeHtml(widget.text)">
 
@@ -43,62 +54,23 @@
 
     </div>
 
-    <div class="form-group">
-        <div class="pull-right">
-            <a href="#/user/:uid/website/:wid/page/:pid/widget/:wgid" class="glyphicon glyphicon-cog"></a>
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </div>
-        <h1>GIZMODO</h1>
-    </div>
-    <div class="form-group">
-        <div class="pull-right">
-            <a href="#/user/:uid/website/:wid/page/:pid/widget/:wgid" class="glyphicon glyphicon-cog"></a>
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </div>
-        <h4>The Best Hidden Features in iOS 10</h4>
-    </div>
-    <div class="form-group relative-position">
-        <div class="pull-right absolute-position overlay_glyphicons zero-right-padding">
-            <a href="#/user/:uid/website/:wid/page/:pid/widget/:wgid" class="glyphicon glyphicon-cog"></a>
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </div>
-        <img class="img-responsive zero-right-padding" src="https://i.ytimg.com/vi/ymVXuT0Yfl4/maxresdefault.jpg"
-             width="100%" height="100%"/>
-    </div>
-    <div class="form-group">
-        <div class="pull-right">
-            <a href="#/user/:uid/website/:wid/page/:pid/widget/:wgid" class="glyphicon glyphicon-cog"></a>
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </div>
-        <p align="justify">By now, you’ve probably had some time to play around with iOS 10 and get acquainted with all the new features. We’ve already told you about most of them, but there are all kinds of tweaks and new settings hidden deep within the software. Here are some of the best features hidden inside iOS 10.</p>
-    </div>
-    <div class="form-group">
-        <div class="pull-right">
-            <a href="#/user/:uid/website/:wid/page/:pid/widget/:wgid" class="glyphicon glyphicon-cog"></a>
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </div>
-        <h4>Search for tabs in Safari</h4>
-    </div>
-    <div class="form-group relative-position">
-        <div class="pull-right absolute-position overlay_glyphicons zero-right-padding">
-            <a href="#/user/:uid/website/:wid/page/:pid/widget/:wgid" class="glyphicon glyphicon-cog"></a>
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </div>
-        <div class="embed-responsive embed-responsive-16by9 relative-position">
-            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/mkudW0QERno"></iframe>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="pull-right">
-            <a href="#/user/:uid/website/:wid/page/:pid/widget/:wgid" class="glyphicon glyphicon-cog"></a>
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </div>
-        <p align="justify">Good news! The iOS 10 version of Safari lets you open up an unlimited number of tabs while you’re browsing. That does bring its own problems though, including not being able to keep track of your browsing, and that’s where tab search comes in.
-
-            Rotate your device into landscape mode (it won’t work in portrait) and then tap the tabs button (top right). A new search box appears in the top left corner.
-
-            Enter your search terms and Safari filters out the tabs as you go, though bear in mind you’re only searching through the titles of the tabs and not the actual web pages. When you’ve found what you’re looking for, tap to open the tab.</p>
-    </div>
+    <!--<div class="form-group relative-position">-->
+        <!--<div class="pull-right absolute-position overlay_glyphicons zero-right-padding">-->
+            <!--<a href="#/user/:uid/website/:wid/page/:pid/widget/:wgid" class="glyphicon glyphicon-cog"></a>-->
+            <!--<span class="glyphicon glyphicon-align-justify"></span>-->
+        <!--</div>-->
+        <!--<img class="img-responsive zero-right-padding" src="https://i.ytimg.com/vi/ymVXuT0Yfl4/maxresdefault.jpg"-->
+             <!--width="100%" height="100%"/>-->
+    <!--</div>-->
+    <!--<div class="form-group relative-position">-->
+        <!--<div class="pull-right absolute-position overlay_glyphicons zero-right-padding">-->
+            <!--<a href="#/user/:uid/website/:wid/page/:pid/widget/:wgid" class="glyphicon glyphicon-cog"></a>-->
+            <!--<span class="glyphicon glyphicon-align-justify"></span>-->
+        <!--</div>-->
+        <!--<div class="embed-responsive embed-responsive-16by9 relative-position">-->
+            <!--<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/mkudW0QERno"></iframe>-->
+        <!--</div>-->
+    <!--</div>-->
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
@@ -109,7 +81,7 @@
             <span class="glyphicon glyphicon-eye-open"></span>
         </p>
         <p class="navbar-text pull-right">
-            <a href="#/user/:uid" class="glyphicon glyphicon-user pages-widgets-glyphicon-user"></a>
+            <a href="#/user/{{model.userId}}" class="glyphicon glyphicon-user pages-widgets-glyphicon-user"></a>
         </p>
     </div>
 </nav>

@@ -6,24 +6,23 @@
     function WidgetListController($routeParams, WidgetService, $sce) {
         var vm = this;
 
-        vm.uid = $routeParams.pid;
-        vm.wid = $routeParams.wid;
-        vm.pid = $routeParams.pid;
-        vm.wgid = $routeParams.wgid;
+        vm.userId = $routeParams['uid'];
+        vm.websiteId = $routeParams['wid'];
+        vm.pageId = $routeParams['pid'];
+        vm.widgetId = $routeParams['wgid'];
 
         vm.checkSafeHtml = checkSafeHtml;
         vm.checkSafeYouTubeUrl = checkSafeYouTubeUrl;
+        vm.checkSafeImage = checkSafeImage;
 
         function init() {
-            vm.widgets = WidgetService.findWidgetsByPageId(vm.pid);
+            vm.widgets = WidgetService.findWidgetsByPageId(vm.pageId);
         }
 
         init();
 
         function checkSafeHtml(html) {
             return $sce.trustAsHtml(html);
-
-
         }
 
 
@@ -33,14 +32,14 @@
 
             var id = parts[parts.length-1];
 
-            console.log(id);
-
             url = "https://www.youtube.com/embed/"+id;
-
-            console.log(url);
 
             return $sce.trustAsResourceUrl(url);
 
+        }
+
+        function checkSafeImage(url) {
+            return $sce.trustAsResourceUrl(url);
         }
     }
     

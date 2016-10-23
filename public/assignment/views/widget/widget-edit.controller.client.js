@@ -3,20 +3,37 @@
         .module("WebAppMaker")
         .controller("EditWidgetController", EditWidgetController);
 
-    function EditWidgetController($routeParams, WidgetService, $sce) {
+    function EditWidgetController($routeParams, $location, WidgetService) {
         var vm = this;
 
-        vm.uid = $routeParams.pid;
-        vm.wid = $routeParams.pid;
-        vm.pid = $routeParams.pid;
-        vm.wgid = $routeParams.pid;
+        vm.userId = $routeParams['uid'];
+        vm.websiteId = $routeParams['wid'];
+        vm.pageId = $routeParams['pid'];
+        vm.widgetId = $routeParams['wgid'];
 
+        vm.update = update;
+        vm.remove = remove;
 
         function init() {
-            vm.widget = WidgetService.findWidgetById(vm.wgid);
+            vm.widget = WidgetService.findWidgetById(vm.widgetId);
         }
 
         init();
+
+        function update(widget) {
+
+            WidgetService.updateWidget(vm.widgetId, widget);
+            $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
+
+        }
+        
+        function remove() {
+
+            WidgetService.deleteWidget(vm.widgetId);
+            vm.widgets = WidgetService.findWidgetsByPageId(vm.pageId);
+            $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
+            
+        }
 
     }
 
