@@ -30,13 +30,11 @@
 
             var websiteId = parseInt(Math.floor(Math.random()*900) + 100);
 
-            website._id = websiteId;
+            website._id = websiteId.toString();
             website.developerId = userId;
 
             websites.push(website);
 
-
-            // return website;
             return JSON.parse(JSON.stringify(website))
         }
 

@@ -28,7 +28,7 @@
 
             var pageId = parseInt(Math.floor(Math.random()*900) + 100);
 
-            page._id = pageId;
+            page._id = pageId.toString();
             page.websiteId = websiteId;
 
             pages.push(page);

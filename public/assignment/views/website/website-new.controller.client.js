@@ -3,17 +3,17 @@
         .module("WebAppMaker")
         .controller("NewWebsiteController", NewWebsiteController);
 
-    function NewWebsiteController($routeParams, WebsiteService) {
+    function NewWebsiteController($routeParams,$location, WebsiteService) {
         var vm = this;
 
         vm.userId = $routeParams['uid'];
 
         vm.createNewWebsite = createNewWebsite;
 
-        function init() {
+        // function init() {
             vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
-        }
-        init();
+        // }
+        // init();
 
         function createNewWebsite(website) {
 
@@ -42,12 +42,13 @@
                     vm.error = "Website name already exists";
                 }
                 else {
-
                     console.log([website.name, website.description]);
-                    var newWebsite = WebsiteService.createWebsite(vm.userId, website);
-                    vm.websites.push(newWebsite);
-                    // vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
+
+                    WebsiteService.createWebsite(vm.userId,website);
+                    vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
                     vm.success = "New website successfully created!"
+
+                    //$location.url("/user/"+vm.userId+"/website");
                 }
             }
         }

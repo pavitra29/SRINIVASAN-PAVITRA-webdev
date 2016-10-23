@@ -23,15 +23,29 @@
         };
         return api;
 
+        function generateRandomId() {
+           return parseInt(Math.floor(Math.random()*900) + 100);
+        }
+
         function createUser(user) {
+            //TODO : Check if the ID generated is Unique
+            // var userIdExists = false;
+            //
+            // while (!userIdExists) {
 
-            console.log([user._id, user.username, user.password, user.firstName, user.lastName, user.email]);
+                var userId = generateRandomId();
 
-            var userId = parseInt(Math.floor(Math.random()*900) + 100);
+            //     for (var u in users) {
+            //         if (users[u]._id == userId) {
+            //             userIdExists = true;
+            //             break;
+            //         }
+            //     }
+            //
+            //     userIdExists = false;
+            // }
 
-            console.log(userId);
-
-            user._id = userId;
+            user._id = userId.toString();
 
             console.log([user._id, user.username, user.password, user.firstName, user.lastName, user.email]);
 

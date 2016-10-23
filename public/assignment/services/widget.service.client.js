@@ -28,7 +28,7 @@
 
             var widgetId = parseInt(Math.floor(Math.random()*900) + 100);
 
-            widget._id = widgetId;
+            widget._id = widgetId.toString();
             widget.pageId = pageId;
 
             widgets.push(widget);
