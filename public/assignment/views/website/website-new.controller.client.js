@@ -3,54 +3,50 @@
         .module("WebAppMaker")
         .controller("NewWebsiteController", NewWebsiteController);
 
-    function NewWebsiteController($routeParams,$location, WebsiteService) {
+    function NewWebsiteController($location, $routeParams, WebsiteService) {
         var vm = this;
 
         vm.userId = $routeParams['uid'];
+        vm.websiteId = $routeParams['wid'];
 
-        vm.createNewWebsite = createNewWebsite;
+        vm.create = create;
 
-        // function init() {
+        function init() {
             vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
-        // }
-        // init();
+        }
+        init();
 
-        function createNewWebsite(website) {
+        function create(website) {
 
             vm.error=null;
             vm.success=null;
 
-            if(!website || (!website.name  && !website.description)) {
+            if(!website || !website.name) {
                 vm.error = "No information found to create new website";
             }
             else {
 
                 var exists = false;
 
-                console.log([vm.websites.length]);
-
                 for(var e in vm.websites) {
-
                     if(vm.websites[e].name === website.name) {
                         exists = true;
                         break;
                     }
-
                 }
 
                 if(exists) {
                     vm.error = "Website name already exists";
                 }
                 else {
-                    console.log([website.name, website.description]);
 
-                    WebsiteService.createWebsite(vm.userId,website);
-                    vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
-                    vm.success = "New website successfully created!"
-
-                    //$location.url("/user/"+vm.userId+"/website");
+                    WebsiteService.createWebsite(vm.userId, website);
+                    $location.url("/user/" + vm.userId + "/website");
                 }
+
             }
+
+
         }
     }
 })();

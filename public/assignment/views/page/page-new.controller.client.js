@@ -3,7 +3,7 @@
         .module("WebAppMaker")
         .controller("NewPageController", NewPageController);
     
-    function NewPageController($routeParams, PageService) {
+    function NewPageController($location, $routeParams, PageService) {
         var vm = this;
 
         vm.userId = $routeParams['uid'];
@@ -39,10 +39,8 @@
                     vm.error = "Page name already exists!";
                 }
                 else {
-                    var newPage = PageService.createPage(vm.websiteId, page);
-                    vm.pages.push(newPage);
-                    // vm.pages = PageService.findPageByWebsiteId(vm.websiteId);
-                    vm.success = "New Page successfully created!";
+                    PageService.createPage(vm.websiteId, page);
+                    $location.url("/user/"+ vm.userId +"/website/"+vm.websiteId+"/page");
                 }
             }
         }

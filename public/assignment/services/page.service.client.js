@@ -40,7 +40,7 @@
         function findPageByWebsiteId(websiteId) {
             var result = [];
             for(var p in pages) {
-                if(pages[p].websiteId === websiteId) {
+                if(pages[p].websiteId == websiteId) {
                     result.push(pages[p]);
                 }
             }
@@ -49,7 +49,7 @@
         
         function findPageById(pageId) {
             for(var p in pages) {
-                if(pages[p]._id === pageId) {
+                if(pages[p]._id == pageId) {
                     return pages[p];
                     break;
                 }
@@ -59,7 +59,7 @@
         
         function updatePage(pageId, page) {
             for(var p in pages) {
-                if(pages[p]._id === pageId) {
+                if(pages[p]._id == pageId) {
                     pages[p].name = page.name;
 
                 }
@@ -71,7 +71,7 @@
         
         function deletePage(pageId) {
             for(var p in pages) {
-                if(pages[p]._id === pageId) {
+                if(pages[p]._id == pageId) {
                     pages.splice(p,1);
                 }
             }

@@ -74,7 +74,7 @@
 
         function deleteWidget(widgetId) {
             for(var w in widgets) {
-                if(widgets[w]._id === widgetId) {
+                if(widgets[w]._id == widgetId) {
                     widgets.splice(w,1);
                 }
             }

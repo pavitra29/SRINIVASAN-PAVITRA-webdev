@@ -73,9 +73,6 @@
             .otherwise({
                 redirectTo: "/login"
             });
-        // doubt in the below path: widget-heading, widget-image, widget-youtube
-        // /user/:uid/website/:wid/page/:pid/widget/:wgid		widget-edit.view.client.html
-
     }
 })();
 

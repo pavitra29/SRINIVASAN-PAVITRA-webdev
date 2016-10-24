@@ -29,23 +29,12 @@
 
         function createUser(user) {
             //TODO : Check if the ID generated is Unique
-            // var userIdExists = false;
-            //
-            // while (!userIdExists) {
 
-                var userId = generateRandomId();
-
-            //     for (var u in users) {
-            //         if (users[u]._id == userId) {
-            //             userIdExists = true;
-            //             break;
-            //         }
-            //     }
-            //
-            //     userIdExists = false;
-            // }
+            var userId = generateRandomId();
 
             user._id = userId.toString();
+
+
 
             console.log([user._id, user.username, user.password, user.firstName, user.lastName, user.email]);
 
