@@ -34,10 +34,6 @@
 
             user._id = userId.toString();
 
-
-
-            console.log([user._id, user.username, user.password, user.firstName, user.lastName, user.email]);
-
             users.push(user);
 
             return user;
@@ -47,7 +43,7 @@
             for(var u in users) {
                 user = users[u];
                 if(user._id == userId) {
-                    return user;
+                    return JSON.parse(JSON.stringify(user));
                 }
             }
             return null;
@@ -57,7 +53,7 @@
             for(var u in users) {
                 user = users[u];
                 if(user.username === username) {
-                    return user;
+                    return JSON.parse(JSON.stringify(user));
                 }
             }
             return null;
@@ -67,15 +63,13 @@
             for(var u in users) {
                 user = users[u];
                 if(user.username === username && user.password === password) {
-                    return user;
+                    return JSON.parse(JSON.stringify(user));
                 }
             }
             return null;
         }
 
         function updateUser(userId, user) {
-
-            console.log([userId, user.username, user.email, user.firstName, user.lastName]);
 
             for(var u in users) {
                 var existingUser = users[u];

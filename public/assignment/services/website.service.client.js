@@ -34,7 +34,6 @@
             website.developerId = userId;
 
             websites.push(website);
-            return website;
 
         }
 
@@ -42,8 +41,8 @@
             var result = [];
 
             for(var w in websites) {
-                if(websites[w]._id == userId) {
-                    result.push(websites[w]);
+                if(websites[w].developerId == userId) {
+                    result.push(JSON.parse(JSON.stringify(websites[w])));
                 }
             }
 
@@ -53,7 +52,7 @@
         function findWebsiteById(websiteId) {
             for(var w in websites) {
                 if(websites[w]._id == websiteId) {
-                    return websites[w];
+                    return JSON.parse(JSON.stringify(websites[w]));
                 }
             }
             return null;

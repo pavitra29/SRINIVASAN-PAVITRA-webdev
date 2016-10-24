@@ -39,7 +39,7 @@
             var result = [];
             for(var wg in widgets) {
                 if(widgets[wg].pageId === pageId) {
-                    result.push(widgets[wg]);
+                    result.push(JSON.parse(JSON.stringify(widgets[wg])));
                 }
             }
             return result;
@@ -48,7 +48,7 @@
         function findWidgetById(widgetId) {
             for(var w in widgets) {
                 if(widgets[w]._id == widgetId) {
-                    return widgets[w];
+                    return JSON.parse(JSON.stringify(widgets[w]));
                 }
 
             }
@@ -60,13 +60,8 @@
                 if(widgets[w]._id == widgetId) {
                     widgets[w].widgetType = widget.widgetType;
                     widgets[w].pageId = widget.pageId;
-
+                    break;
                 }
-
-            }
-
-            for(var w in widgets) {
-                console.log([widgets[w].size, widgets[w].text, widgets[w].url, widgets[w].width]);
 
             }
 
@@ -76,6 +71,7 @@
             for(var w in widgets) {
                 if(widgets[w]._id == widgetId) {
                     widgets.splice(w,1);
+                    break;
                 }
             }
         }

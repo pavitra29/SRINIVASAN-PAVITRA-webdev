@@ -22,14 +22,19 @@
         
         
         function update(page) {
-            vm.pages = PageService.updatePage(page._id,page);
-            $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
+
+            if(!page || !page.name) {
+                vm.error = "Page name cannot be empty!";
+            }
+            else {
+                PageService.updatePage(page._id, page);
+                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+            }
         }
         
         function remove(pageId) {
 
             PageService.deletePage(pageId);
-            vm.pages = PageService.findPageByWebsiteId(vm.websiteId);
             $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
         }
 

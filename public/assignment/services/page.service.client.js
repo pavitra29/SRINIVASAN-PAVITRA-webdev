@@ -33,15 +33,13 @@
 
             pages.push(page);
 
-            return JSON.parse(JSON.stringify(page));
-
         }
         
         function findPageByWebsiteId(websiteId) {
             var result = [];
             for(var p in pages) {
                 if(pages[p].websiteId == websiteId) {
-                    result.push(pages[p]);
+                    result.push(JSON.parse(JSON.stringify(pages[p])));
                 }
             }
             return result;
@@ -50,7 +48,7 @@
         function findPageById(pageId) {
             for(var p in pages) {
                 if(pages[p]._id == pageId) {
-                    return pages[p];
+                    return JSON.parse(JSON.stringify(pages[p]));
                     break;
                 }
             }
@@ -61,11 +59,9 @@
             for(var p in pages) {
                 if(pages[p]._id == pageId) {
                     pages[p].name = page.name;
-
+                    break;
                 }
             }
-
-            return JSON.parse(JSON.stringify(page));
 
         }
         
@@ -73,6 +69,7 @@
             for(var p in pages) {
                 if(pages[p]._id == pageId) {
                     pages.splice(p,1);
+                    break;
                 }
             }
         }

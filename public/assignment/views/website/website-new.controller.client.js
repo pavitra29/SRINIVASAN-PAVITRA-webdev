@@ -22,7 +22,7 @@
             vm.success=null;
 
             if(!website || !website.name) {
-                vm.error = "No information found to create new website";
+                vm.error = "Website name cannot be empty!";
             }
             else {
 

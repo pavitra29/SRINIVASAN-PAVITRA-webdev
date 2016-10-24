@@ -22,8 +22,8 @@
             vm.error=null;
             vm.success=null;
 
-            if(!page || (!page.name)) {
-                vm.error = "No information found to create new page";
+            if(!page || !page.name) {
+                vm.error = "Page name cannot be empty!s";
             }
             else {
 
