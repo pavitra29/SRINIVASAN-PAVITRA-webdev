@@ -2,8 +2,8 @@
     angular
         .module("WebAppMaker")
         .factory("WidgetService", WidgetService);
-    
-    
+
+
     function WidgetService() {
         var widgets = [
             { "_id": "123", "widgetType": "HEADER", "pageId": "321", "size": 2, "text": "GIZMODO"},
@@ -58,8 +58,7 @@
         function updateWidget(widgetId, widget) {
             for(var w in widgets) {
                 if(widgets[w]._id == widgetId) {
-                    widgets[w].widgetType = widget.widgetType;
-                    widgets[w].pageId = widget.pageId;
+                    widgets[w] = widget;
                     break;
                 }
 
@@ -77,6 +76,6 @@
         }
 
     }
-    
-    
+
+
 })();

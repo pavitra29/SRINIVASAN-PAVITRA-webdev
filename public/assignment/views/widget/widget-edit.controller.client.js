@@ -26,13 +26,13 @@
             $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
 
         }
-        
+
         function remove() {
 
             WidgetService.deleteWidget(vm.widgetId);
             vm.widgets = WidgetService.findWidgetsByPageId(vm.pageId);
             $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
-            
+
         }
 
     }

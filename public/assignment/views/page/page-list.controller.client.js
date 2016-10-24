@@ -2,7 +2,7 @@
     angular
         .module("WebAppMaker")
         .controller("PageListController", PageListController);
-    
+
     function PageListController($routeParams, PageService) {
         var vm = this;
 
@@ -16,5 +16,5 @@
         }
         init();
     }
-    
+
 })();

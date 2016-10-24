@@ -2,7 +2,7 @@
     angular
         .module("WebAppMaker")
         .controller("WidgetListController", WidgetListController);
-    
+
     function WidgetListController($routeParams, WidgetService, $sce) {
         var vm = this;
 
@@ -42,5 +42,5 @@
             return $sce.trustAsResourceUrl(url);
         }
     }
-    
+
 })();

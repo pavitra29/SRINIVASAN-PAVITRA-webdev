@@ -2,8 +2,8 @@
     angular
         .module("WebAppMaker")
         .controller("EditWebsiteController", EditWebsiteController);
-    
-    
+
+
     function EditWebsiteController($routeParams, $location, WebsiteService) {
         var vm = this;
 
@@ -36,5 +36,5 @@
             $location.url("/user/"+vm.userId+"/website");
         }
     }
-    
+
 })();

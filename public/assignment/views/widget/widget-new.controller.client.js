@@ -2,7 +2,7 @@
     angular
         .module("WebAppMaker")
         .controller("NewWidgetController", NewWidgetController);
-    
+
     function NewWidgetController(WidgetService, $location, $routeParams) {
         var vm = this;
 
@@ -57,5 +57,5 @@
             $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget")
         }
     }
-    
+
 })();

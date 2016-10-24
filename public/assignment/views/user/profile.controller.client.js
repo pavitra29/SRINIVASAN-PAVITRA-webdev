@@ -5,7 +5,7 @@
 
     function ProfileController($location, $routeParams, UserService) {
         var vm = this;
-        
+
         vm.update = update;
         vm.remove = remove;
 

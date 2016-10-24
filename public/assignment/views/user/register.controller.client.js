@@ -7,7 +7,7 @@
         var vm = this;
 
         vm.register = register;
-        
+
         function register(user) {
 
             if(!user) {

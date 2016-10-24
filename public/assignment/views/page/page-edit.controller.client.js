@@ -2,8 +2,8 @@
     angular
         .module("WebAppMaker")
         .controller("EditPageController", EditPageController);
-    
-    
+
+
     function EditPageController($routeParams, $location, PageService) {
         var vm = this;
 
@@ -13,14 +13,14 @@
 
         vm.update = update;
         vm.remove = remove;
-        
+
         function init() {
             vm.pages = PageService.findPageByWebsiteId(vm.websiteId);
             vm.page = PageService.findPageById(vm.pageId);
         }
         init();
-        
-        
+
+
         function update(page) {
 
             if(!page || !page.name) {
@@ -31,7 +31,7 @@
                 $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
             }
         }
-        
+
         function remove(pageId) {
 
             PageService.deletePage(pageId);

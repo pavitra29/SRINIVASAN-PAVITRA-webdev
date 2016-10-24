@@ -2,8 +2,8 @@
     angular
         .module("WebAppMaker")
         .factory("PageService", PageService);
-    
-    
+
+
     function PageService() {
         var pages = [
             { "_id": "321", "name": "Post 1", "title": "This is Post 1", "websiteId": "456" },
@@ -23,7 +23,7 @@
         };
 
         return api;
-        
+
         function createPage(websiteId, page) {
 
             var pageId = parseInt(Math.floor(Math.random()*900) + 100);
@@ -34,7 +34,7 @@
             pages.push(page);
 
         }
-        
+
         function findPageByWebsiteId(websiteId) {
             var result = [];
             for(var p in pages) {
@@ -44,7 +44,7 @@
             }
             return result;
         }
-        
+
         function findPageById(pageId) {
             for(var p in pages) {
                 if(pages[p]._id == pageId) {
@@ -54,7 +54,7 @@
             }
             return null;
         }
-        
+
         function updatePage(pageId, page) {
             for(var p in pages) {
                 if(pages[p]._id == pageId) {
@@ -64,7 +64,7 @@
             }
 
         }
-        
+
         function deletePage(pageId) {
             for(var p in pages) {
                 if(pages[p]._id == pageId) {
@@ -73,6 +73,6 @@
                 }
             }
         }
-        
+
     }
 })();

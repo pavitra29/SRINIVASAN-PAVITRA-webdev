@@ -2,7 +2,7 @@
     angular
         .module("WebAppMaker")
         .controller("NewPageController", NewPageController);
-    
+
     function NewPageController($location, $routeParams, PageService) {
         var vm = this;
 
@@ -11,19 +11,19 @@
         vm.pageId = $routeParams['pid'];
 
         vm.create = create;
-        
+
         function init() {
             vm.pages = PageService.findPageByWebsiteId(vm.websiteId);
         }
         init();
-        
+
         function create(page) {
 
             vm.error=null;
             vm.success=null;
 
             if(!page || !page.name) {
-                vm.error = "Page name cannot be empty!s";
+                vm.error = "Page name cannot be empty!";
             }
             else {
 
@@ -45,5 +45,5 @@
             }
         }
     }
-    
+
 })();

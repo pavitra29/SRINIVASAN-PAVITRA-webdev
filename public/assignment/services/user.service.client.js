@@ -2,7 +2,7 @@
     angular
         .module("WebAppMaker")
         .factory("UserService",UserService);
-    
+
     function UserService() {
 
         var users = [
@@ -24,7 +24,7 @@
         return api;
 
         function generateRandomId() {
-           return parseInt(Math.floor(Math.random()*900) + 100);
+            return parseInt(Math.floor(Math.random()*900) + 100);
         }
 
         function createUser(user) {
@@ -48,7 +48,7 @@
             }
             return null;
         }
-        
+
         function findUserByUsername(username) {
             for(var u in users) {
                 user = users[u];
@@ -85,7 +85,7 @@
             return null;
         }
 
-        
+
         function deleteUser(userId) {
             for(var u in users) {
                 var user = users[u];

@@ -21,11 +21,11 @@
             findWebsiteById: findWebsiteById,
             updateWebsite: updateWebsite,
             deleteWebsite:deleteWebsite
-            
+
         };
 
         return api;
-        
+
         function createWebsite(userId, website) {
 
             var newWebsiteId = parseInt(Math.floor(Math.random() * 900) + 100);
@@ -48,7 +48,7 @@
 
             return result;
         }
-        
+
         function findWebsiteById(websiteId) {
             for(var w in websites) {
                 if(websites[w]._id == websiteId) {
@@ -58,7 +58,7 @@
             return null;
 
         }
-        
+
         function updateWebsite(websiteId, website) {
             for(var w in websites) {
                 if(websites[w]._id == websiteId) {
@@ -69,7 +69,7 @@
             }
 
         }
-        
+
         function deleteWebsite(websiteId) {
             for(var w in websites) {
                 if(websites[w]._id == websiteId) {
