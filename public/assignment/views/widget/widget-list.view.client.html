@@ -28,7 +28,7 @@
         </span>
         </div>
 
-        <div ng-switch="widget.size" ng-switch-when="HEADER">
+        <div ng-switch="widget.size" ng-switch-when="header">
 
             <h1 ng-switch-when="1">{{widget.text}}</h1>
             <h2 ng-switch-when="2">{{widget.text}}</h2>
@@ -38,15 +38,15 @@
             <h6 ng-switch-when="6">{{widget.text}}</h6>
 
         </div>
-        <div ng-switch-when="YOUTUBE" class="embed-responsive embed-responsive-16by9 relative-position">
+        <div ng-switch-when="youtube" class="embed-responsive embed-responsive-16by9 relative-position">
             <iframe width="{{widget.width}}" ng-src="{{model.checkSafeYouTubeUrl(widget.url)}}" frameborder="0"
                     allowfullscreen></iframe>
         </div>
-        <div ng-switch-when="IMAGE">
+        <div ng-switch-when="image">
             <img class="img-responsive" ng-src="{{model.checkSafeImage(widget.url)}}" width="{{widget.width}}"
                  height="100%">
         </div>
-        <div ng-switch-when="HTML" ng-bind-html="model.checkSafeHtml(widget.text)">
+        <div ng-switch-when="html" ng-bind-html="model.checkSafeHtml(widget.text)">
 
             {{widget.text}}
 

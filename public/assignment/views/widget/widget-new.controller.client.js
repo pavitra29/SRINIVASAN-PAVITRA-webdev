@@ -30,18 +30,18 @@
                 "pageId": vm.pageId
             };
 
-            if(widget.widgetType === "HEADER") {
+            if(widget.widgetType === "header") {
                 newWidget.size = "4";
                 newWidget.text = "This is new Header!";
             }
-            else if (widget.widgetType === "HTML") {
+            else if (widget.widgetType === "html") {
                 newWidget.text = "<p>This is new dynamic HTML</p>";
             }
-            else if (widget.widgetType === "IMAGE") {
+            else if (widget.widgetType === "image") {
                 newWidget.width = "100%";
                 newWidget.url = "http://lorempixel.com/400/200/";
             }
-            else if (widget.widgetType === "YOUTUBE") {
+            else if (widget.widgetType === "youtube") {
                 newWidget.width = "100%";
                 newWidget.url = "https://youtu.be/AM2Ivdi9c4E";
             }
