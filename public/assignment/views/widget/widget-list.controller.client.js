@@ -17,6 +17,11 @@
 
         function init() {
             vm.widgets = WidgetService.findWidgetsByPageId(vm.pageId);
+
+            var allwidgets = $(".wam-widget");
+
+            alert(allwidgets.length);
+
         }
 
         init();

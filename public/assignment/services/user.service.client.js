@@ -3,7 +3,7 @@
         .module("WebAppMaker")
         .factory("UserService",UserService);
 
-    function UserService() {
+    function UserService($http) {
 
         var users = [
             {_id: "123", username: "alice",    password: "alice",    firstName: "Alice",  lastName: "Wonder", email: "alice@gmail.com" },
@@ -29,24 +29,29 @@
 
         function createUser(user) {
             //TODO : Check if the ID generated is Unique
+            //
+            // var userId = generateRandomId();
+            //
+            // user._id = userId.toString();
+            //
+            // users.push(user);
+            //
+            // return user;
 
-            var userId = generateRandomId();
+            var user = {
+                username : user.username,
+                password: user.password
+            }
 
-            user._id = userId.toString();
-
-            users.push(user);
-
-            return user;
+            $http.post("/api/user",user);
         }
 
         function findUserById(userId) {
-            for(var u in users) {
-                user = users[u];
-                if(user._id == userId) {
-                    return JSON.parse(JSON.stringify(user));
-                }
-            }
-            return null;
+            var url = "/api/user/"+userId;
+
+            console.log(url);
+
+            return $http.get(url);
         }
 
         function findUserByUsername(username) {
@@ -60,41 +65,47 @@
         }
 
         function findUserByCredentials(username, password) {
-            for(var u in users) {
-                user = users[u];
-                if(user.username === username && user.password === password) {
-                    return JSON.parse(JSON.stringify(user));
-                }
-            }
-            return null;
+            var url = '/api/user?username='+username+'&password='+password;
+
+            return $http.get(url);
         }
 
         function updateUser(userId, user) {
 
-            for(var u in users) {
-                var existingUser = users[u];
-                if(existingUser._id === userId) {
-                    existingUser.username = user.username;
-                    existingUser.email = user.email;
-                    existingUser.firstName = user.firstName;
-                    existingUser.lastName = user.lastName;
+            // for(var u in users) {
+            //     var existingUser = users[u];
+            //     if(existingUser._id === userId) {
+            //         existingUser.username = user.username;
+            //         existingUser.email = user.email;
+            //         existingUser.firstName = user.firstName;
+            //         existingUser.lastName = user.lastName;
+            //
+            //         return existingUser;
+            //     }
+            // }
+            // return null;
 
-                    return existingUser;
-                }
-            }
-            return null;
+            var url = "/api/user/"+userId;
+
+            $http.put(url,user);
+
         }
 
 
         function deleteUser(userId) {
-            for(var u in users) {
-                var user = users[u];
 
-                if(user._id === userId) {
-                    console.log("User "+ user.username+" deleted");
-                    users.splice(u,1);
-                }
-            }
+            var url = "/api/user/"+userId;
+
+             return $http.delete(url);
+
+            // for(var u in users) {
+            //     var user = users[u];
+            //
+            //     if(user._id === userId) {
+            //         console.log("User "+ user.username+" deleted");
+            //         users.splice(u,1);
+            //     }
+            // }
         }
     }
 })();

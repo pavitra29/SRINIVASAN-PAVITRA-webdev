@@ -1,10 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="MyAngularApp">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/konpa/devicon/master/devicon.min.css">
+
     <title>Project Home Page</title>
 </head>
 <body>
-    <h1>Project Home Page</h1>
+<div class="container-fluid">
+
+    <nav class="navbar navbar-fixed-top" style="color: white">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <p class="navbar-brand nav-bar-color">
+                    <strong>Pavitra Srinivasan</strong>
+                </p>
+            </div>
+            <ul class="nav navbar-nav navbar-right nav-bar-color">
+                <li><a href="#"><i class="fa fa-home fa-2x nav-bar-color" aria-hidden="true"></i></a></li>
+                <li><a href="#profile"><i class="fa fa-id-card-o fa-2x nav-bar-color" aria-hidden="true"></i></a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="col-xs-7 col-md-4">
+        <a href="#" class="thumbnail">
+            <img src="images/fullSizePic.jpg">
+        </a>
+    </div>
+
+    <section>
+        <div class="row">
+            <div class="col-xs-6 col-md-9">
+                <h4><i class="fa fa-quote-left" aria-hidden="true"></i>
+                    I always knew I wanted to be a technologist, so I went to Northeastern and got a Master's degree in Computer
+                    Science. I found it extraordinarily helpful. Today I am presenting to you some of my work as a Web Developer.
+                    <i class="fa fa-quote-right" aria-hidden="true"></i>
+                </h4>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="row">
+            <div class="col-xs-8">
+                <a href="http://pavitra29.github.io/#/"><img src="images/PavitraSPAGithubPages.gif"></a>
+            </div>
+            <div class="col-xs-4">
+                <h1>Single Page Application hosted using Github pages</h1>
+            </div>
+        </div>
+    </section>
+
+    <section>
+    <div class="row">
+        <div class="col-xs-7">
+            <h1>Amazon Movie Review Analysis</h1>
+        </div>
+        <div class="col-xs-5">
+            <img src="images/MapReduceFinalProject.gif">
+        </div>
+    </div>
+    </section>
+
+    <section>
+        <div class="input-group margin-bottom-sm">
+            <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+            <input class="form-control" type="text" placeholder="Email address">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+            <input class="form-control" type="password" placeholder="Password">
+        </div>
+    </section>
+
+
+    <nav class="navbar navbar-fixed-bottom nav-bar-color">
+        <div class="container-fluid">
+            Copyright
+            <i class="fa fa-copyright" aria-hidden="true"></i>
+            2016 Pavitra Srinivasan. All rights reserved.
+        </div>
+    </nav>
+
+</div>
 </body>
 </html>

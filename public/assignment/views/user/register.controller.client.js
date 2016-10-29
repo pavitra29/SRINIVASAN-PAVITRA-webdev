@@ -6,11 +6,11 @@
     function RegisterController($location, UserService) {
         var vm = this;
 
-        vm.register = register;
+        vm.createUser = createUser;
 
-        function register(user) {
+        function createUser() {
 
-            if(!user) {
+            if(!vm.user) {
                 vm.error="Please enter all details";
             }
             else if(user.username == null || user.password == null || user.password2 == null) {
@@ -27,11 +27,18 @@
                 }
                 else if (user && !userExists) {
 
-                    var newUser = UserService.createUser(user);
+                    UserService
+                        .createUser(user)
+                        .success(function () {
+                            $location.url("/user/" + user._id);
+                        })
+                        .error(function () {
 
-                    console.log([newUser.username,newUser.password,newUser.password2,newUser._id]);
+                        });
 
-                    $location.url("/user/" + newUser._id);
+                    // console.log([newUser.username,newUser.password,newUser.password2,newUser._id]);
+
+
                 }
                 else {
                     vm.error = "Error in creating user";

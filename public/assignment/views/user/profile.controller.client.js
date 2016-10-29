@@ -12,12 +12,16 @@
         var userId = $routeParams["uid"];
         function init() {
 
-            user = UserService.findUserById(userId);
+            UserService
+                .findUserById(userId)
+                .success(function (user) {
+                    if(user != '0') {
+                        vm.user = user;
+                    }
+                })
+                .error(function () {
 
-            if(user != null) {
-                vm.user = user;
-            }
-
+                });
         }
         init();
 
@@ -38,9 +42,15 @@
 
         function remove(userId) {
 
-            vm.user = UserService.deleteUser(userId);
+            UserService
+                .deleteUser(userId)
+                .success(function () {
+                    $location.url("/login");
+                })
+                .error(function () {
 
-            $location.url("/login");
+                });
+
         }
     }
 })();

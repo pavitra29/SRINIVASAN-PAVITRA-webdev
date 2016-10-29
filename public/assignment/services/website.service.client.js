@@ -3,16 +3,16 @@
         .module("WebAppMaker")
         .factory("WebsiteService", WebsiteService);
 
-    function WebsiteService() {
+    function WebsiteService($http) {
 
-        var websites = [
-            { "_id": "123", "name": "Facebook",    "developerId": "456", "description": "Facebook Social Network" },
-            { "_id": "234", "name": "Twitter",     "developerId": "456", "description": "Twitter tweeting" },
-            { "_id": "456", "name": "Gizmodo",     "developerId": "456", "description": "Gizmodo Blog" },
-            { "_id": "567", "name": "Tic Tac Toe", "developerId": "123", "description": "Tic tac toe game" },
-            { "_id": "678", "name": "Checkers",    "developerId": "123", "description": "Checkers game" },
-            { "_id": "789", "name": "Chess",       "developerId": "234", "description": "Chess game" }
-        ];
+        // var websites = [
+        //     { "_id": "123", "name": "Facebook",    "developerId": "456", "description": "Facebook Social Network" },
+        //     { "_id": "234", "name": "Twitter",     "developerId": "456", "description": "Twitter tweeting" },
+        //     { "_id": "456", "name": "Gizmodo",     "developerId": "456", "description": "Gizmodo Blog" },
+        //     { "_id": "567", "name": "Tic Tac Toe", "developerId": "123", "description": "Tic tac toe game" },
+        //     { "_id": "678", "name": "Checkers",    "developerId": "123", "description": "Checkers game" },
+        //     { "_id": "789", "name": "Chess",       "developerId": "234", "description": "Chess game" }
+        // ];
 
 
         var api = {
@@ -33,20 +33,19 @@
             website._id = newWebsiteId.toString();
             website.developerId = userId;
 
-            websites.push(website);
+            // websites.push(website);
+
+            var url = "/api/user/"+userId+"/website";
+
+            return $http.post(url,website);
 
         }
 
         function findWebsitesByUser(userId) {
-            var result = [];
 
-            for(var w in websites) {
-                if(websites[w].developerId == userId) {
-                    result.push(JSON.parse(JSON.stringify(websites[w])));
-                }
-            }
+            var url = "/api/user/"+userId+"/website";
+            return $http.get(url);
 
-            return result;
         }
 
         function findWebsiteById(websiteId) {
