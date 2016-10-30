@@ -11,55 +11,38 @@
         vm.pageId = $routeParams['pid'];
         vm.widgetId = $routeParams['wgid'];
 
-        vm.create = create;
+        vm.createWidget = createWidget;
 
-        function create(widget) {
-
-            vm.success=null;
-
-            var widgetId = parseInt(Math.floor(Math.random()*900) + 100);
-
-
-            widget._id = widgetId;
-
-            console.log([widget.widgetType]);
-
-            var newWidget = {
-                "_id": widgetId,
-                "widgetType": widget.widgetType,
-                "pageId": vm.pageId
-            };
+        function createWidget(widget) {
 
             if(widget.widgetType === "header") {
-                newWidget.size = "4";
-                newWidget.text = "This is new Header!";
+                widget.size = "4";
+                widget.text = "This is new Header!";
             }
             else if (widget.widgetType === "html") {
-                newWidget.text = "<p>This is new dynamic HTML</p>";
+                widget.text = "<p>This is new dynamic HTML</p>";
             }
             else if (widget.widgetType === "image") {
-                newWidget.width = "100%";
-                newWidget.url = "http://lorempixel.com/400/200/";
+                widget.width = "100%";
+                widget.url = "http://lorempixel.com/400/200/";
             }
             else if (widget.widgetType === "youtube") {
-                newWidget.width = "100%";
-                newWidget.url = "https://youtu.be/AM2Ivdi9c4E";
+                widget.width = "100%";
+                widget.url = "https://youtu.be/AM2Ivdi9c4E";
             }
             else {
                 vm.error = "Unable to create widget"
             }
 
+            widget._id = (new Date()).getTime();
+            widget.pageId = vm.pageId;
 
-            var widgetId = parseInt(Math.floor(Math.random()*900) + 100);
+            WidgetService
+                .createWidget(vm.pageId,widget)
+                .success(function () {
+                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
+                });
 
-            widget._id = widgetId.toString();
-            widget.pageId = pageId;
-
-            WidgetService.createWidget(vm.pageId,newWidget);
-
-            vm.success = "Widget "+ widget.widgetType +" successfully created!";
-
-            $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget")
         }
     }
 

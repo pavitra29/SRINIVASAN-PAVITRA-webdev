@@ -38,7 +38,7 @@
             <h6 ng-switch-when="6">{{widget.text}}</h6>
 
         </div>
-        <div ng-switch-when="youtube" class="embed-responsive embed-responsive-16by9 relative-position">
+        <div ng-switch-when="youtube">
             <iframe width="{{widget.width}}" ng-src="{{model.checkSafeYouTubeUrl(widget.url)}}" frameborder="0"
                     allowfullscreen></iframe>
         </div>

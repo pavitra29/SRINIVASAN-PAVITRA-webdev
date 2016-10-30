@@ -11,23 +11,29 @@
         vm.pageId = $routeParams['pid'];
         vm.widgetId = $routeParams['wgid'];
 
-        vm.update = update;
-        vm.remove = remove;
+        vm.updateWidget = updateWidget;
+        vm.deleteWidget = deleteWidget;
 
         function init() {
-            vm.widget = WidgetService.findWidgetById(vm.widgetId);
+            WidgetService
+                .findWidgetById(vm.widgetId)
+                .success(function (widget) {
+                    vm.widget = widget;
+                })
+                .error(function () {
+                    
+                });
         }
-
         init();
 
-        function update(widget) {
+        function updateWidget(widget) {
 
             WidgetService.updateWidget(vm.widgetId, widget);
             $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
 
         }
 
-        function remove() {
+        function deleteWidget() {
 
             WidgetService.deleteWidget(vm.widgetId);
             vm.widgets = WidgetService.findWidgetsByPageId(vm.pageId);

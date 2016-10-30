@@ -27,7 +27,6 @@
         function createPage(page) {
 
             vm.error=null;
-            vm.success=null;
 
             if(!page || !page.name) {
                 vm.error = "Page name cannot be empty!";

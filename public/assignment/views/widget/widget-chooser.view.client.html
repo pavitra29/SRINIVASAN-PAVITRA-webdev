@@ -12,17 +12,14 @@
     </div>
 </nav>
 <div class="container-fluid">
-    <div ng-show="model.success" class="alert alert-success" role="alert">
-        {{model.success}}
-    </div>
     <div class="form-group">
-        <a ng-click="model.create({'widgetType':'header'})">Header</a>
+        <a ng-click="model.createWidget({'widgetType':'header'})">Header</a>
     </div>
     <div class="form-group">
         <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new">Label</a>
     </div>
     <div class="form-group">
-        <a ng-click="model.create({'widgetType':'html'})">HTML</a>
+        <a ng-click="model.createWidget({'widgetType':'html'})">HTML</a>
     </div>
     <div class="form-group">
         <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new">Text Input</a>
@@ -34,10 +31,10 @@
         <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new">Button</a>
     </div>
     <div class="form-group">
-        <a ng-click="model.create({'widgetType':'image'})">Image</a>
+        <a ng-click="model.createWidget({'widgetType':'image'})">Image</a>
     </div>
     <div class="form-group">
-        <a ng-click="model.create({'widgetType':'youtube'})">Youtube</a>
+        <a ng-click="model.createWidget({'widgetType':'youtube'})">Youtube</a>
     </div>
     <div class="form-group">
         <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new">Data Table</a>

@@ -5,7 +5,7 @@
                class="glyphicon glyphicon-chevron-left"></a>
         </p>
         <p class="navbar-text pull-right">
-            <a ng-click="model.update(model.widget)" class="glyphicon glyphicon-ok"></a>
+            <a ng-click="model.updateWidget(model.widget)" class="glyphicon glyphicon-ok"></a>
         </p>
         <div class="navbar-header">
             <a class="navbar-brand"
@@ -21,7 +21,7 @@
             <label for="html">Name</label>
             <input ng-model="model.widget.text" type="text" class="form-control" id="html" placeholder="HTML tags">
         </div>
-        <a ng-click="model.remove()" class="btn btn-danger btn-block">Delete</a>
+        <a ng-click="model.deleteWidget()" class="btn btn-danger btn-block">Delete</a>
     </form>
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom">

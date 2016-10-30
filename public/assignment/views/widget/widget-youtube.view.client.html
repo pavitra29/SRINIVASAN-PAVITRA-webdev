@@ -4,7 +4,7 @@
             <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget" class="glyphicon glyphicon-chevron-left"></a>
         </p>
         <p class="navbar-text pull-right">
-            <a ng-click="model.update(model.widget)" class="glyphicon glyphicon-ok"></a>
+            <a ng-click="model.updateWidget(model.widget)" class="glyphicon glyphicon-ok"></a>
         </p>
         <div class="navbar-header">
             <a class="navbar-brand"
@@ -33,7 +33,7 @@
             <label for="width">Width</label>
             <input ng-model="model.widget.width" class="form-control" id="width" placeholder="100%">
         </div>
-        <a ng-click="model.remove()" class="btn btn-danger btn-block">Delete</a>
+        <a ng-click="model.deleteWidget()" class="btn btn-danger btn-block">Delete</a>
     </form>
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom">

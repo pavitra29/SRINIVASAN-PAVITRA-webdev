@@ -25,7 +25,6 @@
         function createWebsite(website) {
 
             vm.error=null;
-            vm.success=null;
 
             if(!website || !website.name) {
                 vm.error = "Website name cannot be empty!";
