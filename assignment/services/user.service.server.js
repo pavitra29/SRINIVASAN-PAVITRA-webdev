@@ -49,6 +49,7 @@ module.exports = function(app) {
         res.send(user);
     }
 
+    //Important concept about types of parameters
     //path parameters = /user/:uid
 
     //query parameters = /user?username=alice
@@ -78,20 +79,20 @@ module.exports = function(app) {
             }
         }
 
-        res.sendStatus('0');
+        res.send('0');
     }
 
     function findUserById(req, res) {
         var userId = req.params.uid;
 
         for(var u in users) {
-            if(users[u]._id === userId) {
+            if(users[u]._id == userId) {
                 res.send(users[u]);
                 return;
             }
         }
 
-        res.sendStatus('0');
+        res.send('0');
     }
 
     function findUserByCredentials(req, res) {

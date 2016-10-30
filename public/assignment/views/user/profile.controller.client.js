@@ -6,10 +6,11 @@
     function ProfileController($location, $routeParams, UserService) {
         var vm = this;
 
-        vm.update = update;
-        vm.remove = remove;
+        vm.updateUser = updateUser;
+        vm.deleteUser = deleteUser;
 
         var userId = $routeParams["uid"];
+
         function init() {
 
             UserService
@@ -25,32 +26,37 @@
         }
         init();
 
-        function update(userId, user) {
+        function updateUser() {
 
             vm.error=null;
             vm.success=null;
 
-            if(!user || (!user.username && !user.email && !user.firstName && !user.lastName)) {
+            if(!vm.user || (!vm.user.username && !vm.user.email && !vm.user.firstName && !user.lastName)) {
                 vm.error="No details found to update";
             }
             else {
-                vm.user = UserService.updateUser(userId, user);
 
-                vm.success = "User successfully updated!";
+                UserService
+                    .updateUser(vm.user)
+                    .success(function () {
+                        vm.success = "User successfully updated!";
+                    })
+                    .error(function () {
+
+                    });
             }
         }
 
-        function remove(userId) {
+        function deleteUser() {
 
             UserService
-                .deleteUser(userId)
+                .deleteUser(vm.user._id)
                 .success(function () {
                     $location.url("/login");
                 })
                 .error(function () {
 
                 });
-
         }
     }
 })();
