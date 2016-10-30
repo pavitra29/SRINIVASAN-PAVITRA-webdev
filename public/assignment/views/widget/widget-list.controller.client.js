@@ -16,11 +16,18 @@
         vm.checkSafeImage = checkSafeImage;
 
         function init() {
-            vm.widgets = WidgetService.findWidgetsByPageId(vm.pageId);
+            WidgetService
+                .findWidgetsByPageId(vm.pageId)
+                .success(function (widgets) {
+                    vm.widgets = widgets;
+                })
+                .error(function () {
+                    
+                });
 
-            var allwidgets = $(".wam-widget");
+            // var allwidgets = $(".wam-widget");
 
-            alert(allwidgets.length);
+            // alert(allwidgets.length);
 
         }
 

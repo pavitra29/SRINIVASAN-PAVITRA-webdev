@@ -20,7 +20,7 @@
                 <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page" class="glyphicon glyphicon-chevron-left"></a>
             </p>
             <p class="navbar-text pull-right">
-                <a ng-click="model.update(model.page)" class="glyphicon glyphicon-ok"></a>
+                <a ng-click="model.updatePage(model.page)" class="glyphicon glyphicon-ok"></a>
             </p>
             <div class="navbar-header">
                 <a class="navbar-brand" href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}">Edit Page</a>
@@ -56,7 +56,7 @@
                 <label for="title">Title</label>
                 <input ng-model="model.page.title" type="text" placeholder="Page Title" class="form-control" id="title"></input>
             </div>
-            <a ng-click="model.remove(model.pageId)" class="btn btn-danger btn-block">Delete</a>
+            <a ng-click="model.deletePage(model.pageId)" class="btn btn-danger btn-block">Delete</a>
         </form>
     </div>
 </div>

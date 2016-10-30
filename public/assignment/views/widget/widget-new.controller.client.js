@@ -50,6 +50,11 @@
             }
 
 
+            var widgetId = parseInt(Math.floor(Math.random()*900) + 100);
+
+            widget._id = widgetId.toString();
+            widget.pageId = pageId;
+
             WidgetService.createWidget(vm.pageId,newWidget);
 
             vm.success = "Widget "+ widget.widgetType +" successfully created!";

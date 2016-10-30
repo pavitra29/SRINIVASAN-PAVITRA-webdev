@@ -9,7 +9,7 @@
         vm.userId = $routeParams['uid'];
         vm.websiteId = $routeParams['wid'];
 
-        vm.create = create;
+        vm.createWebsite = createWebsite;
 
         function init() {
             WebsiteService.findWebsitesByUser(vm.userId)
@@ -22,7 +22,7 @@
         }
         init();
 
-        function create(website) {
+        function createWebsite(website) {
 
             vm.error=null;
             vm.success=null;
@@ -46,6 +46,9 @@
                 }
                 else {
 
+                    website._id = (new Date()).getTime();
+                    website.developerId = vm.userId;
+
                     WebsiteService
                         .createWebsite(vm.userId, website)
                         .success(function () {
@@ -54,12 +57,8 @@
                         .error(function () {
 
                         });
-
                 }
-
             }
-
-
         }
     }
 })();

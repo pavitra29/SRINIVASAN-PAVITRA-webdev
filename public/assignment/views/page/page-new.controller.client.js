@@ -10,14 +10,21 @@
         vm.websiteId = $routeParams['wid'];
         vm.pageId = $routeParams['pid'];
 
-        vm.create = create;
+        vm.createPage = createPage;
 
         function init() {
-            vm.pages = PageService.findPageByWebsiteId(vm.websiteId);
+            PageService
+                .findPageByWebsiteId(vm.websiteId)
+                .success(function (pages) {
+                    vm.pages = pages;
+                })
+                .error(function () {
+
+                });
         }
         init();
 
-        function create(page) {
+        function createPage(page) {
 
             vm.error=null;
             vm.success=null;
@@ -39,8 +46,19 @@
                     vm.error = "Page name already exists!";
                 }
                 else {
-                    PageService.createPage(vm.websiteId, page);
-                    $location.url("/user/"+ vm.userId +"/website/"+vm.websiteId+"/page");
+
+                    page._id = (new Date()).getTime();
+                    page.websiteId = vm.websiteId;
+
+                    PageService
+                        .createPage(vm.websiteId, page)
+                        .success(function () {
+                            $location.url("/user/"+ vm.userId +"/website/"+vm.websiteId+"/page");        
+                        })
+                        .error(function () {
+                            
+                        });
+                    
                 }
             }
         }

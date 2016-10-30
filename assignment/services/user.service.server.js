@@ -35,6 +35,7 @@ module.exports = function(app) {
         for(var u in users) {
             if(users[u]._id == uid) {
                 users[u] = user;
+                break;
             }
         }
 
