@@ -17,10 +17,10 @@
     </div>
 </nav>
 <div class="container-fluid">
-
-    <div ng-switch="widget.widgetType" ng-repeat="widget in model.widgets" class="list-group wam-widget">
+    <!--<div class="wam-sortable wam-widget">-->
+    <div ng-switch="widget.widgetType" ng-repeat="widget in model.widgets" class="list-group">
         <div class="pull-right">
-            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{widget._id}}">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{widget._id}}/{{widget.widgetType}}">
             <span class="glyphicon glyphicon-cog">
             </span>
             </a>
@@ -52,6 +52,7 @@
 
         </div>
     </div>
+    <!--</div>-->
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">

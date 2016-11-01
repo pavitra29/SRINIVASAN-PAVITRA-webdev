@@ -15,7 +15,8 @@
 
         function init() {
 
-            WebsiteService.findWebsitesByUser(vm.userId)
+            WebsiteService
+                .findWebsitesByUser(vm.userId)
                 .success(function (websites) {
                     vm.websites = websites;
                 })
@@ -23,7 +24,8 @@
 
                 });
 
-            WebsiteService.findWebsiteById(vm.websiteId)
+            WebsiteService
+                .findWebsiteById(vm.websiteId)
                 .success(function (website) {
                     vm.website = website
                 })
@@ -36,14 +38,28 @@
 
 
         function deleteWebsite(wid) {
-            WebsiteService.deleteWebsite(wid);
-            $location.url("/user/"+vm.userId+"/website");
+            WebsiteService
+                .deleteWebsite(wid)
+                .success(function () {
+                    $location.url("/user/"+vm.userId+"/website");        
+                })
+                .error(function () {
+                    
+                });
+            
 
         }
 
         function updateWebsite(website) {
-            WebsiteService.updateWebsite(website._id,website);
-            $location.url("/user/"+vm.userId+"/website");
+            WebsiteService
+                .updateWebsite(website._id,website)
+                .success(function () {
+                    $location.url("/user/"+vm.userId+"/website");        
+                })
+                .error(function () {
+                    
+                });
+            
         }
     }
 

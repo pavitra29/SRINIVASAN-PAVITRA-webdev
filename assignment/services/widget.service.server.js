@@ -1,5 +1,10 @@
 module.exports = function (app) {
 
+    console.log("It came here");
+
+    var multer = require('multer'); // npm install multer --save
+    var upload = multer({ dest: __dirname+'/../../public/assignment/upload' });
+
     var widgets = [
         { "_id": "123", "widgetType": "header", "pageId": "321", "size": 2, "text": "GIZMODO"},
         { "_id": "234", "widgetType": "header", "pageId": "321", "size": 4, "text": "The Best Hidden Features in iOS 10"},
@@ -16,6 +21,9 @@ module.exports = function (app) {
     app.get("/api/widget/:widgetId", findWidgetById);
     app.put("/api/widget/:widgetId", updateWidget);
     app.delete("/api/widget/:widgetId", deleteWidget);
+
+    app.post ("/api/upload", upload.single('myFile'), uploadImage);
+
 
     function createWidget(req, res) {
         var widget = req.body;
@@ -41,6 +49,7 @@ module.exports = function (app) {
         for(var w in widgets) {
             if(widgets[w]._id == widgetId) {
                 res.send(widgets[w]);
+                return;
             }
         }
         res.send('0');
@@ -70,6 +79,27 @@ module.exports = function (app) {
             }
         }
         res.sendStatus(200);
+    }
+
+
+    function uploadImage(req, res) {
+
+
+        var widgetId      = req.body.widgetId;
+        var width         = req.body.width;
+        var myFile        = req.file;
+
+
+        var originalname  = myFile.originalname; // file name on user's computer
+        var filename      = myFile.filename;     // new file name in upload folder
+        var path          = myFile.path;         // full path of uploaded file
+        var destination   = myFile.destination;  // folder where file is saved to
+        var size          = myFile.size;
+        var mimetype      = myFile.mimetype;
+
+        // console.log(path);
+
+        res.send(myFile);
     }
 
 };

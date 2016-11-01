@@ -70,6 +70,26 @@
                 controller: "EditWidgetController",
                 controllerAs: "model"
             })
+            .when("/user/:uid/website/:wid/page/:pid/widget/:wgid/header", {
+                templateUrl: "views/widget/widget-header.view.client.html",
+                controller: "EditWidgetController",
+                controllerAs: "model"
+            })
+            .when("/user/:uid/website/:wid/page/:pid/widget/:wgid/image", {
+                templateUrl: "views/widget/widget-image.view.client.html",
+                controller: "EditWidgetController",
+                controllerAs: "model"
+            })
+            .when("/user/:uid/website/:wid/page/:pid/widget/:wgid/html", {
+                templateUrl: "views/widget/widget-html.view.client.html",
+                controller: "EditWidgetController",
+                controllerAs: "model"
+            })
+            .when("/user/:uid/website/:wid/page/:pid/widget/:wgid/youtube", {
+                templateUrl: "views/widget/widget-youtube.view.client.html",
+                controller: "EditWidgetController",
+                controllerAs: "model"
+            })
             .otherwise({
                 redirectTo: "/login"
             });

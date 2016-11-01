@@ -15,29 +15,49 @@
         vm.deleteWidget = deleteWidget;
 
         function init() {
+
             WidgetService
                 .findWidgetById(vm.widgetId)
                 .success(function (widget) {
                     vm.widget = widget;
+
+                    console.log("edit widget: "+ widget.widgetType);
+                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+vm.widgetId+"/" + widget.widgetType);
+
+
                 })
                 .error(function () {
-                    
+
                 });
         }
         init();
 
         function updateWidget(widget) {
 
-            WidgetService.updateWidget(vm.widgetId, widget);
-            $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
+            WidgetService
+                .updateWidget(vm.widgetId, widget)
+                .success(function () {
+                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
+                })
+                .error(function () {
+                    
+                });
+
 
         }
 
         function deleteWidget() {
 
-            WidgetService.deleteWidget(vm.widgetId);
-            vm.widgets = WidgetService.findWidgetsByPageId(vm.pageId);
-            $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
+            WidgetService
+                .deleteWidget(vm.widgetId)
+                .success(function () {
+                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
+                })
+                .error(function () {
+
+                });
+            // vm.widgets = WidgetService.findWidgetsByPageId(vm.pageId);
+
 
         }
 

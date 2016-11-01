@@ -20,15 +20,19 @@
                 .findWidgetsByPageId(vm.pageId)
                 .success(function (widgets) {
                     vm.widgets = widgets;
+
+                    // var allWidgets = $(".wam-widget");
+                    // console.log(allWidgets.length);
+                    //
+                    // var widgetsSortable = $(".wam-widget")
+                    //     .sortable({
+                    //         axis: 'y'
+                    // });
+                    // console.log(widgetsSortable);
                 })
                 .error(function () {
                     
                 });
-
-            // var allwidgets = $(".wam-widget");
-
-            // alert(allwidgets.length);
-
         }
 
         init();

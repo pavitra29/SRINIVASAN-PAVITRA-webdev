@@ -15,6 +15,8 @@
 
         function createWidget(widget) {
 
+            console.log("create widget: "+widget.widgetType);
+
             if(widget.widgetType === "header") {
                 widget.size = "4";
                 widget.text = "This is new Header!";
@@ -41,6 +43,9 @@
                 .createWidget(vm.pageId,widget)
                 .success(function () {
                     $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
+                })
+                .error(function () {
+                    
                 });
 
         }
