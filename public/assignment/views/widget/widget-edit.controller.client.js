@@ -21,8 +21,8 @@
                 .success(function (widget) {
                     vm.widget = widget;
 
-                    // console.log("edit widget: "+ widget.widgetType);
                     $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+vm.widgetId+"/" + widget.widgetType);
+                    // $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+vm.widgetId);
 
 
                 })
@@ -56,8 +56,6 @@
                 .error(function () {
 
                 });
-            // vm.widgets = WidgetService.findWidgetsByPageId(vm.pageId);
-
 
         }
 

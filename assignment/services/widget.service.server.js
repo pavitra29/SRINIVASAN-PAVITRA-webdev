@@ -3,27 +3,6 @@ module.exports = function (app) {
     var multer = require('multer'); // npm install multer --save
     var pathlibrary = require('path');
 
-    // var storage = multer.diskStorage({
-    //     filename: function (req, file, cb) {
-    //         cb(null, file.fieldname + '-' + Date.now()+ '.jpg')
-    //     }
-    // });
-
-    // var storage = multer.diskStorage({
-    //     destination: function (req, file, cb) {
-    //         cb(null, '/../../public/assignment/upload')
-    //     },
-    //     filename: function (req, file, cb) {
-    //
-    //         console.log(file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-    //             cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-    //     }
-    // });
-    //
-    // var upload = multer({ storage: storage });
-
-    // var upload = multer({ storage: storage }, { dest: __dirname+'/../../public/assignment/upload' });
-
     var upload = multer({ dest: __dirname+'/../../public/assignment/upload' });
 
     var widgets = [
@@ -131,30 +110,16 @@ module.exports = function (app) {
         var size          = myFile.size;
         var mimetype      = myFile.mimetype;
 
-        // console.log(path);
-        // console.log(destination);
-        // console.log(size);
-        // console.log(mimetype);
-
-        // res.send(myFile);
-
-        // console.log(filename + pathlibrary.extname(originalname));
-
-        // var filenameExt = filename + pathlibrary.extname(originalname);
 
         for(var w in widgets) {
             if(widgets[w]._id == widgetId) {
-                // console.log(widgets[w]);
 
                 widgets[w].width = width;
                 widgets[w].url = "/assignment/upload/"+filename;
 
-                // console.log(widgets[w]);
-
                 var pageId = widgets[w].pageId;
 
-                // break;
-                res.redirect("/assignment/index.html#/user/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget/"+widgetId);
+                res.redirect("/assignment/#/user/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget/"+widgetId);
             }
         }
 
