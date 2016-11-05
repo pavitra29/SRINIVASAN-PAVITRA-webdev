@@ -90,6 +90,11 @@
                 controller: "EditWidgetController",
                 controllerAs: "model"
             })
+            .when("/api/upload", {
+                templateUrl: "views/widget/widget-edit.view.client.html",
+                controller: "EditWidgetController",
+                controllerAs: "model"
+            })
             .otherwise({
                 redirectTo: "/login"
             });

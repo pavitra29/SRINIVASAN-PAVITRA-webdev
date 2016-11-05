@@ -21,7 +21,7 @@
                 .success(function (widget) {
                     vm.widget = widget;
 
-                    console.log("edit widget: "+ widget.widgetType);
+                    // console.log("edit widget: "+ widget.widgetType);
                     $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+vm.widgetId+"/" + widget.widgetType);
 
 
