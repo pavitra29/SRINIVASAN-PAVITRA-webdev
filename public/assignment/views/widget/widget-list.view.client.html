@@ -17,7 +17,8 @@
     </div>
 </nav>
 <div class="container-fluid">
-    <div class="wam-sortable wam-widget">
+    <!--<div class="wam-sortable wam-widget">-->
+    <div wam-sortable>
         <div ng-switch="widget.widgetType" ng-repeat="widget in model.widgets" class="list-group">
             <div class="pull-right">
                 <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{widget._id}}/{{widget.widgetType}}">

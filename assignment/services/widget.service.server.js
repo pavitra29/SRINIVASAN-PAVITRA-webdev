@@ -23,7 +23,7 @@ module.exports = function (app) {
     app.delete("/api/widget/:widgetId", deleteWidget);
 
     app.post("/api/upload", upload.single('myFile'), uploadImage);
-    app.put("/page/:pageId/widget", sortWidget); //?initial=index1&final=index2
+    app.put("/api/page/:pageId/widget", sortWidget); //?initial=index1&final=index2
 
     function sortWidget(req, res) {
         var query = req.query;
@@ -31,9 +31,9 @@ module.exports = function (app) {
         var initial = query.initial;
         var final = query.final;
 
-        if(initial && final) {
+        // console.log([initial, final]);
 
-        }
+        widgets.splice(final, 0 ,widgets.splice(initial,1)[0]);
 
     }
 
