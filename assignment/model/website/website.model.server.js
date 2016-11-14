@@ -1,3 +1,3 @@
-/**
- * Created by pavitrasrinivasan on 11/10/16.
- */
+module.exports = function () {
+   var mongoose = require("mongoose");
+};

@@ -4,5 +4,5 @@ module.exports = function () {
 
     var PageModel = mongoose.model("PageModel", PageSchema);
 
-    
+
 };
