@@ -1,3 +1,7 @@
-/**
- * Created by pavitrasrinivasan on 11/10/16.
- */
+module.exports = function() {
+    var mongoose = require("mongoose");
+    var PageSchema = mongoose.Schema({
+        title: String
+    });
+    return PageSchema;
+};
