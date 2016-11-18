@@ -1,5 +1,6 @@
 module.exports = function () {
 
+    var model = {};
     var mongoose = require("mongoose");
 
     var UserSchema = require("./user.schema.server")();
@@ -12,14 +13,28 @@ module.exports = function () {
         updateUser: updateUser,
         findUserByUsername: findUserByUsername,
         findUserByCredentials: findUserByCredentials,
-        deleteUser: deleteUser
+        deleteUser: deleteUser,
+        findAllWebsitesForUser: findAllWebsitesForUser,
+        setModel: setModel
     };
     return api;
+
+
+    function findAllWebsitesForUser(userId) {
+        return UserModel
+            .findById(userId)
+            .populate("websites", "name")
+            .exec();
+    }
 
     function deleteUser(userId) {
         return UserModel.remove({
             _id: userId
         });
+    }
+
+    function setModel(_model) {
+        model = _model;
     }
 
     function findUserByCredentials(username, password) {

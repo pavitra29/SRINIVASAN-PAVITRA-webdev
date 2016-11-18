@@ -1,4 +1,4 @@
-module.exports = function (app) {
+module.exports = function (app, model) {
 
 
     var websites = [
@@ -16,32 +16,63 @@ module.exports = function (app) {
     app.get("/api/website/:websiteId",findWebsiteById);
     app.put("/api/website/:websiteId",updateWebsite);
     app.delete("/api/website/:websiteId",deleteWebsite);
-    
+
     function findWebsiteById(req, res) {
         var websiteId = req.params.websiteId;
 
-        for(var w in websites) {
-            if(websites[w]._id == websiteId) {
-                res.send(websites[w]);
-                return;
-            }
-        }
-        res.send('0');
+        model
+            .websiteModel
+            .findWebsiteById(websiteId)
+            .then(
+                function (website) {
+                    if(website) {
+                        res.json(website);
+                    }
+                    else {
+                        res.send('0');
+                    }
+
+                },
+                function (error) {
+
+                }
+            );
+
+        // for(var w in websites) {
+        //     if(websites[w]._id == websiteId) {
+        //         res.send(websites[w]);
+        //         return;
+        //     }
+        // }
+        // res.send('0');
 
     }
-    
+
     function updateWebsite(req, res) {
         var websiteId = req.params.websiteId;
         var website = req.body;
 
-        for(var w in websites) {
-            if(websites[w]._id == websiteId) {
-                websites[w].name = website.name;
-                websites[w].description = website.description;
-                break;
-            }
-        }
-        res.sendStatus(200);
+        model
+            .websiteModel
+            .updateWebsite(websiteId, website)
+            .then(
+                function (status) {
+                    res.sendStatus(200);
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                }
+            );
+
+
+        // for(var w in websites) {
+        //     if(websites[w]._id == websiteId) {
+        //         websites[w].name = website.name;
+        //         websites[w].description = website.description;
+        //         break;
+        //     }
+        // }
+        // res.sendStatus(200);
     }
 
     function deleteWebsite(req, res) {
@@ -60,20 +91,51 @@ module.exports = function (app) {
     function createWebsite(req, res) {
         var website = req.body;
 
-        websites.push(website);
-        res.sendStatus(200);
+        model
+            .websiteModel
+            .createWebsiteForUser(req.params.userId, website)
+            .then(
+                function (website) {
+                    if(website) {
+                        res.json(website);
+                        console.log(website);
+                    }
+                    else {
+                        res.send('0');
+                        console.log("zero case");
+                    }
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                });
+
+        // websites.push(website);
+        // res.sendStatus(200);
     }
 
 
     function findAllWebsitesForUser(req, res) {
         var userId = req.params.userId;
-        var result = [];
-        for(var w in websites) {
-            if(websites[w].developerId == userId) {
-                result.push(websites[w]);
-            }
-        }
-        res.json(result);
+
+        model
+            .websiteModel
+            .findAllWebsitesForUser(userId)
+            .then(
+                function (websites) {
+                    res.json(websites);
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                }
+            );
+
+        // var result = [];
+        // for(var w in websites) {
+        //     if(websites[w].developerId == userId) {
+        //         result.push(websites[w]);
+        //     }
+        // }
+        // res.json(result);
     }
 
 };
