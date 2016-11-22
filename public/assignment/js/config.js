@@ -23,7 +23,13 @@
             .when("/user/:uid", {
                 templateUrl: "views/user/profile.view.client.html",
                 controller: "ProfileController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {
+                    checkLogin: checkLogin
+                    //, isMyFriend = isMyFriend
+                    // can have multiple functions here to be resolved
+                    // resolved will be true once all of them are complete
+                }
             })
             .when("/user/:uid/website", {
                 templateUrl: "views/website/website-list.view.client.html",
@@ -98,6 +104,29 @@
             .otherwise({
                 redirectTo: "/login"
             });
+
+
+        // angular $q library allows things to be synchronous which are usually asynchronous
+        function checkLogin($q, UserService, $location) {
+
+            var deferred = $q.defer();
+
+            UserService
+                .checkLogin()
+                .success(
+                    function (user) {
+                        if(user != '0') {
+                            deferred.resolve();
+                        }
+                        else {
+                            deferred.reject();
+                            $location.url("/login");
+                        }
+                    }
+                );
+
+            return deferred.promise;
+        }
     }
 })();
 

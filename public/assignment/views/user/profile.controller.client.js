@@ -8,6 +8,7 @@
 
         vm.updateUser = updateUser;
         vm.deleteUser = deleteUser;
+        vm.logout =  logout;
 
         var userId = $routeParams["uid"];
 
@@ -25,6 +26,13 @@
                 });
         }
         init();
+
+        function logout() {
+            UserService.logout()
+                .success(function () {
+                    $location.url('/login');
+                });
+        }
 
         function updateUser() {
 

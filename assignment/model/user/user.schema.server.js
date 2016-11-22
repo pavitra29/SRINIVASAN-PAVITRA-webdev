@@ -11,6 +11,7 @@ module.exports = function () {
         lastName: String,
         email: String,
         phone: String,
+        role: {type: String, enum: ['ADMIN', 'STUDENT', 'FACULTY']},
         websites: [{type: mongoose.Schema.Types.ObjectId, ref: 'WebsiteModel'}], //Implementation 2
         // websites: [WebsiteSchema],
         dateCreated: {type: Date, default: Date.now()}

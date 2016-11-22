@@ -6,8 +6,26 @@
 body {
     padding-top: 65px;
     background-size: cover;
-    background: #464646 url("../images/background.jpg") no-repeat fixed center center;
+    background: #464646 url("../images/backgroundImage.jpg") no-repeat fixed center center;
     font-family: 'Lato', sans-serif;
     overflow-x: hidden;
     color: white;
+}
+
+#section1 {
+    background-image: url('../images/fullHD.jpg');
+}
+#section2 {
+    background-image: url('../images/background.jpg');
+}
+#section3 {
+    background-image: url('../images/background.jpg');
+}
+
+.responsiveImage {max-width: 100%; width: auto; height: auto;}
+
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+    width: 70%;
+    margin: auto;
 }

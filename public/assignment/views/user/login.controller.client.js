@@ -9,8 +9,11 @@
 
         function login() {
 
+            // UserService
+            //     .findUserByCredentials(vm.user.username,vm.user.password)
+
             UserService
-                .findUserByCredentials(vm.user.username,vm.user.password)
+                .login(vm.user.username,vm.user.password)
                 .success(function (user) {
 
                     if(user === '0') {

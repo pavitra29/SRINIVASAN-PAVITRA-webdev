@@ -1,11 +1,87 @@
 module.exports = function(app, model) {
 
+    var passport      = require('passport');
+    var LocalStrategy    = require('passport-local').Strategy;
+    var cookieParser  = require('cookie-parser');
+    var session       = require('express-session');
+
+    // first configure raw session
+    app.use(session({
+        secret: 'this is the secret',
+        resave: true,
+        saveUninitialized: true
+    }));
+
+    app.use(cookieParser());
+    app.use(passport.initialize());
+    app.use(passport.session()); // then configure passport session
+
+    passport.use(new LocalStrategy(localStrategy));
+    passport.serializeUser(serializeUser);
+    passport.deserializeUser(deserializeUser);
+
     app.get('/api/user', findUser);
     app.get('/api/user/:uid', findUserById);
     app.post('/api/user',createUser);
     app.put('/api/user/:uid',updateUser);
     app.delete('/api/user/:uid',deleteUser);
 
+    app.post('/api/login', passport.authenticate('local'), login);
+    app.post('/api/checkLogin', checkLogin);
+    app.post('/api/logout', logout);
+
+
+    function logout(req, res) {
+        req.logout();
+        res.send(200);
+    }
+
+    function checkLogin(req, res) {
+        res.send(req.isAuthenticated() ? req.user : '0');
+    }
+
+    function serializeUser(user, done) {
+        done(null, user);
+    }
+
+    function deserializeUser(user, done) {
+        model
+            .userModel
+            .findUserById(user._id)
+            .then(
+                function(user){
+                    done(null, user);
+                },
+                function(error){
+                    done(error, null);
+                }
+            );
+    }
+
+    function localStrategy(username, password, done) {  // parameter in this function can be called with any name
+                                                        // like userNm, pass, someFunction
+                                                        // but the sequence means first is username, second is password
+                                                        // and third is a function
+        model
+            .userModel
+            .findUserByCredentials(username, password)
+            .then(
+                function (user) {
+                    if (!user) {
+                        return done(null, false);
+                    }
+                    return done(null, user);
+                },
+                function (error) {
+                    return done(error);
+                }
+            );
+    }
+
+    function login(req, res) {
+        var user = req.user;
+        res.json(user);
+    }
 
     function deleteUser(req,res) {
         var uid = req.params['uid'];
