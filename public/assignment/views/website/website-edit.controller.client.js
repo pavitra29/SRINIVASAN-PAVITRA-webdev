@@ -17,8 +17,8 @@
 
             WebsiteService
                 .findWebsitesByUser(vm.userId)
-                .success(function (user) {
-                    vm.websites = user.websites;
+                .success(function (websites) {
+                    vm.websites = websites;
                 })
                 .error(function () {
 

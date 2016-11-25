@@ -39,8 +39,47 @@ module.exports = function () {
             });
     }
 
+    function deleteWebsite(websiteId) {
+        return WebsiteModel
+            .remove({
+                _id: websiteId
+            });
+
+        // return WebsiteModel
+        //     .findById({
+        //         _id:websiteId
+        //     })
+        //     .then(function (websiteObj) {
+        //         model
+        //             .findUserById(websiteObj._user)
+        //             .then(function (userObj) {
+        //                     userObj.websites.splice(websiteObj,1);
+        //                     userObj.save();
+        //
+        //                     return WebsiteModel
+        //                         .remove({
+        //                             _id: websiteId
+        //                         });
+        //
+        //                 },
+        //                 function (error) {
+        //                     console.log(error);
+        //                 }
+        //             )
+        //
+        //     },
+        //     function (error) {
+        //         console.log(error);
+        //     })
+
+    }
+
     function findAllWebsitesForUser(userId) {
-        return model.userModel.findAllWebsitesForUser(userId);
+        // return model.userModel.findAllWebsitesForUser(userId);
+        return WebsiteModel
+            .find({
+                _user: userId
+            });
     }
 
     function findWebsiteById(websiteId) {
@@ -61,11 +100,7 @@ module.exports = function () {
         );
     }
 
-    function deleteWebsite(websiteId) {
-        return WebsiteModel.remove({
-            _id: websiteId
-        });
-    }
+
 
 
 };

@@ -14,18 +14,18 @@ module.exports = function () {
         findUserByUsername: findUserByUsername,
         findUserByCredentials: findUserByCredentials,
         deleteUser: deleteUser,
-        findAllWebsitesForUser: findAllWebsitesForUser,
+        // findAllWebsitesForUser: findAllWebsitesForUser,
         setModel: setModel
     };
     return api;
 
 
-    function findAllWebsitesForUser(userId) {
-        return UserModel
-            .findById(userId)
-            .populate("websites", "name")
-            .exec();
-    }
+    // function findAllWebsitesForUser(userId) {
+    //     return UserModel
+    //         .findById(userId)
+    //         .populate("websites", "name")
+    //         .exec();
+    // }
 
     function deleteUser(userId) {
         return UserModel.remove({
