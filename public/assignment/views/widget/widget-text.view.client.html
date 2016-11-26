@@ -1,0 +1,36 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <p class="navbar-text pull-left">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget"
+               class="glyphicon glyphicon-chevron-left">
+            </a>
+        </p>
+        <p class="navbar-text pull-right">
+            <a ng-click="model.updateWidget(model.widget)" class="glyphicon glyphicon-ok">
+            </a>
+        </p>
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{model.widgetId}}">
+                Widget Edit
+            </a>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+        Text
+        <input ng-model="model.widget.text" class="form-control"/>
+        Rows
+        <input ng-model="model.widget.rows" class="form-control" type="number"/>
+        Placeholder
+        <input ng-model="model.widget.placeholder" class="form-control"/>
+        Formatted
+        <input ng-model="model.widget.formatted" type="checkbox"/>
+    <a ng-click="model.deleteWidget()" class="btn btn-danger btn-block">Delete</a>
+</div>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <p class="navbar-text pull-right">
+            <a href="#/user/{{model.userId}}" class="glyphicon glyphicon-user pages-widgets-glyphicon-user"></a>
+        </p>
+    </div>
+</nav>

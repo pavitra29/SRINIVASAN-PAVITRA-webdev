@@ -21,9 +21,7 @@
                 .success(function (widget) {
                     vm.widget = widget;
 
-                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+vm.widgetId+"/" + widget.widgetType);
-                    // $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+vm.widgetId);
-
+                    console.log("Inside edit widget");
 
                 })
                 .error(function () {
@@ -37,6 +35,7 @@
             WidgetService
                 .updateWidget(vm.widgetId, widget)
                 .success(function () {
+                    console.log("Update completed!");
                     $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
                 })
                 .error(function () {

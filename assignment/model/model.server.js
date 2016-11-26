@@ -16,6 +16,8 @@ module.exports = function () {
 
     websiteModel.setModel(model);
     userModel.setModel(model);
+    pageModel.setModel(model);
+    widgetModel.setModel(model);
 
     return model;
 

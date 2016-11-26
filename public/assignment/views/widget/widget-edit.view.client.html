@@ -1,8 +1,8 @@
 <div>
     <form>
-        <!--<div ng-if='model.widget.widgetType'>-->
-            <!--<div ng-include="'views/widget/widget-'+model.widget.widgetType+'.view.client.html'">-->
-            <!--</div>-->
-        <!--</div>-->
+        <div ng-if='model.widget.widgetType'>
+            <div ng-include="'views/widget/widget-'+model.widget.widgetType.toLowerCase()+'.view.client.html'">
+            </div>
+        </div>
     </form>
 </div>

@@ -40,6 +40,7 @@ module.exports = function () {
     }
 
     function deleteWebsite(websiteId) {
+        // TODO: remove website from user
         return WebsiteModel
             .remove({
                 _id: websiteId
