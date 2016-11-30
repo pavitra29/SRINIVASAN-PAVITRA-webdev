@@ -13,6 +13,10 @@ module.exports = function () {
             id: String,
             token: String
         },
+        facebook: {
+            id:    String,
+            token: String
+        },
         email: String,
         phone: String,
         role: {type: String, default: 'STUDENT', enum: ['ADMIN', 'STUDENT', 'FACULTY']},

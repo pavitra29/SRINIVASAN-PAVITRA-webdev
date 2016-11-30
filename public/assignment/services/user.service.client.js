@@ -16,9 +16,14 @@
             login: login,
             checkLogin: checkLogin,
             checkAdmin: checkAdmin,
-            logout: logout
+            logout: logout,
+            register: register
         };
         return api;
+
+        function register(user) {
+            return $http.post("/api/register", user);
+        }
 
         function logout() {
             return $http.post("/api/logout");

@@ -99,7 +99,7 @@
 
 
         // angular $q library allows things to be synchronous which are usually asynchronous
-        function checkLogin($q, UserService, $location) {
+        function checkLogin($q, UserService, $location, $rootScope) {
 
             var deferred = $q.defer();
 
@@ -109,6 +109,7 @@
                     function (user) {
                         if(user != '0') {
                             deferred.resolve();
+                            $rootScope.currentUser = user;
                         }
                         else {
                             deferred.reject();
