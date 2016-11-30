@@ -19,7 +19,7 @@
 <div class="container-fluid">
     <!--<div class="wam-sortable wam-widget">-->
     <div wam-sortable>
-        <div ng-switch="widget.widgetType.toLowerCase()" ng-repeat="widget in model.widgets" class="list-group">
+        <div ng-switch="widget.widgetType.toLowerCase()" ng-repeat="widget in model.widgets | orderBy: 'priority'" class="list-group">
             <!--{{widget.text}}-->
             <!--{{widget.widgetType}}-->
             <div class="pull-right">
@@ -43,8 +43,12 @@
 
             </div>
             <div ng-switch-when="youtube" class="youtube-widget">
+                <!--{{widget.width}}-->
                 <iframe width="{{widget.width}}" ng-src="{{model.checkSafeYouTubeUrl(widget.url)}}" frameborder="0"
                         allowfullscreen></iframe>
+
+                <!--<iframe width="560" height="315" src="https://www.youtube.com/embed/9ZsRQNUQ8Vo?list=PLGnGPtnkimg9pl8meJnzcTSZFmATQF9a1" -->
+                        <!--frameborder="0" allowfullscreen></iframe>-->
             </div>
             <div ng-switch-when="image">
                 <!--<img class="img-responsive" ng-src="{{model.checkSafeImage(widget.url)}}" width="{{widget.width}}"-->
@@ -60,6 +64,7 @@
             </div>
 
             <div ng-switch-when="text">
+
                 <div ng-if="widget.formatted"
                      ng-model="widget.text"
                      text-angular ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],

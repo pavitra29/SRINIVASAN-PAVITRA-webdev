@@ -43,7 +43,12 @@
         var vm = this;
 
         vm.sort = sort;
-        var pageId = $routeParams.pageId;
+
+        var pageId = $routeParams.pid;
+
+        if(pageId) {
+            console.log(pageId);
+        }
 
         function sort(start, end) {
             WidgetService.sort(pageId, start, end);

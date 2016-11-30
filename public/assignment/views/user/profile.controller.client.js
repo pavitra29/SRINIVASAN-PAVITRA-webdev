@@ -10,12 +10,13 @@
         vm.deleteUser = deleteUser;
         vm.logout =  logout;
 
-        var userId = $routeParams["uid"];
+        // var userId = $routeParams["uid"];
 
         function init() {
 
             UserService
-                .findUserById(userId)
+                // .findUserById(userId)
+                .findCurrentUser()
                 .success(function (user) {
                     if(user != '0') {
                         vm.user = user;

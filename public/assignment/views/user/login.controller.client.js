@@ -16,7 +16,7 @@
                 .login(vm.user.username,vm.user.password)
                 .success(function (user) {
 
-                    if(user === '0') {
+                    if(!user) {
                         vm.error = "No such user";
                     } else {
                         $location.url("/user/" + user._id);

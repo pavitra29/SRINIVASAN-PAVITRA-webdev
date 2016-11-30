@@ -5,6 +5,12 @@
 
     function Config($routeProvider) {
         $routeProvider
+            .when("/admin", {
+                templateUrl: "views/admin/user-list.view.client.html",
+                resolve: {
+                    checkAdmin: checkAdmin
+                }
+            })
             .when("/login", {
                 templateUrl: "views/user/login.view.client.html",
                 controller: "LoginController",
@@ -21,6 +27,17 @@
                 controllerAs: "model"
             })
             .when("/user/:uid", {
+                templateUrl: "views/user/profile.view.client.html",
+                controller: "ProfileController",
+                controllerAs: "model",
+                resolve: {
+                    checkLogin: checkLogin
+                    //, isMyFriend = isMyFriend
+                    // can have multiple functions here to be resolved
+                    // resolved will be true once all of them are complete
+                }
+            })
+            .when("/user", {
                 templateUrl: "views/user/profile.view.client.html",
                 controller: "ProfileController",
                 controllerAs: "model",
@@ -76,31 +93,6 @@
                 controller: "EditWidgetController",
                 controllerAs: "model"
             })
-            // .when("/user/:uid/website/:wid/page/:pid/widget/:wgid/header", {
-            //     templateUrl: "views/widget/widget-header.view.client.html",
-            //     controller: "EditWidgetController",
-            //     controllerAs: "model"
-            // })
-            // .when("/user/:uid/website/:wid/page/:pid/widget/:wgid/image", {
-            //     templateUrl: "views/widget/widget-image.view.client.html",
-            //     controller: "EditWidgetController",
-            //     controllerAs: "model"
-            // })
-            // .when("/user/:uid/website/:wid/page/:pid/widget/:wgid/html", {
-            //     templateUrl: "views/widget/widget-html.view.client.html",
-            //     controller: "EditWidgetController",
-            //     controllerAs: "model"
-            // })
-            // .when("/user/:uid/website/:wid/page/:pid/widget/:wgid/youtube", {
-            //     templateUrl: "views/widget/widget-youtube.view.client.html",
-            //     controller: "EditWidgetController",
-            //     controllerAs: "model"
-            // })
-            .when("/api/upload", {
-                templateUrl: "views/widget/widget-edit.view.client.html",
-                controller: "EditWidgetController",
-                controllerAs: "model"
-            })
             .otherwise({
                 redirectTo: "/login"
             });
@@ -127,6 +119,28 @@
 
             return deferred.promise;
         }
+
+        function checkAdmin($q, UserService, $location) {
+
+            var deferred = $q.defer();
+
+            UserService
+                .checkAdmin()
+                .success(
+                    function (user) {
+                        if(user != '0') {
+                            deferred.resolve();
+                        }
+                        else {
+                            deferred.reject();
+                            $location.url("/login");
+                        }
+                    }
+                );
+
+            return deferred.promise;
+        }
+
     }
 })();
 

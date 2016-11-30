@@ -24,20 +24,55 @@ module.exports = function () {
 
     function createWidget(pageId, widget) {
         return WidgetModel
-            .create(widget)
-            .then(function (widgetObj) {
-                return model.pageModel
-                    .findPageById(pageId)
-                    .then(function (pageObj) {
-                            widgetObj._page = pageObj._id;
-                            widgetObj.save();
-                            pageObj.widgets.push(widgetObj);
-                            pageObj.save();
-                            return widgetObj.save();
+            .find({_page : pageId})
+            .then(function (widgets) {
+                return WidgetModel
+                    .create(widget)
+                    .then(function (widgetObj) {
+                            return model.pageModel
+                                .findPageById(pageId)
+                                .then(function (pageObj) {
+                                        widgetObj._page = pageObj._id;
+                                        widgetObj.priority = widgets.length;
+                                        widgetObj.save();
+                                        pageObj.widgets.push(widgetObj);
+                                        pageObj.save();
+                                        return widgetObj.save();
+                                    }
+                                )
                         }
                     )
-                }
-            )
+            });
+    }
+
+
+    function deleteWidget(widgetId) {
+
+        return WidgetModel
+            .findOne({_id: widgetId},
+                function (err, widget) {
+                    var index = widget.priority;
+                    var pageId = widget._page;
+
+                    WidgetModel
+                        .find({_page: pageId},
+                            function (err, widgets) {
+
+                                widgets.forEach(function (widget) {
+                                    if (widget.priority > index) {
+                                        widget.priority--;
+                                        widget.save(function() {});
+                                    }
+
+                                    if(widget._id == widgetId) {
+                                        widget.remove();
+                                    }
+
+                                });
+
+                            });
+                });
+
     }
 
     function findAllWidgetsForPage(pageId) {
@@ -72,14 +107,48 @@ module.exports = function () {
                 });
     }
 
-    function deleteWidget(widgetId) {
-        return WidgetModel
-            .remove({
-                _id: widgetId
-            });
-    }
 
     function reorderWidget(pageId, start, end) {
+
+        return WidgetModel
+            .find({_page: pageId},
+                function (err, widgets) {
+                    widgets.forEach(function (widget) {
+
+                        if (widget.priority === start) {
+                            widget.priority = end;
+                            widget.save(function () {
+                            });
+                        }
+                        else {
+                            if(start > end) {
+
+                                if(widget.priority >= end && widget.priority < start) {
+                                    widget.priority++;
+                                    widget.save(function () {});
+                                }
+                                else if(widget.priority === start) {
+                                    widget.priority = end;
+                                    widget.save(function () {});
+                                }
+
+                            } else {
+
+                                if(widget.priority <= end && widget.priority > start) {
+                                    widget.priority--;
+                                    widget.save(function () {});
+                                }
+                                else if(widget.priority === start) {
+                                    widget.priority = end;
+                                    widget.save(function () {});
+                                }
+                            }
+                        }
+
+
+
+                    })
+                })
 
     }
 

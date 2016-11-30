@@ -8,12 +8,14 @@
         var api = {
             createUser: createUser,
             findUserById: findUserById,
+            findCurrentUser: findCurrentUser,
             findUserByUsername: findUserByUsername,
             findUserByCredentials: findUserByCredentials,
             updateUser: updateUser,
             deleteUser: deleteUser,
             login: login,
             checkLogin: checkLogin,
+            checkAdmin: checkAdmin,
             logout: logout
         };
         return api;
@@ -24,6 +26,10 @@
 
         function checkLogin() {
             return $http.post("/api/checkLogin");
+        }
+
+        function checkAdmin() {
+            return $http.post("/api/checkAdmin");
         }
 
         function login(username, password) {
@@ -41,6 +47,12 @@
                 password: user.password
             };
             return $http.post("/api/user",user);
+        }
+
+        function findCurrentUser() {
+            // var url = "/api/admin/user";      //this might be link for getting all users when admin logs in
+            var url = "/api/user";
+            return $http.get(url);
         }
 
         function findUserById(userId) {

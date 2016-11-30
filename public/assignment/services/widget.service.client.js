@@ -18,6 +18,7 @@
 
         function sort(pageId, start, end) {
             var url = "/api/page/"+ pageId +"/widget?initial=START&final=END";
+
             url = url
                 .replace("START", start)
                 .replace("END", end);

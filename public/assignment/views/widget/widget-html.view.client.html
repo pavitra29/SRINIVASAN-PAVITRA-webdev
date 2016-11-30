@@ -16,13 +16,24 @@
     </div>
 </nav>
 <div class="container-fluid">
-    <form>
-        <div class="form-group">
-            <label for="html">Name</label>
-            <input ng-model="model.widget.text" type="text" class="form-control" id="html" placeholder="HTML tags">
-        </div>
-        <a ng-click="model.deleteWidget()" class="btn btn-danger btn-block">Delete</a>
-    </form>
+
+    <div ng-model="model.widget.text"
+         text-angular
+         ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],
+        ['ul','ol'],['justifyLeft','justifyCenter','justifyRight','justifyFull'],
+        ['indent','outdent'],['html']]">
+    </div>
+    <a ng-click="model.deleteWidget()" class="btn btn-danger btn-block">Delete</a>
+
+    <!--{{model.widget.text}}-->
+
+    <!--<form>-->
+        <!--<div class="form-group">-->
+            <!--<label for="html">Name</label>-->
+            <!--<input ng-model="model.widget.text" type="text" class="form-control" id="html" placeholder="HTML tags">-->
+        <!--</div>-->
+        <!--<a ng-click="model.deleteWidget()" class="btn btn-danger btn-block">Delete</a>-->
+    <!--</form>-->
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">

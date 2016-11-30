@@ -21,7 +21,11 @@
                 .success(function (widget) {
                     vm.widget = widget;
 
-                    console.log("Inside edit widget");
+                    // console.log("it came here");
+                    // console.log(widget._id);
+                    // $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+vm.widgetId+"/" + widget.widgetType);
+                    // $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+vm.widgetId);
+
 
                 })
                 .error(function () {
@@ -35,7 +39,6 @@
             WidgetService
                 .updateWidget(vm.widgetId, widget)
                 .success(function () {
-                    console.log("Update completed!");
                     $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
                 })
                 .error(function () {
