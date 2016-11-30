@@ -8,10 +8,12 @@ module.exports = function(app, model) {
 
     // first configure raw session
     app.use(session({
-        secret: 'this is the secret',
+        secret: process.env.SESSION_SECRET,
         resave: true,
         saveUninitialized: true
     }));
+
+    console.log(process.env.SESSION_SECRET);
 
     app.use(cookieParser());
     app.use(passport.initialize());
@@ -32,7 +34,7 @@ module.exports = function(app, model) {
     app.post('/api/user',createUser);
     app.put('/api/user/:uid', loggedInAndSelf, updateUser);
     app.delete('/api/user/:uid', loggedInAndSelf, deleteUser);
-    app.get('/auth/google/callback',
+    app.get('/api/google/callback',
         passport.authenticate('google', {
             successRedirect: '/assignment/index.html#/user',
             failureRedirect: '/assignment/index.html#/login'
@@ -44,6 +46,10 @@ module.exports = function(app, model) {
         clientSecret : process.env.GOOGLE_CLIENT_SECRET,
         callbackURL  : process.env.GOOGLE_CALLBACK_URL
     };
+
+    if(googleConfig) {
+        console.log(googleConfig);
+    }
 
     if (process.env.GOOGLE_CLIENT_ID) {
         passport.use(new GoogleStrategy(googleConfig, googleStrategy));

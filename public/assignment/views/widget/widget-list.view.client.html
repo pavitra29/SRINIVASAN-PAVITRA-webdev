@@ -22,7 +22,7 @@
         <div ng-switch="widget.widgetType.toLowerCase()" ng-repeat="widget in model.widgets | orderBy: 'priority'" class="list-group">
             <!--{{widget.text}}-->
             <!--{{widget.widgetType}}-->
-            <div class="pull-right">
+            <div class="pull-right" style="position: relative; z-index:10">
                 <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{widget._id}}">
                     <!--<a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{widget._id}}">-->
                     <span class="glyphicon glyphicon-cog">
@@ -44,7 +44,7 @@
             </div>
             <div ng-switch-when="youtube" class="youtube-widget">
                 <!--{{widget.width}}-->
-                <iframe width="{{widget.width}}" ng-src="{{model.checkSafeYouTubeUrl(widget.url)}}" frameborder="0"
+                <iframe width="{{widget.width || '100%'}}" ng-src="{{model.checkSafeYouTubeUrl(widget.url)}}" frameborder="0"
                         allowfullscreen></iframe>
 
                 <!--<iframe width="560" height="315" src="https://www.youtube.com/embed/9ZsRQNUQ8Vo?list=PLGnGPtnkimg9pl8meJnzcTSZFmATQF9a1" -->
