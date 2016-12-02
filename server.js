@@ -10,7 +10,7 @@ app.use(express.static(__dirname + '/public'));
 
 app.set('view engine', 'ejs');
 
-// require ("./test/photoapp.js")(app);
+// require ("./test/app.js")(app);
 
 require("./assignment/app.js")(app);
 
