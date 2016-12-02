@@ -20,13 +20,6 @@
                 .findWidgetById(vm.widgetId)
                 .success(function (widget) {
                     vm.widget = widget;
-
-                    // console.log("it came here");
-                    // console.log(widget._id);
-                    // $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+vm.widgetId+"/" + widget.widgetType);
-                    // $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+vm.widgetId);
-
-
                 })
                 .error(function () {
 
@@ -36,16 +29,20 @@
 
         function updateWidget(widget) {
 
-            WidgetService
-                .updateWidget(vm.widgetId, widget)
-                .success(function () {
-                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
-                })
-                .error(function () {
-                    
-                });
+            if(!widget || !widget.name) {
+                vm.error = "Widget name cannot be empty!";
+            }
+            else {
+                WidgetService
+                    .updateWidget(vm.widgetId, widget)
+                    .success(function () {
+                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
+                    })
+                    .error(function () {
 
+                    });
 
+            }
         }
 
         function deleteWidget() {

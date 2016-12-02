@@ -15,24 +15,27 @@
     </div>
 </nav>
 <div class="container-fluid">
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input ng-model="model.widget.name" type="text" class="form-control" id="name" placeholder="Name"/>
-        </div>
-        <div class="form-group">
-            <label for="text">Text</label>
-            <input ng-model="model.widget.text" type="text" class="form-control" id="text" placeholder="Text"/>
-        </div>
-        <div class="form-group">
-            <label for="url">URL</label>
-            <input ng-model="model.widget.url" type="text" class="form-control" id="url"
-                   placeholder="https://youtu.be/AM2Ivdi9c4E"/>
-        </div>
-        <div class="form-group">
-            <label for="width">Width</label>
-            <input ng-model="model.widget.width" class="form-control" id="width" placeholder="100%"/>
-        </div>
-        <a ng-click="model.deleteWidget()" class="btn btn-danger btn-block">Delete</a>
+    <div ng-show="model.error" class="alert alert-danger" role="alert">
+        {{model.error}}
+    </div>
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input ng-model="model.widget.name" type="text" class="form-control" id="name" placeholder="Name"/>
+    </div>
+    <div class="form-group">
+        <label for="text">Text</label>
+        <input ng-model="model.widget.text" type="text" class="form-control" id="text" placeholder="Text"/>
+    </div>
+    <div class="form-group">
+        <label for="url">URL</label>
+        <input ng-model="model.widget.url" type="text" class="form-control" id="url"
+               placeholder="https://youtu.be/AM2Ivdi9c4E"/>
+    </div>
+    <div class="form-group">
+        <label for="width">Width</label>
+        <input ng-model="model.widget.width" class="form-control" id="width" placeholder="100%"/>
+    </div>
+    <a ng-click="model.deleteWidget()" class="btn btn-danger btn-block">Delete</a>
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">

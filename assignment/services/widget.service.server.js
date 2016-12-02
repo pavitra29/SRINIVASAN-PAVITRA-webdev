@@ -1,7 +1,6 @@
 module.exports = function (app, model) {
 
     var multer = require('multer'); // npm install multer --save
-    var pathlibrary = require('path');
 
     var upload = multer({ dest: __dirname+'/../../public/assignment/upload' });
 
@@ -23,13 +22,10 @@ module.exports = function (app, model) {
         var initial = parseInt(query.initial);
         var final = parseInt(query.final);
 
-        // console.log([initial, final]);
-
         model
             .widgetModel
             .reorderWidget(pid, initial, final);
 
-        // widgets.splice(final, 0 ,widgets.splice(initial,1)[0]);
 
     }
 
@@ -41,7 +37,6 @@ module.exports = function (app, model) {
             .createWidget(req.params.pageId, widget)
             .then(
                 function (widget) {
-                    // console.log(widget);
                     res.send(widget);
                 },
                 function (error) {

@@ -15,15 +15,13 @@
 
         function createWidget(widget) {
 
-            console.log("Inside create widget: "+widget.widgetType);
-
             WidgetService
                 .createWidget(vm.pageId,widget)
                 .success(function (widget) {
                     $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+widget._id);
                 })
                 .error(function () {
-                    
+
                 });
 
         }

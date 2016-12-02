@@ -16,21 +16,22 @@
     </div>
 </nav>
 <div class="container-fluid">
-    <form>
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input ng-model="model.widget.name" type="text" class="form-control" id="name" placeholder="Name">
-        </div>
-        <div class="form-group">
-            <label for="text">Text</label>
-            <input ng-model="model.widget.text" type="text" class="form-control" id="text" placeholder="The Best Hidden Features in iOS 10">
-        </div>
-        <div class="form-group">
-            <label for="size">Size</label>
-            <input ng-model="model.widget.size" type="text" class="form-control" id="size" placeholder="3">
-        </div>
-        <a ng-click="model.deleteWidget()" class="btn btn-danger btn-block">Delete</a>
-    </form>
+    <div ng-show="model.error" class="alert alert-danger" role="alert">
+        {{model.error}}
+    </div>
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input ng-model="model.widget.name" type="text" class="form-control" id="name" placeholder="Name">
+    </div>
+    <div class="form-group">
+        <label for="text">Text</label>
+        <input ng-model="model.widget.text" type="text" class="form-control" id="text" placeholder="The Best Hidden Features in iOS 10">
+    </div>
+    <div class="form-group">
+        <label for="size">Size</label>
+        <input ng-model="model.widget.size" type="text" class="form-control" id="size" placeholder="3">
+    </div>
+    <a ng-click="model.deleteWidget()" class="btn btn-danger btn-block">Delete</a>
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">

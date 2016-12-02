@@ -46,10 +46,6 @@
 
         var pageId = $routeParams.pid;
 
-        if(pageId) {
-            console.log(pageId);
-        }
-
         function sort(start, end) {
             WidgetService.sort(pageId, start, end);
         }

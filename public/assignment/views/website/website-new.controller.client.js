@@ -45,7 +45,6 @@
                 }
                 else {
 
-                    // website._id = (new Date()).getTime();
                     website.developerId = vm.userId;
 
                     WebsiteService

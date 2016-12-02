@@ -46,7 +46,6 @@
                 }
                 else {
 
-                    // page._id = (new Date()).getTime();
                     page.websiteId = vm.websiteId;
 
                     PageService

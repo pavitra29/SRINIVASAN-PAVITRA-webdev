@@ -12,6 +12,7 @@ module.exports = function () {
         findUserById: findUserById,
         findUserByGoogleId: findUserByGoogleId,
         findUserByFacebookId: findUserByFacebookId,
+        findUserByInstagramId: findUserByInstagramId,
         updateUser: updateUser,
         findUserByUsername: findUserByUsername,
         findUserByCredentials: findUserByCredentials,
@@ -20,6 +21,13 @@ module.exports = function () {
         setModel: setModel
     };
     return api;
+
+    function findUserByInstagramId(instaId) {
+        return UserModel
+            .findOne({
+                "insta.id": instaId
+            });
+    }
 
     function findUserByGoogleId(googleId) {
         return UserModel

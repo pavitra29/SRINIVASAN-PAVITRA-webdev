@@ -70,7 +70,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-/*    width: 100%;*/
+/*    width: 100%;*/ /*this style given by Prof not working for resizing youtube widget*/
     height: 100%;
 }
 

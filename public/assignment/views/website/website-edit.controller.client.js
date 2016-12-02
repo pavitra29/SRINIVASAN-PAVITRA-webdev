@@ -51,15 +51,20 @@
         }
 
         function updateWebsite(website) {
-            WebsiteService
-                .updateWebsite(website._id,website)
-                .success(function () {
-                    $location.url("/user/"+vm.userId+"/website");        
-                })
-                .error(function () {
-                    
-                });
-            
+
+            if(!website || !website.name) {
+                vm.error = "Website name cannot be empty!";
+            }
+            else {
+                WebsiteService
+                    .updateWebsite(website._id, website)
+                    .success(function () {
+                        $location.url("/user/" + vm.userId + "/website");
+                    })
+                    .error(function () {
+
+                    });
+            }
         }
     }
 

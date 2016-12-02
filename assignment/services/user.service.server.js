@@ -4,6 +4,7 @@ module.exports = function(app, model) {
     var LocalStrategy    = require('passport-local').Strategy;
     var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
     var FacebookStrategy = require('passport-facebook').Strategy;
+    var InstaStrategy = require('passport-instagram').Strategy;
 
     var cookieParser  = require('cookie-parser');
     var session       = require('express-session');
@@ -29,6 +30,8 @@ module.exports = function(app, model) {
 
     app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
     app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
+    app.get('/auth/instagram', passport.authenticate('instagram'));
+
     app.post('/api/login', passport.authenticate('local'), login);
     app.post ('/api/register', register);
     app.post('/api/checkLogin', checkLogin);
@@ -53,6 +56,12 @@ module.exports = function(app, model) {
             failureRedirect: '/assignment/index.html#/login'
         }));
 
+    app.get('/auth/instagram/callback',
+        passport.authenticate('instagram', {
+            successRedirect: '/assignment/index.html#/user',
+            failureRedirect: '/assignment/index.html#/login'
+        }));
+
     var googleConfig = {
         clientID     : process.env.GOOGLE_CLIENT_ID,
         clientSecret : process.env.GOOGLE_CLIENT_SECRET,
@@ -65,6 +74,15 @@ module.exports = function(app, model) {
         callbackURL  : process.env.FACEBOOK_CALLBACK_URL
     };
 
+    var instaConfig = {
+        clientID     : process.env.INSTAGRAM_CLIENT_ID,
+        clientSecret : process.env.INSTAGRAM_CLIENT_SECRET,
+        callbackURL  : process.env.INSTAGRAM_CALLBACK_URL
+    };
+
+    if (instaConfig.clientID) {
+        passport.use(new InstaStrategy(instaConfig, instaStrategy));
+    }
 
     if (process.env.GOOGLE_CLIENT_ID) {
         passport.use(new GoogleStrategy(googleConfig, googleStrategy));
@@ -86,6 +104,42 @@ module.exports = function(app, model) {
             res.sendStatus(400).send("You are not the same person");
         }
 
+    }
+
+    function instaStrategy(token, refreshToken, profile, done) {
+        console.log(profile);
+        model
+            .userModel
+            .findUserByInstagramId(profile.id)
+            .then(
+                function(user) {
+                    if(user) {
+                        return done(null, user);
+                    } else {
+                        var newInstaUser = {
+                            username:  profile.username,
+                            firstName: profile.displayName.split(" ")[0],
+                            lastName:  profile.displayName.split(" ")[1],
+                            insta: {
+                                id:    profile.id,
+                                token: token
+                            }
+                        };
+                        return model.userModel.createUser(newInstaUser);
+                    }
+                },
+                function(err) {
+                    if (err) { return done(err); }
+                }
+            )
+            .then(
+                function(user){
+                    return done(null, user);
+                },
+                function(err){
+                    if (err) { return done(err); }
+                }
+            );
     }
 
     function googleStrategy(token, refreshToken, profile, done) {
@@ -170,7 +224,7 @@ module.exports = function(app, model) {
     function register (req, res) {
         var user = req.body;
 
-        // user.password = bcrypt.hashSync(user.password);
+        user.password = bcrypt.hashSync(user.password);
         model
             .userModel
             .createUser(user)
@@ -233,15 +287,15 @@ module.exports = function(app, model) {
                                                         // like userNm, pass, someFunction
                                                         // but the sequence means first is username, second is password
                                                         // and third is a function
-        // password = bcrypt.hashSync(password);
 
         model
             .userModel
-            .findUserByCredentials(username, password)
+            .findUserByUsername(username)
+            // .findUserByCredentials(username, password) //comented to use bcrypt on returned user password
             .then(
                 function (user) {
-                    // if (user && bcrypt.compareSync(password, user.password)) {
-                    if(user) {
+                    if (user && bcrypt.compareSync(password, user.password)) {
+                    // if(user) {
                         return done(null, user);
                     }
                     else {
@@ -249,7 +303,7 @@ module.exports = function(app, model) {
                     }
                 },
                 function (error) {
-                    return done(error);
+                    res.sendStatus(400).send(error);
                 }
             );
     }

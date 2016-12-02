@@ -20,7 +20,6 @@
                 .findWidgetsByPageId(vm.pageId)
                 .success(function (widgets) {
                     vm.widgets = widgets;
-                    console.log([widgets]);
                 })
                 .error(function () {
                     
@@ -36,13 +35,15 @@
 
         function checkSafeYouTubeUrl(url) {
 
-            var parts = url.split('/');
-            var id = parts[parts.length-1];
+            if(url) {
+                var parts = url.split('/');
+                var id = parts[parts.length - 1];
 
-            url = "https://www.youtube.com/embed/"+id;
+                url = "https://www.youtube.com/embed/" + id;
 
-            return $sce.trustAsResourceUrl(url);
+                return $sce.trustAsResourceUrl(url);
 
+            }
         }
 
         function checkSafeImage(url) {

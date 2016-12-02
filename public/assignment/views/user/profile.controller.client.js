@@ -10,13 +10,13 @@
         vm.deleteUser = deleteUser;
         vm.logout =  logout;
 
-        // var userId = $routeParams["uid"];
+        // var userId = $routeParams["uid"]; //userId not needed as the current user is in session
 
         function init() {
 
             UserService
                 // .findUserById(userId)
-                .findCurrentUser()
+                .findCurrentUser() //returning the current user from session which is stored in req.user on server
                 .success(function (user) {
                     if(user != '0') {
                         vm.user = user;
