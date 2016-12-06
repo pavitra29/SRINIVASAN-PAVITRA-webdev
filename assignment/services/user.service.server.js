@@ -18,8 +18,6 @@ module.exports = function(app, model) {
         saveUninitialized: true
     }));
 
-    // console.log(process.env.SESSION_SECRET);
-
     app.use(cookieParser());
     app.use(passport.initialize());
     app.use(passport.session()); // then configure passport session
@@ -80,7 +78,7 @@ module.exports = function(app, model) {
         callbackURL  : process.env.INSTAGRAM_CALLBACK_URL
     };
 
-    if (instaConfig.clientID) {
+    if (process.env.INSTAGRAM_CLIENT_ID) {
         passport.use(new InstaStrategy(instaConfig, instaStrategy));
     }
 
@@ -191,13 +189,10 @@ module.exports = function(app, model) {
                     if(user) {
                         return done(null, user);
                     } else {
-                        // var email = profile.emails[0].value;
-                        // var emailParts = email.split("@");
                         var newFacebookUser = {
                             username:  profile.displayName.split(" ")[0].toLowerCase(),
                             firstName: profile.displayName.split(" ")[0],
                             lastName:  profile.displayName.split(" ")[1],
-                            // email:     email,
                             facebook: {
                                 id:    profile.id,
                                 token: token

@@ -3,9 +3,7 @@ module.exports = function () {
     // mongoose.connect('mongodb://127.0.0.1:27017/wam-fall-2016');
 
     var mongoLocalURI = 'mongodb://localhost/wam-fall-2016';
-    mongoose.connect(process.env.MONGODB_URI || mongoLocalURI);
-
-    // console.log(process.env.MONGODB_URI);
+    mongoose.connect(process.env.MONGODB_URI || mongoLocalURI); //added for local or mongoLab
 
     var userModel = require("./user/user.model.server")();
     var websiteModel = require("./website/website.model.server")();

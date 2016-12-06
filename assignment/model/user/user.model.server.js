@@ -44,6 +44,7 @@ module.exports = function () {
 
     }
 
+    // Commented this because we can get the list of websites for a user using _user reference in website model
     // function findAllWebsitesForUser(userId) {
     //     return UserModel
     //         .findById(userId)

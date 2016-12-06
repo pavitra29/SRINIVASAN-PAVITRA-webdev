@@ -70,7 +70,6 @@ module.exports = function () {
     }
 
     function deletePage(pageId) {
-        // TODO: remove page from website
         return PageModel
             .remove({
                 _id: pageId

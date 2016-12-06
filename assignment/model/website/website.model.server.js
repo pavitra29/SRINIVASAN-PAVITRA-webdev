@@ -40,42 +40,16 @@ module.exports = function () {
     }
 
     function deleteWebsite(websiteId) {
-        // TODO: remove website from user
         return WebsiteModel
             .remove({
                 _id: websiteId
             });
 
-        // return WebsiteModel
-        //     .findById({
-        //         _id:websiteId
-        //     })
-        //     .then(function (websiteObj) {
-        //         model
-        //             .findUserById(websiteObj._user)
-        //             .then(function (userObj) {
-        //                     userObj.websites.splice(websiteObj,1);
-        //                     userObj.save();
-        //
-        //                     return WebsiteModel
-        //                         .remove({
-        //                             _id: websiteId
-        //                         });
-        //
-        //                 },
-        //                 function (error) {
-        //                     console.log(error);
-        //                 }
-        //             )
-        //
-        //     },
-        //     function (error) {
-        //         console.log(error);
-        //     })
-
     }
 
     function findAllWebsitesForUser(userId) {
+        // Commented because we can get the list of websites using _user from the website model itself
+        // instead of making call to the user model
         // return model.userModel.findAllWebsitesForUser(userId);
         return WebsiteModel
             .find({
