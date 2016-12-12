@@ -12,11 +12,12 @@ app.set('view engine', 'ejs');
 
 // require ("./test/app.js")(app);
 
-require("./project/app.js")(app);
+// require("./project/app.js")(app);
 
-// require("./assignment/app.js")(app);
+require("./assignment/app.js")(app);
 
 require("./ejs/forms/app")(app);
+require("./wax/app")(app);
 
 app.set('ipaddress', (process.env.IP));
 app.set('port', (process.env.PORT || 3000));

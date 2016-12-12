@@ -1,6 +1,6 @@
 (function () {
     angular
-        .module("MyAngularApp")
+        .module("SpotTunesApp")
         .controller("RegisterController", RegisterController);
 
     function RegisterController($location, UserService, $rootScope) {

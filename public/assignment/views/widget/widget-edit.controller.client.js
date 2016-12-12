@@ -33,6 +33,7 @@
                 vm.error = "Widget name cannot be empty!";
             }
             else {
+
                 WidgetService
                     .updateWidget(vm.widgetId, widget)
                     .success(function () {

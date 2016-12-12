@@ -1,0 +1,45 @@
+(function () {
+
+    angular
+        .module("<%= applicationName%>",[])
+        .config(Config);
+
+    function Config($routeProvider) {
+
+        $routeProvider
+
+<% for(var p in views) { %>
+.when("/<%= views[p].name%>", {
+templateUrl: "/wax/<%= views[p].name%>.html"
+
+})
+<%}%>
+
+<% for(var p in entities) { %>
+.when("/<%= entities[p].name%>", {
+templateUrl: "/wax/<%= entities[p].name%>/list.html"
+
+})
+<%}%>
+
+
+<% for(var p in entities) { %>
+.when("/<%= entities[p].name%>/:<%= entities[p].name%>Id", {
+templateUrl: "/wax/<%= entities[p].name%>/details.html"
+
+})
+<%}%>
+
+
+            .when("/default", {
+                templateUrl: "/wax/default.html"
+
+            })
+
+            .otherwise({
+                redirectTo: "/default"
+            });
+
+    }
+
+})();

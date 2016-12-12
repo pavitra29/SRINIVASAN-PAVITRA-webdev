@@ -1,6 +1,6 @@
 (function () {
     angular
-        .module("MyAngularApp")
+        .module("SpotTunesApp")
         .config(Config);
 
     function Config($routeProvider) {
@@ -48,22 +48,46 @@
                     // resolved will be true once all of them are complete
                 }
             })
+            .when("/reviews/:userId", {
+                templateUrl: "views/user/profile/review/review.view.client.html",
+                controller: "ReviewsController",
+                controllerAs: "model"
+            })
+            .when("/followers/:userId", {
+                templateUrl: "views/user/profile/follow/follower.view.client.html",
+                controller: "FollowersController",
+                controllerAs: "model"
+            })
+            .when("/following/:userId", {
+                templateUrl: "views/user/profile/follow/following.view.client.html",
+                controller: "FollowingController",
+                controllerAs: "model"
+            })
+            .when("/favorites/:userId", {
+                templateUrl: "views/user/profile/favorite/favorite.view.client.html",
+                controller: "FavoritesController",
+                controllerAs: "model"
+            })
             .when("/search", {
-                templateUrl: "views/search/music-search.view.client.html",
+                templateUrl: "views/music/search/music-search.view.client.html",
                 controller: "MusicSearchController",
                 controllerAs: "model"
             })
             .when("/search/:title", {
-                templateUrl: "views/search/music-search.view.client.html",
+                templateUrl: "views/music/search/music-search.view.client.html",
                 controller: "MusicSearchController",
                 controllerAs: "model"
             })
             .when("/details/:id/:title", {
-                templateUrl: "views/search/music-details.view.client.html",
+                templateUrl: "views/music/details/music-details.view.client.html",
                 controller: "MusicDetailsController",
                 controllerAs: "model"
             })
-
+            .when("/details/:id/:page", {
+                templateUrl: "views/music/details/music-details.view.client.html",
+                controller: "MusicDetailsController",
+                controllerAs: "model"
+            })
             .otherwise({
                 redirectTo: "/login"
             });

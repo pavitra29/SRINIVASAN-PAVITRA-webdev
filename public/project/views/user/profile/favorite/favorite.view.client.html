@@ -1,0 +1,99 @@
+<div class="container-fluid well">
+    <div class="row text-center">
+        <div class="col-xs-4 col-sm-3">
+            <a href="#/user/{{currentUser._id}}">
+                <img class="img-responsive img-thumbnail profile-image" ng-src="{{model.user.imageUrl || '/homepage/images/user_icon.jpg'}}"/>
+            </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+            <a href="#/favorites/{{currentUser._id}}">
+                <div class="row">
+                    <h5>
+                        <i class="fa fa-users" aria-hidden="true"></i>
+                        Favorites
+                    </h5>
+                </div>
+                <div class="row">
+                    {{currentUser.favorites.length}}
+                </div>
+            </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+            <a href="#/reviews/{{currentUser._id}}">
+                <div class="row">
+                    <h5>
+                        <i class="fa fa-users" aria-hidden="true"></i>
+                        Reviews
+                    </h5>
+                </div>
+                <div class="row">
+                    {{model.reviews.length}}
+                </div>
+            </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+            <a href="#/followers/{{currentUser._id}}">
+                <div class="row">
+                    <h5>
+                        <i class="fa fa-users" aria-hidden="true"></i>
+                        Followers
+                    </h5>
+                </div>
+                <div class="row">
+                    {{currentUser.follower.length}}
+                </div>
+            </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+            <a href="#/following/{{currentUser._id}}">
+                <div class="row">
+                    <h5>
+                        <i class="fa fa-users" aria-hidden="true"></i>
+                        Following
+                    </h5>
+                </div>
+                <div class="row">
+                    {{currentUser.following.length}}
+                </div>
+            </a>
+        </div>
+    </div>
+    <h1 class="page-header less-top-margin">Favorites</h1>
+
+    <div class="row" ng-hide="model.music.length > 0">
+        <div class="alert alert-info alert-box" role="alert">
+            <div>
+                <b>Info! </b>
+                No favorite music yet!
+            </div>
+        </div>
+    </div>
+
+    <div ng-repeat="music in model.music">
+        <div class="media">
+            <a class="pull-left" href="">
+                <img class="media-object profile-image thumbnail" ng-src={{music.imageUrl}} alt="">
+            </a>
+            <div class="media-body">
+                <h4 class="media-heading">
+                    <a href="#/details/{{music._id}}/favorites">
+                        {{music.name}}
+                    </a>
+                </h4>
+                <h4>
+                    <a href="" ng-click="model.favoriteMusic($index)"
+                       ng-hide="music.isFavorite">
+                        <i class="fa fa-heart"></i>
+                    </a>
+                </h4>
+                <h4>
+                    <a href="" ng-click="model.undoFavoriteMusic($index)"
+                       ng-show="music.isFavorite">
+                        <i class="fa fa-heart" style="color: red"></i>
+                    </a>
+                </h4>
+            </div>
+        </div>
+        <hr>
+    </div>
+</div>

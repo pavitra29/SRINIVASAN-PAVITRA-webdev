@@ -4,7 +4,7 @@
         .controller("EditPageController", EditPageController);
 
 
-    function EditPageController($routeParams, $location, PageService) {
+    function EditPageController($routeParams, $location, PageService, $scope) {
         var vm = this;
 
         vm.userId = $routeParams['uid'];
@@ -42,14 +42,18 @@
                 vm.error = "Page name cannot be empty!";
             }
             else {
-                PageService
-                    .updatePage(page._id, page)
-                    .success(function () {
-                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page"); 
-                    })
-                    .error(function () {
-                        
-                    });
+
+                if($scope.editPageForm.$valid) {
+
+                    PageService
+                        .updatePage(page._id, page)
+                        .success(function () {
+                            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                        })
+                        .error(function () {
+
+                        });
+                }
             }
         }
 

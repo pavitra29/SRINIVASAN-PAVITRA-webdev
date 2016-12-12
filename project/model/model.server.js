@@ -7,12 +7,18 @@ module.exports = function () {
     // mongoose.connect(process.env.MONGODB_URI || mongoLocalURI);
 
     var userModel = require("./user/user.model.server")();
+    var musicModel = require("./music/music.model.server")();
+    var reviewModel = require("./review/review.model.server")();
 
     var model = {
-        userModel: userModel
+        userModel: userModel,
+        musicModel: musicModel,
+        reviewModel: reviewModel
     };
 
     userModel.setModel(model);
+    // musicModel.setModel(model);
+    // reviewModel.setModel(model);
 
     return model;
 

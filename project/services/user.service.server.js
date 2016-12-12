@@ -5,6 +5,7 @@ module.exports = function(app, model) {
     var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
     var FacebookStrategy = require('passport-facebook').Strategy;
     var InstaStrategy = require('passport-instagram').Strategy;
+    var SpotifyStrategy = require('passport-spotify').Strategy;
 
     var cookieParser  = require('cookie-parser');
     var session       = require('express-session');
@@ -29,6 +30,7 @@ module.exports = function(app, model) {
     app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
     app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
     app.get('/auth/instagram', passport.authenticate('instagram'));
+    app.get('/auth/spotify', passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private'] } ));
 
     app.post('/api/login', passport.authenticate('local'), login);
     app.post ('/api/register', register);
@@ -60,6 +62,12 @@ module.exports = function(app, model) {
             failureRedirect: '/project/index.html#/login'
         }));
 
+    app.get('/auth/spotify/callback',
+        passport.authenticate('spotify', {
+            successRedirect: '/project/index.html#/user',
+            failureRedirect: '/project/index.html#/login'
+        }));
+
     var googleConfig = {
         clientID     : process.env.GOOGLE_CLIENT_ID,
         clientSecret : process.env.GOOGLE_CLIENT_SECRET,
@@ -78,6 +86,16 @@ module.exports = function(app, model) {
         callbackURL  : process.env.INSTAGRAM_CALLBACK_URL
     };
 
+    var spotifyConfig = {
+        clientID     : "6e3093e297774bf0bde9510a3963fe0e",
+        clientSecret : "d4dc91c8b2894f00a411bc1ca971d248",
+        callbackURL  : "http://127.0.0.1:3000/auth/spotify/callback"
+    };
+
+    // if (process.env.INSTAGRAM_CLIENT_ID) {
+        passport.use(new SpotifyStrategy(spotifyConfig, spotifyStrategy));
+    // }
+
     if (process.env.INSTAGRAM_CLIENT_ID) {
         passport.use(new InstaStrategy(instaConfig, instaStrategy));
     }
@@ -89,6 +107,252 @@ module.exports = function(app, model) {
     if (process.env.FACEBOOK_CLIENT_ID) {
         passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
     }
+
+
+    /**
+     * newly added content
+     * */
+    var multer = require('multer'); // npm install multer --save
+    var upload = multer({ dest: __dirname+'/../../public/project/upload' });
+    app.put("/api/user/:userId/music/:musicId/favorite", favoriteMusic);
+    app.put("/api/user/:userId/music/:musicId/undofavorite", undoFavoriteMusic);
+    app.get("/api/user/:userId/music/:musicId/ismusicfavorite", isMusicFavorite);
+    app.put("/api/user/:followerId/follows/:followingId", follow);
+    app.put("/api/user/:followerId/unfollows/:followingId", unfollow);
+    app.get("/api/user/:followerId/isalreadyfollowing/:followingId", isAlreadyFollowing);
+    app.get("/api/user/:userId/following", findAllFollowingUsers);
+    app.get("/api/user/:userId/followers", findAllFollowersUsers);
+    app.get("/api/user/:userId/favorites", findAllFavoriteMusic);
+    app.post("/api/user/:id", upload.single('profileImg'), updateUserWithImage);
+
+    function favoriteMusic(req, res) {
+        var reqMusicId = req.params.musicId;
+        var reqUserId = req.params.userId;
+        model
+            .userModel
+            .favoriteMusic(reqUserId, reqMusicId)
+            .then(
+                function (response) {
+                    res.json(response);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+    function undoFavoriteMusic(req, res) {
+        var reqMusicId = req.params.musicId;
+        var reqUserId = req.params.userId;
+        model
+            .userModel
+            .undoFavoriteMusic(reqUserId, reqMusicId)
+            .then(
+                function (response) {
+                    res.json(response);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+    function isMusicFavorite(req, res) {
+        var reqMusicId = req.params.musicId;
+        var reqUserId = req.params.userId;
+        model
+            .userModel
+            .findMusicByFavorite(reqUserId, reqMusicId)
+            .then(
+                function (user) {
+                    res.json(user);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+    function follow(req, res) {
+        var followerId = req.params.followerId;
+        var followingId = req.params.followingId;
+
+        // console.log("inside server service");
+        // console.log(loggedInUserId);
+        // console.log(navigateUserId);
+
+        console.log(req);
+
+        model
+            .userModel
+            .addFollowingUser(followerId, followingId)
+            .then(
+                function (response) {
+                    return model
+                        .userModel
+                        .addFollowerUser(followerId, followingId);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function (response) {
+                    res.json(response);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                });
+    }
+
+    function unfollow(req, res) {
+        var loggedInUserId = req.params.loggedInUserId;
+        var navigateUserId = req.params.navigateUserId;
+        model
+            .userModel
+            .removeFollowingUser(loggedInUserId, navigateUserId)
+            .then(
+                function (response) {
+                    return model
+                        .userModel
+                        .removeFollowerUser(navigateUserId, loggedInUserId);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function (response) {
+                    res.json(response);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                });
+    }
+
+    function isAlreadyFollowing(req, res) {
+        var loggedInUserId = req.params.loggedInUserId;
+        var navigateUserId = req.params.navigateUserId;
+        model
+            .userModel
+            .findAlreadyFollowingUser(loggedInUserId, navigateUserId)
+            .then(
+                function (user) {
+                    res.json(user);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+    function findAllFollowingUsers(req, res) {
+        var reqUserId = req.params.userId;
+        model.userModel
+            .findUserById(reqUserId)
+            .then(
+                function (user) {
+                    return model.userModel.findAllFollowingUsers(user.following);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function (users) {
+                    res.json(users);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+    function findAllFollowersUsers(req, res) {
+        var reqUserId = req.params.userId;
+        model.userModel
+            .findUserById(reqUserId)
+            .then(
+                function (user) {
+                    return model.userModel.findAllFollowersUsers(user.follower);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function (users) {
+                    res.json(users);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+    function findAllFavoriteMusic(req, res) {
+        var reqUserId = req.params.userId;
+        model
+            .userModel
+            .findUserById(reqUserId)
+            .then(
+                function (user) {
+
+                    console.log(user.favorites);
+
+                    return model
+                        .musicModel
+                        .findAllFavoriteMusic(user.favorites);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function (music) {
+                    res.json(music);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+    function updateUserWithImage(req, res) {
+        var userId = req.params.id;
+        var user = req.body;
+        var imageFile = req.file;
+
+        if (imageFile) {
+            var destination = imageFile.destination;
+            var path = imageFile.path;
+            var originalname = imageFile.originalname;
+            var size = imageFile.size;
+            var mimetype = imageFile.mimetype;
+            var filename = imageFile.filename;
+            user.imgUrl = "/uploads/" + filename;
+        }
+
+        model
+            .userModel.updateUser(userId, user)
+            .then(function (response) {
+                    return userModel.findUserById(userId);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                })
+            .then(function (response) {
+                req.session.currentUser = response;
+                res.redirect(req.header('Referer') + "#/user/" + userId);
+            }, function (err) {
+                res.status(400).send(err);
+            });
+    }
+
+    /**
+     * no change after this line
+     * */
+
 
     function loggedInAndSelf(req, res, next) {
         var loggedIn = req.isAuthenticated();
@@ -102,6 +366,44 @@ module.exports = function(app, model) {
             res.sendStatus(400).send("You are not the same person");
         }
 
+    }
+
+
+    function spotifyStrategy(token, refreshToken, profile, done) {
+        console.log(profile);
+        model
+            .userModel
+            .findUserBySpotifyId(profile.id)
+            .then(
+                function(user) {
+                    if(user) {
+                        return done(null, user);
+                    } else {
+                        var newSpotifyUser = {
+                            email: profile.email,
+                            username:  profile.username,
+                            firstName: profile.displayName.split(" ")[0],
+                            lastName:  profile.displayName.split(" ")[1],
+                            spotify: {
+                                id:    profile.id,
+                                token: token
+                            }
+                        };
+                        return model.userModel.createUser(newSpotifyUser);
+                    }
+                },
+                function(err) {
+                    if (err) { return done(err); }
+                }
+            )
+            .then(
+                function(user){
+                    return done(null, user);
+                },
+                function(err){
+                    if (err) { return done(err); }
+                }
+            );
     }
 
     function instaStrategy(token, refreshToken, profile, done) {

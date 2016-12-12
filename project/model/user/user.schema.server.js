@@ -19,13 +19,18 @@ module.exports = function () {
             id:    String,
             token: String
         },
-        yelp: {
-            id:    String,
+        spotify: {
+            id: String,
             token: String
         },
+        favorites: [String],
+        follower: [String],
+        following: [String],
         email: String,
         phone: String,
-        role: {type: String, default: 'STUDENT', enum: ['ADMIN', 'STUDENT', 'FACULTY']},
+        birthDate : {type: Date},
+        imgUrl: String,
+        role: {type: String, default: 'USER', enum: ['ADMIN', 'USER']},
         dateCreated: {type: Date, default: Date.now()}
     }, {collection: "user"});
 

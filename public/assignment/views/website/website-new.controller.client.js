@@ -3,7 +3,7 @@
         .module("WebAppMaker")
         .controller("NewWebsiteController", NewWebsiteController);
 
-    function NewWebsiteController($location, $routeParams, WebsiteService) {
+    function NewWebsiteController($location, $routeParams, WebsiteService, $scope) {
         var vm = this;
 
         vm.userId = $routeParams['uid'];
@@ -47,14 +47,17 @@
 
                     website.developerId = vm.userId;
 
-                    WebsiteService
-                        .createWebsite(vm.userId, website)
-                        .success(function (website) {
-                            $location.url("/user/" + vm.userId + "/website");
-                        })
-                        .error(function () {
 
-                        });
+                    if($scope.websiteForm.$valid) {
+                        WebsiteService
+                            .createWebsite(vm.userId, website)
+                            .success(function (website) {
+                                $location.url("/user/" + vm.userId + "/website");
+                            })
+                            .error(function () {
+
+                            });
+                    }
                 }
             }
         }

@@ -1,10 +1,99 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div class="container-fluid well">
+    <div class="row text-center">
+        <div class="col-xs-4 col-sm-3">
+            <a href="#/user/{{currentUser._id}}">
+                <img class="img-responsive img-thumbnail profile-image" ng-src="{{model.user.imageUrl || '/homepage/images/user_icon.jpg'}}"/>
+            </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+            <a href="#/favorites/{{currentUser._id}}">
+                <div class="row">
+                    <h5>
+                        <i class="fa fa-users" aria-hidden="true"></i>
+                        Favorites
+                    </h5>
+                </div>
+                <div class="row">
+                    {{currentUser.favorites.length}}
+                </div>
+            </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+            <a href="#/reviews/{{currentUser._id}}">
+                <div class="row">
+                    <h5>
+                        <i class="fa fa-users" aria-hidden="true"></i>
+                        Reviews
+                    </h5>
+                </div>
+                <div class="row">
+                    {{model.reviews.length}}
+                </div>
+            </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+            <a href="#/followers/{{currentUser._id}}">
+                <div class="row">
+                    <h5>
+                        <i class="fa fa-users" aria-hidden="true"></i>
+                        Followers
+                    </h5>
+                </div>
+                <div class="row">
+                    {{currentUser.follower.length}}
+                </div>
+            </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+            <a href="#/following/{{currentUser._id}}">
+                <div class="row">
+                    <h5>
+                        <i class="fa fa-users" aria-hidden="true"></i>
+                        Following
+                    </h5>
+                </div>
+                <div class="row">
+                    {{currentUser.following.length}}
+                </div>
+            </a>
+        </div>
+    </div>
 
-</body>
-</html>
+    <h1 class="page-header less-top-margin">Following</h1>
+
+    <div class="row" ng-hide="currentUser.follower.length > 0">
+        <div class="alert alert-info alert-box" role="alert">
+            <div>
+                <b>Info! </b>
+                Not following anyone yet!
+            </div>
+        </div>
+    </div>
+
+    <div ng-repeat="user in model.users">
+        <div class="media">
+            <div class="media-body">
+                <h3 class="media-heading">
+                    <a href="#/reviews/{{user._id}}">
+                        {{user.firstName + " " + user.lastName}}
+                    </a>
+                </h3>
+                <div ng-hide="user.itsMe">
+                    <a href=""
+                       ng-click="model.follow($index)"
+                       ng-hide="user.alreadyFollowing"
+                       class="btn-sm btn-success">Follow
+                    </a>
+                </div>
+                <div ng-hide="user.itsMe">
+                    <a href=""
+                       ng-click="model.unfollow($index)"
+                       ng-show="user.alreadyFollowing"
+                       class="btn-sm btn-danger">Unfollow
+                    </a>
+                </div>
+            </div>
+        </div>
+        <hr>
+    </div>
+</div>

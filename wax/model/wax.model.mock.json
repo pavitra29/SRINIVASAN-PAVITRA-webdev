@@ -1,0 +1,24 @@
+{
+  "applicationName": "tictactoe",
+  "views": [
+    {"name": "page1"},
+    {"name": "page2"},
+    {"name": "page3"}
+  ],
+  "entities" : [
+    {
+      "name" : "course",
+      "schema": {
+        "title": "String",
+        "start": "Date"
+      }
+    },
+    {
+      "name" : "student",
+      "schema": {
+        "first": "String",
+        "last": "String"
+      }
+    }
+  ]
+}

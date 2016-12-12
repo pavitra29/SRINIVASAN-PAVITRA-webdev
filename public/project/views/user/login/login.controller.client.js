@@ -1,6 +1,6 @@
 (function(){
     angular
-        .module("MyAngularApp")
+        .module("SpotTunesApp")
         .controller("LoginController", LoginController);
 
     function LoginController($location, UserService, $rootScope) {
@@ -20,17 +20,11 @@
                 UserService
                     .login(vm.user.username, vm.user.password)
                     .success(function (user) {
-
-                        if (!user) {
-                            vm.error = "No such user";
-                        } else {
-                            $rootScope.currentUser = user;
-                            $location.url("/user/" + user._id);
-                        }
-
+                        $rootScope.currentUser = user;
+                        $location.url("/user/" + user._id);
                     })
                     .error(function () {
-
+                        vm.error = "No such user";
                     });
             }
 

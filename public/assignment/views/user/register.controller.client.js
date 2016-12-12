@@ -3,7 +3,7 @@
         .module("WebAppMaker")
         .controller("RegisterController", RegisterController);
 
-    function RegisterController($location, UserService, $rootScope) {
+    function RegisterController($location, UserService, $rootScope, $scope) {
         var vm = this;
 
         vm.createUser = createUser;
@@ -32,14 +32,18 @@
 
                         }
                         else {
-                            UserService
-                                .register(vm.user)
-                                .then(
-                                    function(response) {
-                                        var user = response.data;
-                                        $rootScope.currentUser = user;
-                                        $location.url("/user/"+user._id);
-                                    });
+
+                            if($scope.registerForm.$valid) {
+
+                                UserService
+                                    .register(vm.user)
+                                    .then(
+                                        function (response) {
+                                            var user = response.data;
+                                            $rootScope.currentUser = user;
+                                            $location.url("/user/" + user._id);
+                                        });
+                            }
                         }
                     })
                     .error(function () {

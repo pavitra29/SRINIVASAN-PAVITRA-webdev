@@ -16,20 +16,23 @@
     </div>
 </nav>
 <div class="container-fluid">
-    <div ng-show="model.error" class="alert alert-danger" role="alert">
+    <div ng-show="htmlForm.name.$invalid && model.error" class="alert alert-danger" role="alert">
         {{model.error}}
     </div>
-    <div class="form-group">
-        <label for="html">Name</label>
-        <input ng-model="model.widget.name" type="text" class="form-control" id="html" placeholder="HTML tags">
-    </div>
-    <div ng-model="model.widget.text"
-         text-angular
-         ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],
+    <form novalidate name="htmlForm">
+        <div class="form-group">
+            <label for="html">Name</label>
+            <input ng-model="model.widget.name" type="text" class="form-control" id="html" placeholder="HTML tags" name="name" required>
+            <div class="error" ng-show="htmlForm.name.$invalid && model.error">Widget Name is required</div>
+        </div>
+        <div ng-model="model.widget.text"
+             text-angular
+             ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],
         ['ul','ol'],['justifyLeft','justifyCenter','justifyRight','justifyFull'],
         ['indent','outdent'],['html']]">
-    </div>
-    <a ng-click="model.deleteWidget()" class="btn btn-danger btn-block">Delete</a>
+        </div>
+        <a ng-click="model.deleteWidget()" class="btn btn-danger btn-block">Delete</a>
+    </form>
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">

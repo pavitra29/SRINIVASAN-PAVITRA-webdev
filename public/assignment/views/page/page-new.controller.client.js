@@ -3,7 +3,7 @@
         .module("WebAppMaker")
         .controller("NewPageController", NewPageController);
 
-    function NewPageController($location, $routeParams, PageService) {
+    function NewPageController($location, $routeParams, PageService, $scope) {
         var vm = this;
 
         vm.userId = $routeParams['uid'];
@@ -48,14 +48,17 @@
 
                     page.websiteId = vm.websiteId;
 
-                    PageService
-                        .createPage(vm.websiteId, page)
-                        .success(function () {
-                            $location.url("/user/"+ vm.userId +"/website/"+vm.websiteId+"/page");        
-                        })
-                        .error(function () {
-                            
-                        });
+                    if($scope.pageForm.$valid) {
+
+                        PageService
+                            .createPage(vm.websiteId, page)
+                            .success(function () {
+                                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                            })
+                            .error(function () {
+
+                            });
+                    }
                     
                 }
             }

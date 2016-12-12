@@ -4,7 +4,7 @@
         .controller("EditWebsiteController", EditWebsiteController);
 
 
-    function EditWebsiteController($routeParams, $location, WebsiteService) {
+    function EditWebsiteController($routeParams, $location, WebsiteService, $scope) {
         var vm = this;
 
         vm.websiteId = $routeParams['wid'];
@@ -56,14 +56,17 @@
                 vm.error = "Website name cannot be empty!";
             }
             else {
-                WebsiteService
-                    .updateWebsite(website._id, website)
-                    .success(function () {
-                        $location.url("/user/" + vm.userId + "/website");
-                    })
-                    .error(function () {
 
-                    });
+                if($scope.editWebsiteForm.$valid) {
+                    WebsiteService
+                        .updateWebsite(website._id, website)
+                        .success(function () {
+                            $location.url("/user/" + vm.userId + "/website");
+                        })
+                        .error(function () {
+
+                        });
+                }
             }
         }
     }

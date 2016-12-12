@@ -1,0 +1,32 @@
+<div class="container-fluid">
+
+    <h1 class="text-center">Search</h1>
+    <br>
+    <div class="input-group">
+        <input ng-model="model.title" type="text" class="form-control" placeholder="Search for Album...">
+        <span class="input-group-btn">
+            <button ng-click="model.searchMusicByTitle(model.title)" class="btn btn-default" type="button">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+        </span>
+    </div>
+    <br>
+    <div class="row">
+        <div ng-repeat="music in model.music">
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <a href="#/details/{{music.id}}/{{model.title}}">
+                        <div class="caption">
+                            <h3>{{music.name | limitTo:30}}{{music.name.length > 30 ? "..." : ""}}</h3>
+                        </div>
+                        <img class="img-responsive" ng-src="{{music.images[0].url}}"/>
+                    </a>
+                    <div class="caption">
+                        <h5>Type: {{music.type}}</h5>
+                    </div>
+                    <hr class="nomargin">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

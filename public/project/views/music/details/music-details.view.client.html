@@ -1,0 +1,298 @@
+<div class="container-fluid">
+    <div class="row">
+        <h1>
+            <a href="#/search/{{model.title}}">
+                <span class="glyphicon glyphicon-chevron-left"></span> Back to Search
+            </a>
+        </h1>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-sm-7">
+        <img class="img-responsive margin-top"
+             ng-src="{{model.music.images[0].url}}" width="100%"/>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="visible-inline-block">
+                    <h1>{{model.music.name}}</h1>
+                    <span ng-show="currentUser._id">
+                        <a href=""
+                           ng-click="model.favoriteMusic()"
+                           ng-hide="model.isFavorite">
+                            <i class="fa fa-heart"></i>
+                        </a>
+                        <a href=""
+                           ng-click="model.undoFavoriteMusic()"
+                           ng-show="model.isFavorite">
+                            <i class="fa fa-heart" style="color: red"></i>
+                        </a>
+                    </span>
+                    <span ng-show="!currentUser._id">
+                        <a href=""
+                           data-toggle="tooltip"
+                           data-placement="top"
+                           title="Please login to add to favorites!"
+                           ng-disabled="!currentUser._id">
+                            <i class="fa fa-heart" style="color: lightgrey"></i>
+                        </a>
+                    </span>
+                </div>
+                <div>
+
+                </div>
+                <div>
+                    <span class="caption">Release: </span>
+                    {{model.music.release_date}}
+                </div>
+                <div>
+                <span class="caption" ng-show="model.avgRating != 0">
+            Average Rating:
+                <ng-rating ng-model="model.avgRating"
+                           editable="false"
+                           show-grade="true">
+                </ng-rating>
+        </span>
+                </div>
+
+                <div class="caption">Genres:
+                    <span class="h4" ng-repeat="genre in model.artist.genres">
+                        {{"#" + genre}} &nbsp;
+                    </span>
+                </div>
+                <div>
+                    Spotify URL: <a href="{{model.music.external_urls.spotify}}">Click to listen on Spotify</a>
+                </div>
+
+                <hr class="nomargin margin-top">
+            </div>
+
+            <div class="panel-body">
+                <div class="media bottom-margin">
+                    <div class="media-left">
+                        <img class="media-object cast-object" ng-src="{{model.artist.images[2].url}}" alt="">
+                    </div>
+                    <div class="media-body">
+                        <h6 class="media-heading">Artist : {{model.artist.name}}</h6>
+                        <h6 class="media-heading">Popularity : {{model.artist.popularity}}</h6>
+                        <h6 class="media-heading">Followers : {{model.artist.followers.total}}</h6>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <hr>
+                <div class="panel-heading">
+                    <h4>Reviews</h4>
+                </div>
+                <div ng-repeat="review in model.reviews">
+                    <div class="panel-body">
+                        <div ng-if="model.selectedIndex === $index">
+                            <p>
+                                <ng-rating ng-model="model.editReview.rating"
+                                           editable="true">
+                                </ng-rating>
+                            </p>
+                            <form>
+                                <div class="form-group">
+                                    <input type="text" class="form-control"
+                                           placeholder="Please enter title of the review"
+                                           ng-model="model.editReview.title"/>
+                                </div>
+                                <div class="form-group">
+                    <textarea class="form-control" rows="3" placeholder="Please enter description of the review"
+                              ng-model="model.editReview.description"></textarea>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="media" ng-hide="model.selectedIndex === $index">
+                            <a class="pull-left" href="">
+                                <img class="media-object"
+                                     src="http://placehold.it/64x64"
+                                     alt=""
+                                     ng-show="!review.imgUrl">
+                                <img class="media-object limit-media-object-dimensions"
+                                     ng-src="{{review.imgUrl}}"
+                                     alt=""
+                                     ng-show="review.imgUrl">
+                            </a>
+                            <div class="media-body">
+                                <h4 class="media-heading">{{review.title}}</h4>
+                                <h4><small>
+                                        <span>
+                                            <ng-rating ng-model="review.rating"
+                                                       editable="false"
+                                                       show-grade="true">
+                                             </ng-rating>
+                                        </span>
+                                </small>
+                                </h4>
+                                <h4 class="media-heading" ng-show="currentUser">
+                                    <small>By
+                                        <a href="#/user/{{review.userId}}">{{review.userFirstName}}</a>
+                                        on
+                                        {{review.timestamp | date : 'mediumDate'}}
+                                    </small>
+                                </h4>
+                                <h4 class="media-heading" ng-show="!currentUser">
+                                    <small>By
+                                        <a href=""
+                                           data-toggle="tooltip"
+                                           data-placement="top"
+                                           title="Please login to view user profile!">
+                                            {{review.userFirstName}}
+                                        </a>
+                                        on
+                                        {{review.timestamp | date : 'mediumDate'}}
+                                    </small>
+                                </h4>
+                                <p class="text-justify">
+                                    {{review.description}}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="btn-group-md pull-right">
+                            <a href="" class="btn btn-success" role="button"
+                               ng-if="model.selectedIndex === $index"
+                               ng-click="model.updateReview(model.editReview)">
+                                <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                                Update
+                            </a>
+                            <a href="" class="btn btn-danger" role="button"
+                               ng-if="model.selectedIndex === $index"
+                               ng-click="model.cancelReview()">
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                                Cancel
+                            </a>
+                        </div>
+
+                        <div class="btn-group-md pull-right">
+                            <a href="" class="btn btn-warning" role="button"
+                               ng-if="model.selectedIndex !== $index && currentUser._id == review.userId"
+                               ng-click="model.selectReview($index)">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                                Edit
+                            </a>
+                            <a href="" class="btn btn-danger" role="button"
+                               ng-if="model.selectedIndex !== $index && currentUser._id == review.userId"
+                               ng-click="model.deleteReview($index)">
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                Delete
+                            </a>
+                        </div>
+                    </div>
+                    <hr class="nomargin">
+                </div>
+
+                <div class="panel-body">
+                    <div class="well">
+                        <h4>Write a Review:</h4>
+                        <p>
+                            <ng-rating ng-model="model.review.rating"
+                                       editable="true">
+                            </ng-rating>
+                        </p>
+                        <form>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Please enter title of the review"
+                                       ng-model="model.review.title"/>
+                            </div>
+                            <div class="form-group">
+                    <textarea class="form-control" rows="3" placeholder="Please enter description of the review"
+                              ng-model="model.review.description"></textarea>
+                            </div>
+                            <a href="" class="btn btn-success" ng-show="currentUser._id"
+                               ng-click="model.addReview(model.review)"
+                               role="button">Submit</a>
+                            <a href="" class="btn btn-warning" ng-show="!currentUser._id" ng-disabled="!currentUser._id"
+                               role="button" title="Please login to review!">Submit</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="visible-xs">
+                <div class="panel panel-default panel-color">
+                    <div class="panel-body less-padding">
+                        <div class="column center">
+                            <h1>Tracks</h1>
+                        </div>
+                        <div class="column add-bottom">
+                            <ul id="plList-xs">
+                                <li ng-repeat="row in model.music.tracks.items | limitTo:5">
+                                    <div class="plItem">
+                                        <div class="plNum">*</div>
+                                        <div class="plTitle">{{row.name}}</div>
+                                        <div class="audioplayer">
+                                            <audio class="audiocontrols" controls>
+                                                <source ng-src="{{row.preview_url}}">
+                                                Your browser does not support the audio element.
+                                            </audio>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="panel-body less-padding">
+                            <div class="column center">
+                                <h1>Related Artists</h1>
+                            </div>
+                            <div class="panel-body less-padding" ng-repeat="item in model.similar.artists | limitTo:3">
+                                <div class="caption">
+                                    <h5>{{item.name | limitTo:50}}{{item.name.length > 50 ? "..." : ""}}</h5>
+                                </div>
+                                <img class="img-responsive" ng-src="{{item.images[1].url}}" width="100%" height="100%"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="col-sm-5 margin-top">
+        <div class="panel panel-default">
+            <div class="panel-body less-padding hidden-xs">
+                <div class="column center">
+                    <h1>Tracks</h1>
+                </div>
+                <div class="column add-bottom">
+                    <ul id="plList">
+                        <li ng-repeat="row in model.music.tracks.items | limitTo:5">
+                            <div class="plItem">
+                                <div class="plNum">*</div>
+                                <div class="plTitle">{{row.name}}</div>
+                                <div class="audioplayer">
+                                    <audio class="audiocontrols" controls style="width: 95%">
+                                        <source ng-src="{{row.preview_url}}">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <div class="panel-body less-padding hidden-xs">
+                    <div class="column center">
+                        <h1>Related Artists</h1>
+                    </div>
+                    <div class="panel-body less-padding" ng-repeat="item in model.similar.artists | limitTo:3">
+                        <div class="caption">
+                            <h5>{{item.name | limitTo:50}}{{item.name.length > 50 ? "..." : ""}}</h5>
+                        </div>
+                        <img class="img-responsive" ng-src="{{item.images[1].url}}" width="100%" height="100%"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

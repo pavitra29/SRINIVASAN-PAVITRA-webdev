@@ -1,4 +1,4 @@
 (function (){
     angular
-        .module("MyAngularApp", ["ngRoute"]);
+        .module("SpotTunesApp", ["ngRoute","ngRating"]);
 })();

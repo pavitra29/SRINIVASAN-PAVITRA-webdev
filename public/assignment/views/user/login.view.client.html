@@ -1,27 +1,38 @@
 <div class="container-fluid">
     <div ng-show="model.error" class="alert alert-danger" role="alert">
         {{model.error}}
+        <ul>
+            <li ng-show="loginForm.username.$invalid">Username is empty</li>
+            <li ng-show="loginForm.password.$invalid">Password is empty</li>
+        </ul>
     </div>
     <h1>Login</h1>
-    <form name="loginForm">
-        <label for="username">Username</label>
-        <input type="text" class="form-control" ng-model="model.user.username" id="username" placeholder="Alice" required>
-        <span ng-show="loginForm.username.$invalid">
-        Username is required
-    </span>
+    <form name="loginForm" novalidate>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" autocorrect="off" autocapitalize="none" class="form-control" ng-model="model.user.username" name="username" id="username" placeholder="Alice" required>
+            <div class="error" ng-show="loginForm.username.$invalid && loginForm.$submitted">Username is required</div>
+            <!--This will display all properties of the form and its attribute username-->
+            <!--{{loginForm}}-->
+            <!--{{loginForm.username}}-->
+        </div>
+
+
         <label for="password">Password</label>
-        <input type="password" class="form-control" ng-model="model.user.password" id="password" placeholder="xyz123" required>
-        <a ng-click="model.login()" class="btn btn-primary btn-block">Login</a>
+        <input type="password" class="form-control" ng-model="model.user.password" name="password" id="password" placeholder="xyz123" required>
+        <div class="error" ng-show="loginForm.password.$invalid && loginForm.$submitted">Password is required</div>
+
+        <button type="submit" ng-click="model.login()" class="btn btn-primary btn-block">Login</button>
         <a href="#/register" class="btn btn-success btn-block">Register</a>
-        <a href="/auth/google" class="btn btn-danger btn-block">
+        <a href="/auth/google" class="btn btn-danger btn-block" title="Works only on remote (Heroku)">
             <span class="fa fa-google-plus"></span>
             Google
         </a>
-        <a href="/auth/facebook" class="btn btn-primary btn-block">
+        <a href="/auth/facebook" class="btn btn-primary btn-block" title="Works only on remote (Heroku)">
             <span class="fa fa-facebook"></span>
             Facebook
         </a>
-        <a href="/auth/instagram" class="btn btn-primary btn-block">
+        <a href="/auth/instagram" class="btn btn-primary btn-block" title="Works only on remote (Heroku)">
             <span class="fa fa-instagram"></span>
             Instagram
         </a>

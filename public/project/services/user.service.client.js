@@ -1,6 +1,6 @@
 (function () {
     angular
-        .module("MyAngularApp")
+        .module("SpotTunesApp")
         .factory("UserService",UserService);
 
     function UserService($http) {
@@ -17,9 +17,55 @@
             checkLogin: checkLogin,
             checkAdmin: checkAdmin,
             logout: logout,
-            register: register
+            register: register,
+            favoriteMusic: favoriteMusic,
+            undoFavoriteMusic: undoFavoriteMusic,
+            isMusicFavorite: isMusicFavorite,
+            follow: follow,
+            unfollow: unfollow,
+            isAlreadyFollowing: isAlreadyFollowing,
+            findAllFollowingUsers: findAllFollowingUsers,
+            findAllFollowersUsers: findAllFollowersUsers,
+            findAllFavoriteMusic: findAllFavoriteMusic
         };
         return api;
+
+        function favoriteMusic(userId, musicId) {
+            return $http.put("/api/user/" + userId + "/music/" + musicId + "/favorite");
+        }
+
+        function undoFavoriteMusic(userId, musicId) {
+            return $http.put("/api/user/" + userId + "/music/" + musicId + "/undofavorite");
+        }
+
+        function isMusicFavorite(userId, musicId) {
+            return $http.get("/api/user/" + userId + "/music/" + musicId + "/ismusicfavorite");
+        }
+
+        function follow(followerId, followingId) {
+            console.log("/api/user/" + followerId + "/follows/" + followingId);
+            return $http.put("/api/user/" + followerId + "/follows/" + followingId);
+        }
+
+        function unfollow(followerId, followingId) {
+            return $http.put("/api/user/" + followerId + "/unfollows/" + followingId);
+        }
+
+        function isAlreadyFollowing(followerId, followingId) {
+            return $http.get("/api/user/" + followerId + "/isalreadyfollowing/" + followingId);
+        }
+
+        function findAllFollowingUsers(userId) {
+            return $http.get("/api/user/" + userId + "/following");
+        }
+
+        function findAllFollowersUsers(userId) {
+            return $http.get("/api/user/" + userId + "/followers");
+        }
+
+        function findAllFavoriteMusic(userId) {
+            return $http.get("/api/user/" + userId + "/favorites");
+        }
 
         function register(user) {
             return $http.post("/api/register", user);

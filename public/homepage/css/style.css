@@ -10,7 +10,7 @@ body {
 
 #section1 {
     background-size: contain;
-    background: url('../images/firstBackground.jpg') no-repeat center center fixed;
+    background: url('../images/scenary.gif') no-repeat center center fixed;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
@@ -18,22 +18,58 @@ body {
 }
 
 #section2 {
-    background-image: url('../images/educationBackground.jpg');
+    background-image: url('../images/projectBackground.jpg');
+    background-size: cover;
 }
 
-#section3 {
-    background-image: url('../images/background.jpg');
-    background-repeat: no-repeat;
-    background-position: center;
+/*#section3 {*/
+    /*background-image: url('../images/education2.jpg');*/
+    /*background-size: cover;*/
+/*}*/
+
+/*#section5 {*/
+    /*background-image: url('../images/brickImage.jpg');*/
+    /*background-repeat: no-repeat;*/
+    /*background-position: center;*/
+/*}*/
+
+#section7 {
+
 }
 
 .responsiveImage {max-width: 100%; width: auto; height: auto;}
 
-.carousel-inner > .item > img,
-.carousel-inner > .item > a > img {
-    width: 500px;
-    height: 450px;
-    margin-top: 15px;
+.custom-logo {
+    max-height: 150px;
+    max-width: 100%;
+}
+
+/*.carousel-inner > .item > img,*/
+/*.carousel-inner > .item > a > img {*/
+    /*width: 500px;*/
+    /*height: 450px;*/
+    /*margin-top: 15px;*/
+/*}*/
+
+.carousel-inner > .item > img {
+    margin: 0 auto;
+}
+
+.carousel-image {
+    max-height: 400px;
+    margin: 15px;
+
+    /*width: 100px;*/
+}
+
+.home-slider .carousel-indicators {
+    position: absolute;
+    bottom: 10%;
+    align-content: center;
+}
+
+.home-slider .carousel-indicators .active {
+    background-color: #FF432E;
 }
 
 a {
@@ -52,7 +88,7 @@ a, a:hover
 
 ul.social-icons
 {
-    display: inline-block;
+    /*display: inline-block;*/
     vertical-align: middle;
 }
 
@@ -77,6 +113,7 @@ div#footer li{
     width: 56px;
     height: 56px;
     background-size: 100%;
+    margin-bottom: 10px;
 }
 
 
@@ -88,9 +125,9 @@ div#footer li{
     box-sizing: border-box;
 }
 
-.work {
+.work, .projects, .education, .technology, .profile{
     background: #F45B69;
-    padding: 50px 0;
+    padding: 40px 0;
 }
 
 .container {
@@ -200,6 +237,15 @@ time {
     }
 }
 
-/*.img-circle {*/
-    /*border-radius: 50%;*/
-/*}*/
+.navbar-text {
+    margin: 15px;
+    vertical-align: middle !important;
+}
+
+.skill-devicons{
+    padding-top: 4rem;
+    text-align: center;
+    color: black;
+    border: none;
+    font-size: 10rem;
+}

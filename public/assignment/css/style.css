@@ -12,6 +12,15 @@ body {
     overflow-x: hidden;
 }
 
+.error {
+    color: red;
+    margin-bottom: 10px;
+}
+
+.ng-submitted .ng-invalid {
+    background-color: lightyellow;
+}
+
 .templates-websites-navbar {
     background-color: #1e90ff;
 }

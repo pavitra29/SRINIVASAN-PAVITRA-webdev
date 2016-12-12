@@ -1,27 +1,48 @@
 (function () {
 
     angular
-        .module("MyAngularApp")
+        .module("SpotTunesApp")
         .factory("MusicService", MusicService);
 
     function MusicService($http) {
 
+        var similarUrl = "https://api.spotify.com/v1/artists/ARTISTID/related-artists";
+
         var api = {
             "searchMusicByTitle": searchMusicByTitle,
-            "searchMusicByID": searchMusicByID
+            "searchMusicByAlbumID": searchMusicByAlbumID,
+            "searchMusicByArtistID": searchMusicByArtistID,
+            "findSimilarMusic": findSimilarMusic,
+            "addMusic": addMusic
         };
         return api;
 
+        function addMusic(music) {
+            return $http.post("/api/music", music);
+        }
+
+        function findSimilarMusic(artistId) {
+            var url = similarUrl
+                .replace("ARTISTID", artistId);
+
+            return $http.get(url);
+        }
+
         function searchMusicByTitle(title) {
-            var url = "https://api.spotify.com/v1/search?q="+title+"&type=artist&limit=10";
+            var url = "https://api.spotify.com/v1/search?q="+title+"&type=album&limit=50";
 
             return $http.get(url);
 
-
         }
 
-        function searchMusicByID(id) {
-            var url = "https://api.spotify.com/v1/artists/" + id;
+        function searchMusicByArtistID(id) {
+            var url = "https://api.spotify.com/v1/artists/"+id;
+
+            return $http.get(url);
+        }
+
+        function searchMusicByAlbumID(id) {
+            var url = "https://api.spotify.com/v1/albums/" + id;
 
             return $http.get(url)
         }
