@@ -13,41 +13,75 @@
         vm.navigateUserId = $routeParams.userId;
 
         function init() {
-            UserService
-                .findCurrentUser()
-                .then(function (response) {
-                    var user = response.data;
-                    if (user) {
-                        $rootScope.currentUser = user;
-                        vm.user = user;
-                        vm.loggedInUserId = user._id;
-                        return UserService.findAllFollowersUsers(vm.navigateUserId);
-                    }
-                })
-                .then(function (response) {
-                    var users = response.data;
-                    if (users) {
-                        vm.users = users;
-                        isAlreadyFollowing(vm.users);
 
-                        UserService
-                            .findUserById(vm.navigateUserId)
-                            .then(function (response) {
-                                var user = response.data;
-                                if (user) {
-                                    vm.navigatedUser = user;
-                                }
-                            });
-                    }
-                });
+            if(!vm.navigateUserId) {
+                UserService
+                    .findCurrentUser()
+                    .then(function (response) {
+                        var user = response.data;
+                        if (user) {
+                            $rootScope.currentUser = user;
+                            vm.user = user;
+                            vm.loggedInUserId = user._id;
 
-            ReviewService.findAllReviewsByUserId(vm.navigateUserId)
-                .then(function (response) {
-                        vm.reviews = response.data;
-                    },
-                    function (err) {
-                        console.log(err);
+                            ReviewService.findAllReviewsByUserId(vm.user._id)
+                                .then(function (response) {
+                                        vm.reviews = response.data;
+                                    },
+                                    function (err) {
+                                        console.log(err);
+                                    });
+
+                            return UserService.findAllFollowersUsers(vm.user._id);
+                        }
+                    })
+                    .then(function (response) {
+                        var users = response.data;
+                        if (users) {
+                            vm.users = users;
+                            isAlreadyFollowing(vm.users);
+                        }
                     });
+            }
+            else  {
+                UserService
+                    .findCurrentUser()
+                    .then(function (response) {
+                        var user = response.data;
+                        if (user) {
+                            $rootScope.currentUser = user;
+                            vm.loggedInUserId = user._id;
+
+                            ReviewService.findAllReviewsByUserId(vm.navigateUserId)
+                                .then(function (response) {
+                                        vm.reviews = response.data;
+                                    },
+                                    function (err) {
+                                        console.log(err);
+                                    });
+
+                            UserService
+                                .findUserById(vm.navigateUserId)
+                                .then(function (response) {
+                                    var user = response.data;
+                                    if (user) {
+                                        vm.navigatedUser = user;
+                                        vm.user = user;
+                                    }
+                                });
+
+                            return UserService.findAllFollowersUsers(vm.navigateUserId);
+                        }
+                    })
+                    .then(function (response) {
+                        var users = response.data;
+                        if (users) {
+                            vm.users = users;
+                            isAlreadyFollowing(vm.users);
+                        }
+                    });
+            }
+
         }
 
         init();
@@ -94,6 +128,8 @@
                     console.log(status);
                     vm.users[index].alreadyFollowing = (status.n == 1 || status.nModified == 1) && status.ok == 1 ? true : false;
                 });
+
+            UserService.findAllFollowersUsers(vm.loggedInUserId);
         }
 
         function unfollow(index) {

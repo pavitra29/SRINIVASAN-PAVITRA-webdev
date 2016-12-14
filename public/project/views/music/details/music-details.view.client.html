@@ -1,7 +1,15 @@
 <div class="container-fluid">
     <div class="row">
         <h1>
-            <a href="#/search/{{model.title}}">
+            <div ng-switch="model.title">
+                <a ng-switch-when="favorites" href="#/favorites/{{model.userId}}">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Back to Favorites
+                </a>
+                <a ng-switch-when="reviews" href="#/reviews/{{model.userId}}">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Back to Reviews
+                </a>
+            </div>
+            <a href="#/search/{{model.title}}" ng-show="!model.userId">
                 <span class="glyphicon glyphicon-chevron-left"></span> Back to Search
             </a>
         </h1>
@@ -109,14 +117,14 @@
 
                         <div class="media" ng-hide="model.selectedIndex === $index">
                             <a class="pull-left" href="">
-                                <img class="media-object"
-                                     src="http://placehold.it/64x64"
+                                <img class="img-responsive img-thumbnail profile-image"
+                                     src="/homepage/images/comingSoon.jpeg"
                                      alt=""
-                                     ng-show="!review.imgUrl">
-                                <img class="media-object limit-media-object-dimensions"
-                                     ng-src="{{review.imgUrl}}"
+                                     ng-show="!review.imageUrl">
+                                <img class="img-responsive img-thumbnail profile-image"
+                                     ng-src="{{review.imageUrl}}"
                                      alt=""
-                                     ng-show="review.imgUrl">
+                                     ng-show="review.imageUrl">
                             </a>
                             <div class="media-body">
                                 <h4 class="media-heading">{{review.title}}</h4>

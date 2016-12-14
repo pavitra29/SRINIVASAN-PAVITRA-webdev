@@ -1,28 +1,30 @@
 <div class="container-fluid well">
     <div class="row text-center">
         <div class="col-xs-4 col-sm-3">
-            <a href="#/user/{{currentUser._id}}">
+            <a href="#/user/{{model.user._id}}">
                 <img class="img-responsive img-thumbnail profile-image" ng-src="{{model.user.imageUrl || '/homepage/images/user_icon.jpg'}}"/>
             </a>
+            <br>
+            {{model.user.username}}
         </div>
         <div class="col-xs-4 col-sm-2">
-            <a href="#/favorites/{{currentUser._id}}">
+            <a href="#/favorites/{{model.user._id}}">
                 <div class="row">
                     <h5>
-                        <i class="fa fa-users" aria-hidden="true"></i>
+                        <i class="fa fa-heart" aria-hidden="true" style="color: red;"></i>
                         Favorites
                     </h5>
                 </div>
                 <div class="row">
-                    {{currentUser.favorites.length}}
+                    {{model.user.favorites.length}}
                 </div>
             </a>
         </div>
         <div class="col-xs-4 col-sm-2">
-            <a href="#/reviews/{{currentUser._id}}">
+            <a href="#/reviews/{{model.user._id}}">
                 <div class="row">
                     <h5>
-                        <i class="fa fa-users" aria-hidden="true"></i>
+                        <i class="fa fa-comment" aria-hidden="true" style="color: green;"></i>
                         Reviews
                     </h5>
                 </div>
@@ -32,7 +34,7 @@
             </a>
         </div>
         <div class="col-xs-4 col-sm-2">
-            <a href="#/followers/{{currentUser._id}}">
+            <a href="#/followers/{{model.user._id}}">
                 <div class="row">
                     <h5>
                         <i class="fa fa-users" aria-hidden="true"></i>
@@ -40,12 +42,12 @@
                     </h5>
                 </div>
                 <div class="row">
-                    {{currentUser.follower.length}}
+                    {{model.user.follower.length}}
                 </div>
             </a>
         </div>
         <div class="col-xs-4 col-sm-2">
-            <a href="#/following/{{currentUser._id}}">
+            <a href="#/following/{{model.user._id}}">
                 <div class="row">
                     <h5>
                         <i class="fa fa-users" aria-hidden="true"></i>
@@ -53,7 +55,7 @@
                     </h5>
                 </div>
                 <div class="row">
-                    {{currentUser.following.length}}
+                    {{model.user.following.length}}
                 </div>
             </a>
         </div>
@@ -71,12 +73,12 @@
 
     <div ng-repeat="music in model.music">
         <div class="media">
-            <a class="pull-left" href="">
+            <a class="pull-left" href="#/details/{{music._id}}/favorites/{{model.user._id}}">
                 <img class="media-object profile-image thumbnail" ng-src={{music.imageUrl}} alt="">
             </a>
             <div class="media-body">
                 <h4 class="media-heading">
-                    <a href="#/details/{{music._id}}/favorites">
+                    <a href="#/details/{{music._id}}/favorites/{{model.user._id}}">
                         {{music.name}}
                     </a>
                 </h4>

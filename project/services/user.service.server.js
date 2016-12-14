@@ -1,5 +1,7 @@
 module.exports = function(app, model) {
 
+    var multer = require('multer');
+    var upload = multer({ dest: __dirname+'/../../public/project/upload' });
     var passport      = require('passport');
     var LocalStrategy    = require('passport-local').Strategy;
     var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
@@ -12,7 +14,6 @@ module.exports = function(app, model) {
 
     var bcrypt = require("bcrypt-nodejs");
 
-    // first configure raw session
     app.use(session({
         secret: process.env.SESSION_SECRET,
         resave: true,
@@ -21,7 +22,7 @@ module.exports = function(app, model) {
 
     app.use(cookieParser());
     app.use(passport.initialize());
-    app.use(passport.session()); // then configure passport session
+    app.use(passport.session());
 
     passport.use(new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
@@ -38,11 +39,22 @@ module.exports = function(app, model) {
     app.post('/api/checkAdmin', checkAdmin);
     app.post('/api/logout', logout);
     app.get('/api/user', findUser);
-    // app.get('/api/admin/user', admin ,findAllUser);
+    app.get('/api/admin/user', findAllUsers);
     app.get('/api/user/:uid', findUserById);
     app.post('/api/user',createUser);
     app.put('/api/user/:uid', loggedInAndSelf, updateUser);
     app.delete('/api/user/:uid', loggedInAndSelf, deleteUser);
+
+    app.put("/api/user/:userId/music/:musicId/favorite", favoriteMusic);
+    app.put("/api/user/:userId/music/:musicId/undofavorite", undoFavoriteMusic);
+    app.get("/api/user/:userId/music/:musicId/ismusicfavorite", isMusicFavorite);
+    app.put("/api/user/:followerId/follows/:followingId", follow);
+    app.put("/api/user/:followerId/unfollows/:followingId", unfollow);
+    app.get("/api/user/:followerId/isalreadyfollowing/:followingId", isAlreadyFollowing);
+    app.get("/api/user/:userId/following", findAllFollowingUsers);
+    app.get("/api/user/:userId/followers", findAllFollowersUsers);
+    app.get("/api/user/:userId/favorites", findAllFavoriteMusic);
+    app.post("/api/profile/upload", upload.single('profileImg'), uploadImage);
 
     app.get('/api/google/callback',
         passport.authenticate('google', {
@@ -87,14 +99,14 @@ module.exports = function(app, model) {
     };
 
     var spotifyConfig = {
-        clientID     : "6e3093e297774bf0bde9510a3963fe0e",
-        clientSecret : "d4dc91c8b2894f00a411bc1ca971d248",
-        callbackURL  : "http://127.0.0.1:3000/auth/spotify/callback"
+        clientID     : process.env.SPOTIFY_CLIENT_ID,
+        clientSecret : process.env.SPOTIFY_CLIENT_SECRET,
+        callbackURL  : process.env.SPOTIFY_CALLBACK_URL
     };
 
-    // if (process.env.INSTAGRAM_CLIENT_ID) {
+    if (process.env.SPOTIFY_CLIENT_ID) {
         passport.use(new SpotifyStrategy(spotifyConfig, spotifyStrategy));
-    // }
+    }
 
     if (process.env.INSTAGRAM_CLIENT_ID) {
         passport.use(new InstaStrategy(instaConfig, instaStrategy));
@@ -108,23 +120,19 @@ module.exports = function(app, model) {
         passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
     }
 
-
-    /**
-     * newly added content
-     * */
-    var multer = require('multer'); // npm install multer --save
-    var upload = multer({ dest: __dirname+'/../../public/project/upload' });
-    app.put("/api/user/:userId/music/:musicId/favorite", favoriteMusic);
-    app.put("/api/user/:userId/music/:musicId/undofavorite", undoFavoriteMusic);
-    app.get("/api/user/:userId/music/:musicId/ismusicfavorite", isMusicFavorite);
-    app.put("/api/user/:followerId/follows/:followingId", follow);
-    app.put("/api/user/:followerId/unfollows/:followingId", unfollow);
-    app.get("/api/user/:followerId/isalreadyfollowing/:followingId", isAlreadyFollowing);
-    app.get("/api/user/:userId/following", findAllFollowingUsers);
-    app.get("/api/user/:userId/followers", findAllFollowersUsers);
-    app.get("/api/user/:userId/favorites", findAllFavoriteMusic);
-    app.post("/api/user/:id", upload.single('profileImg'), updateUserWithImage);
-
+    function findAllUsers(req, res) {
+        model
+            .userModel
+            .findAllUsers()
+            .then(function (users) {
+                res.json(users)
+            },
+                function (err) {
+                    res.sendStatus(400).send(err);
+                }
+            )
+    }
+    
     function favoriteMusic(req, res) {
         var reqMusicId = req.params.musicId;
         var reqUserId = req.params.userId;
@@ -176,12 +184,6 @@ module.exports = function(app, model) {
     function follow(req, res) {
         var followerId = req.params.followerId;
         var followingId = req.params.followingId;
-
-        // console.log("inside server service");
-        // console.log(loggedInUserId);
-        // console.log(navigateUserId);
-
-        console.log(req);
 
         model
             .userModel
@@ -297,9 +299,6 @@ module.exports = function(app, model) {
             .findUserById(reqUserId)
             .then(
                 function (user) {
-
-                    console.log(user.favorites);
-
                     return model
                         .musicModel
                         .findAllFavoriteMusic(user.favorites);
@@ -318,41 +317,36 @@ module.exports = function(app, model) {
             );
     }
 
-    function updateUserWithImage(req, res) {
-        var userId = req.params.id;
-        var user = req.body;
-        var imageFile = req.file;
+    function uploadImage(req, res) {
+        var widgetId      = req.body.widgetId;
+        var width         = req.body.width;
+        var myFile        = req.file;
+        var userId        = req.body.userId;
 
-        if (imageFile) {
-            var destination = imageFile.destination;
-            var path = imageFile.path;
-            var originalname = imageFile.originalname;
-            var size = imageFile.size;
-            var mimetype = imageFile.mimetype;
-            var filename = imageFile.filename;
-            user.imgUrl = "/uploads/" + filename;
-        }
+        var originalname  = myFile.originalname;
+        var filename      = myFile.filename;
+        var path          = myFile.path;
+        var destination   = myFile.destination;
+        var size          = myFile.size;
+        var mimetype      = myFile.mimetype;
 
-        model
-            .userModel.updateUser(userId, user)
-            .then(function (response) {
-                    return userModel.findUserById(userId);
+        model.userModel.findUserById(userId)
+            .then(function(user){
+                    user.imageUrl = "/project/upload/" + filename;
+                    model.userModel.updateUser(userId,user)
+                        .then(function(status){
+                                res.redirect("/project/#/user/" + userId);
+                            },
+                            function(error){
+                                res.statusCode(400).send(error);
+                            });
+
                 },
-                function (err) {
-                    res.status(400).send(err);
-                })
-            .then(function (response) {
-                req.session.currentUser = response;
-                res.redirect(req.header('Referer') + "#/user/" + userId);
-            }, function (err) {
-                res.status(400).send(err);
-            });
+                function(error){
+                    res.statusCode(400).send(error);
+                });
+
     }
-
-    /**
-     * no change after this line
-     * */
-
 
     function loggedInAndSelf(req, res, next) {
         var loggedIn = req.isAuthenticated();
@@ -370,7 +364,7 @@ module.exports = function(app, model) {
 
 
     function spotifyStrategy(token, refreshToken, profile, done) {
-        console.log(profile);
+
         model
             .userModel
             .findUserBySpotifyId(profile.id)
@@ -407,7 +401,7 @@ module.exports = function(app, model) {
     }
 
     function instaStrategy(token, refreshToken, profile, done) {
-        console.log(profile);
+
         model
             .userModel
             .findUserByInstagramId(profile.id)
@@ -443,8 +437,7 @@ module.exports = function(app, model) {
     }
 
     function googleStrategy(token, refreshToken, profile, done) {
-        console.log("inside project's google strategy");
-        console.log(profile);
+
         model
             .userModel
             .findUserByGoogleId(profile.id)
@@ -483,7 +476,7 @@ module.exports = function(app, model) {
     }
 
     function facebookStrategy(token, refreshToken, profile, done) {
-        console.log(profile);
+
         model
             .userModel
             .findUserByFacebookId(profile.id)
@@ -581,19 +574,13 @@ module.exports = function(app, model) {
             );
     }
 
-    function localStrategy(username, password, done) {  // parameter in this function can be called with any name
-                                                        // like userNm, pass, someFunction
-                                                        // but the sequence means first is username, second is password
-                                                        // and third is a function
-
+    function localStrategy(username, password, done) {
         model
             .userModel
             .findUserByUsername(username)
-            // .findUserByCredentials(username, password) //comented to use bcrypt on returned user password
             .then(
                 function (user) {
                     if (user && bcrypt.compareSync(password, user.password)) {
-                    // if(user) {
                         return done(null, user);
                     }
                     else {
@@ -663,16 +650,9 @@ module.exports = function(app, model) {
             );
     }
 
-    //Important concept about types of parameters
-    //path parameters = /user/:uid
-
-    //query parameters = /user?username=alice
-
     function findUser(req, res) {
 
-        var params = req.params; // path params
-
-        var query = req.query; //query params
+        var query = req.query;
 
 
         if(query.password && query.username) {
@@ -756,4 +736,6 @@ module.exports = function(app, model) {
             );
 
     }
+
+
 };

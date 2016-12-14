@@ -7,8 +7,9 @@
     function MusicDetailsController($routeParams, MusicService, UserService, $rootScope, ReviewService) {
 
         var vm = this;
-        vm.albumId = $routeParams.id;
+        vm.albumId = $routeParams.albumId;
         vm.title = $routeParams.title;
+        vm.userId = $routeParams.userId;
 
         vm.addReview = addReview;
         vm.selectReview = selectReview;
@@ -21,8 +22,7 @@
         function init() {
 
             UserService
-            // .findUserById(userId)
-                .findCurrentUser() //returning the current user from session which is stored in req.user on server
+                .findCurrentUser()
                 .success(function (user) {
                     if(user != '0') {
                         $rootScope.currentUser = user;
@@ -80,9 +80,6 @@
                     if (response.data) {
                         vm.reviews = response.data;
 
-                        console.log("reviews");
-                        console.log(vm.reviews);
-
                         findUserByReviewUserId(vm.reviews);
                         musicAvgRatingByMusicId(vm.reviews);
                         isMusicFavorite();
@@ -95,12 +92,9 @@
                 UserService.findUserById(reviews[index].userId)
                     .then(function (response) {
 
-                        console.log("find reviews");
-                        console.log(response);
-
                         if (response.data) {
                             reviews[index].userFirstName = response.data.firstName;
-                            reviews[index].imgUrl = response.data.imgUrl;
+                            reviews[index].imageUrl = response.data.imageUrl;
                         }
                     });
             });
@@ -118,19 +112,14 @@
                         vm.review = {};
                         vm.reviews.push(response.data);
 
-                        console.log(vm.reviews);
-
                         findUserByReviewUserId(vm.reviews);
                         musicAvgRatingByMusicId(vm.reviews);
-
-                        console.log(vm.music);
 
                         return MusicService.addMusic(vm.music);
                     }
                 })
                 .then(function (response) {
                     console.log(response);
-                    console.log("Music Inserted !");
                 });
         }
 
@@ -153,7 +142,6 @@
                 .updateReview(vm.albumId, review._id, review)
                 .then(function (response) {
                     var status = response.data;
-                    console.log(status);
                     if ((status.n == 1 || status.nModified == 1) && status.ok == 1) {
                         vm.reviews[vm.selectedIndex] = review;
                         vm.selectedIndex = -1;
@@ -170,7 +158,6 @@
                 .deleteReview(vm.albumId, reviewId)
                 .then(function (response) {
                     var status = response.data;
-                    console.log(status);
                     if (status.n == 1 && status.ok == 1) {
                         vm.reviews.splice(index, 1);
                         vm.selectedIndex = -1;
@@ -189,24 +176,18 @@
 
         function favoriteMusic() {
             vm.music.imageUrl = vm.music.images[0].url;
-            
-            console.log(vm.user._id);
-            console.log(vm.music);
 
-            console.log(vm.albumId);
-            
             UserService
                 .favoriteMusic(vm.user._id, vm.albumId)
                 .then(function (response) {
                     var status = response.data;
-                    console.log(status);
                     if ((status.n == 1 || status.nModified == 1) && status.ok == 1) {
                         vm.isFavorite = true;
                         return MusicService.addMusic(vm.music);
                     }
                 })
                 .then(function (response) {
-                    console.log("Music Inserted !");
+                    console.log(response);
                 });
         }
 
@@ -215,7 +196,6 @@
                 .undoFavoriteMusic(vm.user._id, vm.albumId)
                 .then(function (response) {
                     var status = response.data;
-                    console.log(status);
                     if ((status.n == 1 || status.nModified == 1) && status.ok == 1) {
                         vm.isFavorite = false;
                     }
@@ -227,13 +207,7 @@
                 .isMusicFavorite(vm.user._id, vm.albumId)
                 .then(function (response) {
                     var user = response.data;
-                    if (user) {
-                        console.log(user);
-                        vm.isFavorite = true;
-                    }
-                    else {
-                        vm.isFavorite = false;
-                    }
+                    vm.isFavorite = user ? true : false;
                 });
         }
     }

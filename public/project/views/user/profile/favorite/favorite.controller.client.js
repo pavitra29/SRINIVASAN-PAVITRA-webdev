@@ -13,45 +13,75 @@
         vm.navigateUserId = $routeParams.userId;
 
         function init() {
-            UserService
-                .findCurrentUser()
-                .then(function (response) {
-                    var user = response.data;
-                    if (user) {
-                        vm.user = user;
-                        $rootScope.currentUser = user;
 
-                        console.log(user);
+            if(!vm.navigateUserId) {
+                UserService
+                    .findCurrentUser()
+                    .then(function (response) {
+                        var user = response.data;
+                        if (user) {
+                            vm.user = user;
+                            $rootScope.currentUser = user;
+                            vm.loggedInUserId = user._id;
 
-                        vm.loggedInUserId = user._id;
-                        return UserService.findAllFavoriteMusic(vm.navigateUserId);
-                    }
-                })
-                .then(function (response) {
+                            ReviewService.findAllReviewsByUserId(vm.user._id)
+                                .then(function (response) {
+                                        vm.reviews = response.data;
+                                    },
+                                    function (err) {
+                                        console.log(err);
+                                    });
 
-                    console.log(response);
-                    var music = response.data;
-                    if (music) {
-                        isMusicFavorite(music);
+                            return UserService.findAllFavoriteMusic(vm.user._id);
+                        }
+                    })
+                    .then(function (response) {
 
-                        UserService
-                            .findUserById(vm.navigateUserId)
-                            .then(function (response) {
-                                var user = response.data;
-                                if (user) {
-                                    vm.navigatedUser = user;
-                                }
-                            });
-                    }
-                });
-
-            ReviewService.findAllReviewsByUserId(vm.navigateUserId)
-                .then(function (response) {
-                        vm.reviews = response.data;
-                    },
-                    function (err) {
-                        console.log(err);
+                        var music = response.data;
+                        if (music) {
+                            isMusicFavorite(music);
+                        }
                     });
+            }
+            else {
+                UserService
+                    .findCurrentUser()
+                    .then(function (response) {
+                        var user = response.data;
+                        if (user) {
+                            $rootScope.currentUser = user;
+                            vm.loggedInUserId = user._id;
+
+                            ReviewService.findAllReviewsByUserId(vm.navigateUserId)
+                                .then(function (response) {
+                                        vm.reviews = response.data;
+                                    },
+                                    function (err) {
+                                        console.log(err);
+                                    });
+
+                            UserService
+                                .findUserById(vm.navigateUserId)
+                                .then(function (response) {
+                                    var user = response.data;
+                                    if (user) {
+                                        vm.navigatedUser = user;
+                                        vm.user = user;
+                                    }
+                                });
+
+                            return UserService.findAllFavoriteMusic(vm.navigateUserId);
+                        }
+                    })
+                    .then(function (response) {
+
+                        var music = response.data;
+                        if (music) {
+                            isMusicFavorite(music);
+                        }
+                    });
+            }
+
         }
 
         init();

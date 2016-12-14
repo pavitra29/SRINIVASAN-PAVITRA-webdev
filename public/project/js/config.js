@@ -7,6 +7,8 @@
         $routeProvider
             .when("/admin", {
                 templateUrl: "views/admin/user-list.view.client.html",
+                controller: "AdminController",
+                controllerAs: "model",
                 resolve: {
                     checkAdmin: checkAdmin
                 }
@@ -78,12 +80,12 @@
                 controller: "MusicSearchController",
                 controllerAs: "model"
             })
-            .when("/details/:id/:title", {
+            .when("/details/:albumId/:title", {
                 templateUrl: "views/music/details/music-details.view.client.html",
                 controller: "MusicDetailsController",
                 controllerAs: "model"
             })
-            .when("/details/:id/:page", {
+            .when("/details/:albumId/:title/:userId", {
                 templateUrl: "views/music/details/music-details.view.client.html",
                 controller: "MusicDetailsController",
                 controllerAs: "model"

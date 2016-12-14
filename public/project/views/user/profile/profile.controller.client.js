@@ -13,52 +13,21 @@
         vm.follow = follow;
         vm.unfollow = unfollow;
 
-        // var userId = $routeParams["uid"]; //userId not needed as the current user is in session
-
         vm.navigateUserId = $routeParams["uid"];
 
         function init() {
+            
+            
+            if(!vm.navigateUserId) {
+                UserService
+                    .findCurrentUser()
+                    .success(function (user) {
+                        if(user != '0') {
 
-            UserService
-                .findCurrentUser()
-                .then(function (response) {
-                    var user = response.data;
-                    if (user) {
-                        vm.loggedInUserId = user._id;
-                        $rootScope.currentUser = user;
-                        console.log("Want to follow: " + vm.navigateUserId);
-                        console.log("Logged in as: " + vm.loggedInUserId);
-                        isAlreadyFollowing();
-
-                        if(vm.navigateUserId) {
-                           if(vm.navigateUserId != vm.loggedInUserId) {
-                               UserService
-                                   .findUserById(vm.navigateUserId)
-                                   .then(function (response) {
-                                       console.log(response);
-                                       var user = response.data;
-                                       if (user) {
-                                           vm.navigatedUser = user;
-                                       }
-                                   });
-
-                               if (vm.navigateUserId == vm.loggedInUserId) {
-                                   vm.user = $rootScope.currentUser;
-                               }
-                               else {
-                                   vm.user = vm.navigatedUser;
-                               }
-                           }
-                        }
+                            vm.user = user;
+                            $rootScope.currentUser = user;
 
 
-                        if(!vm.navigateUserId) {
-                            vm.user = $rootScope.currentUser;
-                        }
-
-                        console.log(vm.user);
-
-                        if(vm.user) {
                             ReviewService.findAllReviewsByUserId(vm.user._id)
                                 .then(function (response) {
                                         vm.reviews = response.data;
@@ -67,12 +36,47 @@
                                         console.log(err);
                                     });
                         }
+                    })
+                    .error(function () {
 
-                        if(!vm.navigateUserId) {
-                            vm.navigateUserId = $rootScope.currentUser._id;
+                    });
+
+            }
+            else {
+                UserService
+                    .findCurrentUser()
+                    .then(function (response) {
+                        var user = response.data;
+                        if (user) {
+                            vm.loggedInUserId = user._id;
+                            $rootScope.currentUser = user;
+                            console.log("Want to follow: " + vm.navigateUserId);
+                            console.log("Logged in as: " + vm.loggedInUserId);
+                            isAlreadyFollowing();
+
+                            UserService
+                                .findUserById(vm.navigateUserId)
+                                .then(function (response) {
+                                    var user = response.data;
+                                    if (user) {
+                                        vm.navigatedUser = user;
+                                        vm.user = user;
+                                    }
+                                });
+
+                            ReviewService.findAllReviewsByUserId(vm.navigateUserId)
+                                .then(function (response) {
+                                        vm.reviews = response.data;
+                                        // console.log(vm.reviews);
+                                    },
+                                    function (err) {
+                                        console.log(err);
+                                    });
                         }
-                    }
-                });
+                    });
+
+
+            }
 
         }
         init();

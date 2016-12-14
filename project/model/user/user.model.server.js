@@ -29,7 +29,8 @@ module.exports = function () {
         findAlreadyFollowingUser: findAlreadyFollowingUser,
         findAllFollowingUsers: findAllFollowingUsers,
         findAllFollowersUsers: findAllFollowersUsers,
-        setModel: setModel
+        setModel: setModel,
+        findAllUsers: findAllUsers
     };
     return api;
 
@@ -98,11 +99,6 @@ module.exports = function () {
         return UserModel.find({_id: {$in: users}});
     }
 
-    /*
-     * no changes below this line
-     * */
-
-
     function findUserBySpotifyId(spotId) {
         return UserModel
             .findOne({
@@ -160,8 +156,7 @@ module.exports = function () {
     }
 
     function findUserById(userId) {
-        // UserModel.find({_id: userId}); OR => returns an array. It can be array of one or many
-        return UserModel.findById(userId); //=> returns just an object
+        return UserModel.findById(userId);
     }
 
     function updateUser(uid, user) {
@@ -174,7 +169,8 @@ module.exports = function () {
                 lastName : user.lastName,
                 email : user.email,
                 phone : user.phone,
-                birthDate: user.birthDate
+                birthDate: user.birthDate,
+                imageUrl: user.imageUrl
             })
     }
 

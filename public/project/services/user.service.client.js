@@ -26,9 +26,14 @@
             isAlreadyFollowing: isAlreadyFollowing,
             findAllFollowingUsers: findAllFollowingUsers,
             findAllFollowersUsers: findAllFollowersUsers,
-            findAllFavoriteMusic: findAllFavoriteMusic
+            findAllFavoriteMusic: findAllFavoriteMusic,
+            findAllUsers: findAllUsers
         };
         return api;
+
+        function findAllUsers() {
+            return $http.get("/api/admin/user");
+        }
 
         function favoriteMusic(userId, musicId) {
             return $http.put("/api/user/" + userId + "/music/" + musicId + "/favorite");
@@ -101,7 +106,6 @@
         }
 
         function findCurrentUser() {
-            // var url = "/api/admin/user";      //this might be link for getting all users when admin logs in
             var url = "/api/user";
             return $http.get(url);
         }

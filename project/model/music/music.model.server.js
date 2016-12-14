@@ -1,6 +1,5 @@
 module.exports = function () {
 
-    var model = {};
     var mongoose = require("mongoose");
 
     var MusicSchema = require("./music.schema.server")();
@@ -19,8 +18,6 @@ module.exports = function () {
             "imageUrl": music.imageUrl
         };
 
-        console.log(newMusicObj);
-
         return MusicModel
             .findOneAndUpdate(
             {_id: music.id.toString()},
@@ -32,9 +29,6 @@ module.exports = function () {
     }
 
     function findAllFavoriteMusic(musicIds) {
-
-        console.log("inside model");
-
         return MusicModel.find({_id: {$in: musicIds}});
     }
 

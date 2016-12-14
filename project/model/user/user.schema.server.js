@@ -29,7 +29,7 @@ module.exports = function () {
         email: String,
         phone: String,
         birthDate : {type: Date},
-        imgUrl: String,
+        imageUrl: String,
         role: {type: String, default: 'USER', enum: ['ADMIN', 'USER']},
         dateCreated: {type: Date, default: Date.now()}
     }, {collection: "user"});

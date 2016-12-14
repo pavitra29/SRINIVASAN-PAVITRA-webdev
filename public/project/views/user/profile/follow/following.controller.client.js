@@ -4,7 +4,7 @@
         .module("SpotTunesApp")
         .controller("FollowingController", FollowingController);
 
-    function FollowingController($q, $routeParams, UserService, ReviewService) {
+    function FollowingController($q, $routeParams, UserService, ReviewService, $rootScope) {
         var vm = this;
 
         vm.follow = follow;
@@ -13,40 +13,77 @@
         vm.navigateUserId = $routeParams.userId;
 
         function init() {
-            UserService
-                .findCurrentUser()
-                .then(function (response) {
-                    var user = response.data;
-                    if (user) {
-                        vm.user = user;
-                        vm.loggedInUserId = user._id;
-                        return UserService.findAllFollowingUsers(vm.navigateUserId);
-                    }
-                })
-                .then(function (response) {
-                    var users = response.data;
-                    if (users) {
-                        vm.users = users;
-                        isAlreadyFollowing(vm.users);
 
-                        UserService
-                            .findUserById(vm.navigateUserId)
-                            .then(function (response) {
-                                var user = response.data;
-                                if (user) {
-                                    vm.navigatedUser = user;
-                                }
-                            });
-                    }
-                });
+            if(!vm.navigateUserId) {
 
-            ReviewService.findAllReviewsByUserId(vm.navigateUserId)
-                .then(function (response) {
-                        vm.reviews = response.data;
-                    },
-                    function (err) {
-                        console.log(err);
+                UserService
+                    .findCurrentUser()
+                    .then(function (response) {
+                        var user = response.data;
+                        if (user) {
+                            $rootScope.currentUser = user;
+                            vm.user = user;
+                            vm.loggedInUserId = user._id;
+
+                            ReviewService.findAllReviewsByUserId(vm.user._id)
+                                .then(function (response) {
+                                        vm.reviews = response.data;
+                                    },
+                                    function (err) {
+                                        console.log(err);
+                                    });
+
+                            return UserService.findAllFollowingUsers(vm.user._id);
+                        }
+                    })
+                    .then(function (response) {
+                        var users = response.data;
+                        if (users) {
+                            vm.users = users;
+                            isAlreadyFollowing(vm.users);
+                        }
                     });
+
+            }
+            else {
+                UserService
+                    .findCurrentUser()
+                    .then(function (response) {
+                        var user = response.data;
+                        if (user) {
+                            $rootScope.currentUser = user;
+                            vm.loggedInUserId = user._id;
+
+                            ReviewService.findAllReviewsByUserId(vm.navigateUserId)
+                                .then(function (response) {
+                                        vm.reviews = response.data;
+                                    },
+                                    function (err) {
+                                        console.log(err);
+                                    });
+
+                            UserService
+                                .findUserById(vm.navigateUserId)
+                                .then(function (response) {
+                                    var user = response.data;
+                                    if (user) {
+                                        vm.navigatedUser = user;
+                                        vm.user = user;
+                                    }
+                                });
+
+                            return UserService.findAllFollowingUsers(vm.navigateUserId);
+                        }
+                    })
+                    .then(function (response) {
+                        var users = response.data;
+                        if (users) {
+                            vm.users = users;
+                            isAlreadyFollowing(vm.users);
+                        }
+                    });
+            }
+
         }
 
         init();
@@ -65,7 +102,12 @@
                                     var user = element;
 
                                     if (user._id != vm.loggedInUserId) {
-                                        user.alreadyFollowing = response.data ? true : false;
+                                        if (response.data) {
+                                            user.alreadyFollowing = true;
+                                        }
+                                        else {
+                                            user.alreadyFollowing = false;
+                                        }
                                     }
                                     else {
                                         user.itsMe = true;

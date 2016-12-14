@@ -1,28 +1,30 @@
 <div class="container-fluid well">
     <div class="row text-center">
         <div class="col-xs-4 col-sm-3">
-            <a href="#/user/{{currentUser._id}}">
+            <a href="#/user/{{model.user._id}}">
                 <img class="img-responsive img-thumbnail profile-image" ng-src="{{model.user.imageUrl || '/homepage/images/user_icon.jpg'}}"/>
             </a>
+            <br>
+            {{model.user.username}}
         </div>
         <div class="col-xs-4 col-sm-2">
-            <a href="#/favorites/{{currentUser._id}}">
+            <a href="#/favorites/{{model.user._id}}">
                 <div class="row">
                     <h5>
-                        <i class="fa fa-users" aria-hidden="true"></i>
+                        <i class="fa fa-heart" aria-hidden="true" style="color: red;"></i>
                         Favorites
                     </h5>
                 </div>
                 <div class="row">
-                    {{currentUser.favorites.length}}
+                    {{model.user.favorites.length}}
                 </div>
             </a>
         </div>
         <div class="col-xs-4 col-sm-2">
-            <a href="#/reviews/{{currentUser._id}}">
+            <a href="#/reviews/{{model.user._id}}">
                 <div class="row">
                     <h5>
-                        <i class="fa fa-users" aria-hidden="true"></i>
+                        <i class="fa fa-comment" aria-hidden="true" style="color: green;"></i>
                         Reviews
                     </h5>
                 </div>
@@ -32,7 +34,7 @@
             </a>
         </div>
         <div class="col-xs-4 col-sm-2">
-            <a href="#/followers/{{currentUser._id}}">
+            <a href="#/followers/{{model.user._id}}">
                 <div class="row">
                     <h5>
                         <i class="fa fa-users" aria-hidden="true"></i>
@@ -40,12 +42,12 @@
                     </h5>
                 </div>
                 <div class="row">
-                    {{currentUser.follower.length}}
+                    {{model.user.follower.length}}
                 </div>
             </a>
         </div>
         <div class="col-xs-4 col-sm-2">
-            <a href="#/following/{{currentUser._id}}">
+            <a href="#/following/{{model.user._id}}">
                 <div class="row">
                     <h5>
                         <i class="fa fa-users" aria-hidden="true"></i>
@@ -53,7 +55,7 @@
                     </h5>
                 </div>
                 <div class="row">
-                    {{currentUser.following.length}}
+                    {{model.user.following.length}}
                 </div>
             </a>
         </div>
@@ -61,7 +63,7 @@
 
     <h1 class="page-header less-top-margin">Following</h1>
 
-    <div class="row" ng-hide="currentUser.follower.length > 0">
+    <div class="row" ng-hide="model.user.following.length > 0">
         <div class="alert alert-info alert-box" role="alert">
             <div>
                 <b>Info! </b>
@@ -72,9 +74,19 @@
 
     <div ng-repeat="user in model.users">
         <div class="media">
+            <a class="pull-left" href="">
+                <img class="img-responsive img-thumbnail profile-image"
+                     src="/homepage/images/user_icon.jpg"
+                     alt=""
+                     ng-show="!user.imageUrl">
+                <img class="img-responsive img-thumbnail profile-image"
+                     ng-src="{{user.imageUrl}}"
+                     alt=""
+                     ng-show="user.imageUrl">
+            </a>
             <div class="media-body">
                 <h3 class="media-heading">
-                    <a href="#/reviews/{{user._id}}">
+                    <a href="#/user/{{user._id}}">
                         {{user.firstName + " " + user.lastName}}
                     </a>
                 </h3>
@@ -82,14 +94,14 @@
                     <a href=""
                        ng-click="model.follow($index)"
                        ng-hide="user.alreadyFollowing"
-                       class="btn-sm btn-success">Follow
+                       class="btn-sm btn-success"><i class="fa fa-user-plus" aria-hidden="true"></i> Follow
                     </a>
                 </div>
                 <div ng-hide="user.itsMe">
                     <a href=""
                        ng-click="model.unfollow($index)"
                        ng-show="user.alreadyFollowing"
-                       class="btn-sm btn-danger">Unfollow
+                       class="btn-sm btn-danger"><i class="fa fa-user-times" aria-hidden="true"></i> Unfollow
                     </a>
                 </div>
             </div>

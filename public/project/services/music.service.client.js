@@ -6,7 +6,7 @@
 
     function MusicService($http) {
 
-        var similarUrl = "https://api.spotify.com/v1/artists/ARTISTID/related-artists";
+        var relatedArtists = "https://api.spotify.com/v1/artists/ARTISTID/related-artists";
 
         var api = {
             "searchMusicByTitle": searchMusicByTitle,
@@ -22,7 +22,7 @@
         }
 
         function findSimilarMusic(artistId) {
-            var url = similarUrl
+            var url = relatedArtists
                 .replace("ARTISTID", artistId);
 
             return $http.get(url);

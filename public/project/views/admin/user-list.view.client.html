@@ -1,3 +1,33 @@
 <div class="container-fluid">
     <h1>Admin</h1>
+
+    <br>
+
+    <div ng-repeat="user in model.users">
+        <div class="media">
+            <a class="pull-left" href="">
+                <img class="img-responsive img-thumbnail profile-image"
+                     src="/homepage/images/user_icon.jpg"
+                     alt=""
+                     ng-show="!user.imageUrl">
+                <img class="img-responsive img-thumbnail profile-image"
+                     ng-src="{{user.imageUrl}}"
+                     alt=""
+                     ng-show="user.imageUrl">
+            </a>
+            <div class="media-body">
+                <h3 class="media-heading">
+                    {{user.username}}
+                </h3>
+                <h3 class="media-heading">
+                        {{user.firstName + " " + user.lastName}}
+                </h3>
+                <h3 class="media-heading">
+                    {{user.email}}
+                </h3>
+            </div>
+        </div>
+        <hr>
+    </div>
+
 </div>

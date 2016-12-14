@@ -1,28 +1,30 @@
 <div class="container-fluid well">
     <div class="row text-center">
         <div class="col-xs-4 col-sm-3">
-            <img class="img-responsive img-thumbnail profile-image" ng-src="{{model.user.imageUrl || '/homepage/images/user_icon.jpg'}}"/>
+            <a href="#/user/{{model.user._id}}">
+                <img class="img-responsive img-thumbnail profile-image" ng-src="{{model.user.imageUrl || '/homepage/images/user_icon.jpg'}}"/>
+            </a>
             <br>
             {{model.user.username}}
         </div>
         <div class="col-xs-4 col-sm-2">
-            <a href="#/favorites/{{currentUser._id}}">
+            <a href="#/favorites/{{model.user._id}}">
                 <div class="row">
                     <h5>
-                        <i class="fa fa-users" aria-hidden="true"></i>
+                        <i class="fa fa-heart" aria-hidden="true" style="color: red;"></i>
                         Favorites
                     </h5>
                 </div>
                 <div class="row">
-                    {{currentUser.favorites.length}}
+                    {{model.user.favorites.length}}
                 </div>
             </a>
         </div>
         <div class="col-xs-4 col-sm-2">
-            <a href="#/reviews/{{currentUser._id}}">
+            <a href="#/reviews/{{model.user._id}}">
                 <div class="row">
                     <h5>
-                        <i class="fa fa-users" aria-hidden="true"></i>
+                        <i class="fa fa-comment" aria-hidden="true" style="color: green;"></i>
                         Reviews
                     </h5>
                 </div>
@@ -32,7 +34,7 @@
             </a>
         </div>
         <div class="col-xs-4 col-sm-2">
-            <a href="#/followers/{{currentUser._id}}">
+            <a href="#/followers/{{model.user._id}}">
                 <div class="row">
                     <h5>
                         <i class="fa fa-users" aria-hidden="true"></i>
@@ -40,12 +42,12 @@
                     </h5>
                 </div>
                 <div class="row">
-                    {{currentUser.follower.length}}
+                    {{model.user.follower.length}}
                 </div>
             </a>
         </div>
         <div class="col-xs-4 col-sm-2">
-            <a href="#/following/{{currentUser._id}}">
+            <a href="#/following/{{model.user._id}}">
                 <div class="row">
                     <h5>
                         <i class="fa fa-users" aria-hidden="true"></i>
@@ -53,23 +55,25 @@
                     </h5>
                 </div>
                 <div class="row">
-                    {{currentUser.following.length}}
+                    {{model.user.following.length}}
                 </div>
             </a>
         </div>
     </div>
     <hr>
-    <div ng-show="model.loggedInUserId != model.navigateUserId">
-        <a href=""
-           ng-click="model.follow()"
-           ng-hide="model.alreadyFollowing"
-           class="btn-sm btn-success">Follow
-        </a>
-        <a href=""
-           ng-click="model.unfollow()"
-           ng-show="model.alreadyFollowing"
-           class="btn-sm btn-danger">Unfollow
-        </a>
+    <div ng-hide="!model.navigateUserId || model.loggedInUserId == model.navigateUserId">
+        <div ng-show="model.loggedInUserId != model.navigateUserId">
+            <a href=""
+               ng-click="model.follow()"
+               ng-hide="model.alreadyFollowing"
+               class="btn-sm btn-success"><i class="fa fa-user-plus" aria-hidden="true"></i> Follow
+            </a>
+            <a href=""
+               ng-click="model.unfollow()"
+               ng-show="model.alreadyFollowing"
+               class="btn-sm btn-danger"><i class="fa fa-user-times" aria-hidden="true"></i> Unfollow
+            </a>
+        </div>
     </div>
     <div ng-show="model.success" class="alert alert-success" role="alert">
         {{model.success}}
@@ -78,7 +82,6 @@
         {{model.error}}
     </div>
     <h1 class="text-center">Profile</h1>
-    <form>
         <div class="form-group">
             <div class="input-group margin-bottom-sm">
                 <span class="input-group-addon"><i class="fa fa-user-o fa-fw"></i></span>
@@ -115,11 +118,18 @@
                 <input ng-model="model.user.birthDate" datetime="yyyy-MM-dd" type="text" class="form-control" id="birthDate" placeholder="Birth Date">
             </div>
         </div>
+        <div class="form-group">
+            <label for="upload">Upload</label>
+            <form action="/api/profile/upload" id="upload" method="post" enctype="multipart/form-data">
+                <input  name="profileImg"   type="file" class="form-control"/>
+                <input  name="userId" value="{{model.user._id}}"   style="display: none"/>
+                <button type="submit"   class="btn btn-block btn-primary">Upload Image !!!!</button>
+            </form>
+        </div>
         <a ng-click="model.updateUser()" class="btn btn-success btn-block">Update</a>
         <a ng-click="model.deleteUser()" class="btn btn-danger btn-block">Unregister</a>
         <a ng-click="model.logout()" class="btn btn-warning btn-block">Logout</a>
         <a href="#/admin" ng-show="model.user.role == 'ADMIN'" class="btn btn-primary btn-block">Admin</a>
-    </form>
 </div>
 <script>
     $( function() {

@@ -9,10 +9,6 @@
 
         function login() {
 
-            // commented to implement login using localStrategy of passport js
-            // UserService
-            //     .findUserByCredentials(vm.user.username,vm.user.password)
-
             if(!vm.user || (!vm.user.username || !vm.user.password)) {
                 vm.error="Please enter all details";
             }
