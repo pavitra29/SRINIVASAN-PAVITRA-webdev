@@ -48,7 +48,6 @@
         }
 
         function follow(followerId, followingId) {
-            console.log("/api/user/" + followerId + "/follows/" + followingId);
             return $http.put("/api/user/" + followerId + "/follows/" + followingId);
         }
 

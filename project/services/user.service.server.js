@@ -208,16 +208,16 @@ module.exports = function(app, model) {
     }
 
     function unfollow(req, res) {
-        var loggedInUserId = req.params.loggedInUserId;
-        var navigateUserId = req.params.navigateUserId;
+        var followerId = req.params.followerId;
+        var followingId = req.params.followingId;
         model
             .userModel
-            .removeFollowingUser(loggedInUserId, navigateUserId)
+            .removeFollowingUser(followerId, followingId)
             .then(
                 function (response) {
                     return model
                         .userModel
-                        .removeFollowerUser(navigateUserId, loggedInUserId);
+                        .removeFollowerUser(followerId, followingId);
                 },
                 function (err) {
                     res.status(400).send(err);
@@ -233,11 +233,11 @@ module.exports = function(app, model) {
     }
 
     function isAlreadyFollowing(req, res) {
-        var loggedInUserId = req.params.loggedInUserId;
-        var navigateUserId = req.params.navigateUserId;
+        var followerId = req.params.followerId;
+        var followingId = req.params.followingId;
         model
             .userModel
-            .findAlreadyFollowingUser(loggedInUserId, navigateUserId)
+            .isAlreadyFollowing(followerId, followingId)
             .then(
                 function (user) {
                     res.json(user);

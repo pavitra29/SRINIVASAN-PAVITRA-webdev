@@ -27,7 +27,6 @@
                             vm.user = user;
                             $rootScope.currentUser = user;
 
-
                             ReviewService.findAllReviewsByUserId(vm.user._id)
                                 .then(function (response) {
                                         vm.reviews = response.data;
@@ -67,7 +66,6 @@
                             ReviewService.findAllReviewsByUserId(vm.navigateUserId)
                                 .then(function (response) {
                                         vm.reviews = response.data;
-                                        // console.log(vm.reviews);
                                     },
                                     function (err) {
                                         console.log(err);
@@ -127,13 +125,10 @@
 
         function follow() {
 
-            console.log([vm.loggedInUserId, vm.navigateUserId]);
-
             UserService
                 .follow(vm.loggedInUserId, vm.navigateUserId)
                 .then(function (response) {
                     var status = response.data;
-                    console.log(status);
                     vm.alreadyFollowing = (status.n == 1 || status.nModified == 1) && status.ok == 1 ? true : false;
                 });
         }
@@ -143,7 +138,6 @@
                 .unfollow(vm.loggedInUserId, vm.navigateUserId)
                 .then(function (response) {
                     var status = response.data;
-                    console.log(status);
                     vm.alreadyFollowing = (status.n == 1 || status.nModified == 1) && status.ok == 1 ? false : true;
                 });
         }

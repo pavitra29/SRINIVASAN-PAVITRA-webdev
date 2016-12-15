@@ -139,6 +139,9 @@
 
         function unfollow(index) {
             var userId = vm.users[index]._id;
+
+            console.log(vm.loggedInUserId, userId);
+
             UserService
                 .unfollow(vm.loggedInUserId, userId)
                 .then(function (response) {

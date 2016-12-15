@@ -26,7 +26,7 @@ module.exports = function () {
         addFollowerUser: addFollowerUser,
         removeFollowingUser: removeFollowingUser,
         removeFollowerUser: removeFollowerUser,
-        findAlreadyFollowingUser: findAlreadyFollowingUser,
+        isAlreadyFollowing: isAlreadyFollowing,
         findAllFollowingUsers: findAllFollowingUsers,
         findAllFollowersUsers: findAllFollowersUsers,
         setModel: setModel,
@@ -84,7 +84,7 @@ module.exports = function () {
         );
     }
 
-    function findAlreadyFollowingUser(followerId, followingId) {
+    function isAlreadyFollowing(followerId, followingId) {
         return UserModel.findOne(
             {_id: followerId,
                 following: {$in: [followingId]}
