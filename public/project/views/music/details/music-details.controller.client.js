@@ -203,12 +203,15 @@
         }
 
         function isMusicFavorite() {
-            UserService
-                .isMusicFavorite(vm.user._id, vm.albumId)
-                .then(function (response) {
-                    var user = response.data;
-                    vm.isFavorite = user ? true : false;
-                });
+
+            if(vm.user) {
+                UserService
+                    .isMusicFavorite(vm.user._id, vm.albumId)
+                    .then(function (response) {
+                        var user = response.data;
+                        vm.isFavorite = user ? true : false;
+                    });
+            }
         }
     }
 })();

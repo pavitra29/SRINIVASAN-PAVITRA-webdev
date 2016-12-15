@@ -6,7 +6,7 @@
         <input ng-model="model.title" type="text" class="form-control" placeholder="Search for Album...">
         <span class="input-group-btn">
             <button ng-click="model.searchMusicByTitle(model.title)" class="btn btn-default" type="button">
-                <i class="fa fa-search" aria-hidden="true"></i>
+                <i class="fa fa-search" aria-hidden="true" style="color: dodgerblue"></i>
             </button>
         </span>
     </div>
@@ -22,7 +22,7 @@
                         <img class="img-responsive" ng-src="{{music.images[0].url}}"/>
                     </a>
                     <div class="caption">
-                        <h5>Type: {{music.type}}</h5>
+                        <h5>Album Type: {{music.album_type.toUpperCase()}}</h5>
                     </div>
                     <hr class="nomargin">
                 </div>

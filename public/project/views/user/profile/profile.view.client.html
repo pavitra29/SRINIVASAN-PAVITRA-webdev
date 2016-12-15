@@ -118,7 +118,7 @@
                 <input ng-model="model.user.birthDate" datetime="yyyy-MM-dd" type="text" class="form-control" id="birthDate" placeholder="Birth Date">
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" ng-hide="model.loggedInUserId != model.navigateUserId">
             <label for="upload">Upload</label>
             <form action="/api/profile/upload" id="upload" method="post" enctype="multipart/form-data">
                 <input  name="profileImg"   type="file" class="form-control"/>
@@ -126,9 +126,9 @@
                 <button type="submit"   class="btn btn-block btn-primary">Upload Image !!!!</button>
             </form>
         </div>
-        <a ng-click="model.updateUser()" class="btn btn-success btn-block">Update</a>
-        <a ng-click="model.deleteUser()" class="btn btn-danger btn-block">Unregister</a>
-        <a ng-click="model.logout()" class="btn btn-warning btn-block">Logout</a>
+        <a ng-click="model.updateUser()" ng-hide="model.loggedInUserId != model.navigateUserId" class="btn btn-success btn-block">Update</a>
+        <a ng-click="model.deleteUser()" ng-hide="model.loggedInUserId != model.navigateUserId" class="btn btn-danger btn-block">Unregister</a>
+        <a ng-click="model.logout()" ng-hide="model.loggedInUserId != model.navigateUserId" class="btn btn-warning btn-block">Logout</a>
         <a href="#/admin" ng-show="model.user.role == 'ADMIN'" class="btn btn-primary btn-block">Admin</a>
 </div>
 <script>
