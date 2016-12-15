@@ -35,16 +35,16 @@
             return $http.get("/api/admin/user");
         }
 
-        function favoriteMusic(userId, musicId) {
-            return $http.put("/api/user/" + userId + "/music/" + musicId + "/favorite");
+        function favoriteMusic(userId, albumId) {
+            return $http.put("/api/user/" + userId + "/music/" + albumId + "/favorite");
         }
 
-        function undoFavoriteMusic(userId, musicId) {
-            return $http.put("/api/user/" + userId + "/music/" + musicId + "/undofavorite");
+        function undoFavoriteMusic(userId, albumId) {
+            return $http.put("/api/user/" + userId + "/music/" + albumId + "/undofavorite");
         }
 
-        function isMusicFavorite(userId, musicId) {
-            return $http.get("/api/user/" + userId + "/music/" + musicId + "/ismusicfavorite");
+        function isMusicFavorite(userId, albumId) {
+            return $http.get("/api/user/" + userId + "/music/" + albumId + "/ismusicfavorite");
         }
 
         function follow(followerId, followingId) {

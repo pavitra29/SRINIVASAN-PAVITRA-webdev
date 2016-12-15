@@ -45,9 +45,9 @@ module.exports = function(app, model) {
     app.put('/api/user/:uid', loggedInAndSelf, updateUser);
     app.delete('/api/user/:uid', loggedInAndSelf, deleteUser);
 
-    app.put("/api/user/:userId/music/:musicId/favorite", favoriteMusic);
-    app.put("/api/user/:userId/music/:musicId/undofavorite", undoFavoriteMusic);
-    app.get("/api/user/:userId/music/:musicId/ismusicfavorite", isMusicFavorite);
+    app.put("/api/user/:userId/music/:albumId/favorite", favoriteMusic);
+    app.put("/api/user/:userId/music/:albumId/undofavorite", undoFavoriteMusic);
+    app.get("/api/user/:userId/music/:albumId/ismusicfavorite", isMusicFavorite);
     app.put("/api/user/:followerId/follows/:followingId", follow);
     app.put("/api/user/:followerId/unfollows/:followingId", unfollow);
     app.get("/api/user/:followerId/isalreadyfollowing/:followingId", isAlreadyFollowing);
@@ -134,7 +134,7 @@ module.exports = function(app, model) {
     }
     
     function favoriteMusic(req, res) {
-        var reqMusicId = req.params.musicId;
+        var reqMusicId = req.params.albumId;
         var reqUserId = req.params.userId;
         model
             .userModel
@@ -150,7 +150,7 @@ module.exports = function(app, model) {
     }
 
     function undoFavoriteMusic(req, res) {
-        var reqMusicId = req.params.musicId;
+        var reqMusicId = req.params.albumId;
         var reqUserId = req.params.userId;
         model
             .userModel
@@ -166,7 +166,7 @@ module.exports = function(app, model) {
     }
 
     function isMusicFavorite(req, res) {
-        var reqMusicId = req.params.musicId;
+        var reqMusicId = req.params.albumId;
         var reqUserId = req.params.userId;
         model
             .userModel

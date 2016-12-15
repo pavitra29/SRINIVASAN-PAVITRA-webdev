@@ -9,7 +9,7 @@ module.exports = function () {
             type: Date,
             default: Date.now
         },
-        musicId: String,
+        albumId: String,
         userId: String,
         rating: String
     },{collection: 'review'});

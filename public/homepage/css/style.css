@@ -22,17 +22,6 @@ body {
     background-size: cover;
 }
 
-/*#section3 {*/
-    /*background-image: url('../images/education2.jpg');*/
-    /*background-size: cover;*/
-/*}*/
-
-/*#section5 {*/
-    /*background-image: url('../images/brickImage.jpg');*/
-    /*background-repeat: no-repeat;*/
-    /*background-position: center;*/
-/*}*/
-
 #section7 {
 
 }
@@ -44,13 +33,6 @@ body {
     max-width: 100%;
 }
 
-/*.carousel-inner > .item > img,*/
-/*.carousel-inner > .item > a > img {*/
-    /*width: 500px;*/
-    /*height: 450px;*/
-    /*margin-top: 15px;*/
-/*}*/
-
 .carousel-inner > .item > img {
     margin: 0 auto;
 }
@@ -58,8 +40,6 @@ body {
 .carousel-image {
     max-height: 400px;
     margin: 15px;
-
-    /*width: 100px;*/
 }
 
 .home-slider .carousel-indicators {

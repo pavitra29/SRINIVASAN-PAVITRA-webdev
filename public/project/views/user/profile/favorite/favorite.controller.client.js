@@ -87,9 +87,9 @@
         init();
 
         function favoriteMusic(index) {
-            var musicId = vm.music[index]._id;
+            var albumId = vm.music[index]._id;
             UserService
-                .favoriteMusic(vm.loggedInUserId, musicId)
+                .favoriteMusic(vm.loggedInUserId, albumId)
                 .then(function (response) {
                     var status = response.data;
                     console.log(status);
@@ -100,9 +100,9 @@
         }
 
         function undoFavoriteMusic(index) {
-            var musicId = vm.music[index]._id;
+            var albumId = vm.music[index]._id;
             UserService
-                .undoFavoriteMusic(vm.loggedInUserId, musicId)
+                .undoFavoriteMusic(vm.loggedInUserId, albumId)
                 .then(function (response) {
                     var status = response.data;
                     console.log(status);

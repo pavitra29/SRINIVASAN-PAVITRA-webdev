@@ -15,20 +15,20 @@
         };
         return api;
 
-        function findAllReviewsByMusicId(musicId) {
-            return $http.get("/api/music/" + musicId + "/reviews");
+        function findAllReviewsByMusicId(albumId) {
+            return $http.get("/api/music/" + albumId + "/reviews");
         }
 
-        function addReview(userId, musicId, review) {
-            return $http.post("/api/user/" + userId + "/music/" + musicId, review);
+        function addReview(userId, albumId, review) {
+            return $http.post("/api/user/" + userId + "/music/" + albumId, review);
         }
 
-        function updateReview(musicId, reviewId, review) {
-            return $http.put("/api/music/" + musicId + "/review/" + reviewId, review);
+        function updateReview(albumId, reviewId, review) {
+            return $http.put("/api/music/" + albumId + "/review/" + reviewId, review);
         }
 
-        function deleteReview(musicId, reviewId) {
-            return $http.delete("/api/music/" + musicId + "/review/" + reviewId);
+        function deleteReview(albumId, reviewId) {
+            return $http.delete("/api/music/" + albumId + "/review/" + reviewId);
         }
 
         function findAllReviewsByUserId(userId) {

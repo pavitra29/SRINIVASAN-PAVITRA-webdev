@@ -3,7 +3,9 @@
     <h1 class="text-center">Search</h1>
     <br>
     <div class="input-group">
-        <input ng-model="model.title" type="text" class="form-control" placeholder="Search for Album...">
+        <input ng-model="model.title" type="text" class="form-control"
+               ng-keypress="model.searchByKeyPress($event, model.title)"
+               placeholder="Search for Album...">
         <span class="input-group-btn">
             <button ng-click="model.searchMusicByTitle(model.title)" class="btn btn-default" type="button">
                 <i class="fa fa-search" aria-hidden="true" style="color: dodgerblue"></i>
@@ -24,7 +26,6 @@
                     <div class="caption">
                         <h5>Album Type: {{music.album_type.toUpperCase()}}</h5>
                     </div>
-                    <hr class="nomargin">
                 </div>
             </div>
         </div>

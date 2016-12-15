@@ -24,8 +24,8 @@ module.exports = function () {
             newMusicObj, {upsert: true});
     }
 
-    function findMusicById(musicId) {
-        return MusicModel.findById(musicId);
+    function findMusicById(albumId) {
+        return MusicModel.findById(albumId);
     }
 
     function findAllFavoriteMusic(musicIds) {

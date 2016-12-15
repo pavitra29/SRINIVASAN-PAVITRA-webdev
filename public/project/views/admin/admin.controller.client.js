@@ -14,8 +14,8 @@
             .success(function (users) {
                 vm.users = users;
             })
-            .error(function () {
-
+            .error(function (error) {
+                console.log(error)
             })
     }
     

@@ -1,16 +1,16 @@
 var q = require('q');
 module.exports = function (app, model) {
-    app.get("/api/music/:musicId/reviews", findAllReviewsByMusicId);
-    app.post("/api/user/:userId/music/:musicId", addReview);
-    app.put("/api/music/:musicId/review/:reviewId", updateReview);
-    app.delete("/api/music/:musicId/review/:reviewId", deleteReview);
+    app.get("/api/music/:albumId/reviews", findAllReviewsByMusicId);
+    app.post("/api/user/:userId/music/:albumId", addReview);
+    app.put("/api/music/:albumId/review/:reviewId", updateReview);
+    app.delete("/api/music/:albumId/review/:reviewId", deleteReview);
     app.get("/api/user/:userId/reviews", findAllReviewsByUserId);
 
     function findAllReviewsByMusicId(req, res) {
-        var musicId = req.params.musicId;
+        var albumId = req.params.albumId;
         model
             .reviewModel
-            .findAllReviewsByMusicId(musicId)
+            .findAllReviewsByMusicId(albumId)
             .then(
                 function (reviews) {
                     res.json(reviews);
@@ -23,11 +23,11 @@ module.exports = function (app, model) {
 
     function addReview(req, res) {
         var userId = req.params.userId;
-        var musicId = req.params.musicId;
+        var albumId = req.params.albumId;
         var review = req.body;
         model
             .reviewModel
-            .addReview(userId, musicId, review)
+            .addReview(userId, albumId, review)
             .then(
                 function (review) {
                     res.json(review);
@@ -84,7 +84,7 @@ module.exports = function (app, model) {
                             .push(
                                 model
                                     .musicModel
-                                    .findMusicById(element.musicId)
+                                    .findMusicById(element.albumId)
                                     .then(
                                         function (music) {
                                             if (music) {

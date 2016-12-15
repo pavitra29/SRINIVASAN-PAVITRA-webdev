@@ -10,6 +10,8 @@
 
         vm.searchMusicByTitle = searchMusicByTitle;
 
+        vm.searchByKeyPress = searchByKeyPress;
+
         vm.title = $routeParams.title;
 
         function init() {
@@ -28,6 +30,12 @@
                     $location.url("/search/"+title);
                 });
 
+        }
+
+        function searchByKeyPress(event, title) {
+            if (event.keyCode === 13) {
+                searchMusicByTitle(title);
+            }
         }
 
     }

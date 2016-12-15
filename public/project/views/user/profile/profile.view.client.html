@@ -6,14 +6,22 @@
             </a>
             <br>
             {{model.user.username}}
+            <br>
+            <div ng-hide="!model.navigateUserId || model.loggedInUserId == model.navigateUserId">
+                <div ng-show="model.loggedInUserId != model.navigateUserId">
+                    <a href="" ng-click="model.follow()" ng-hide="model.alreadyFollowing"
+                       class="btn-sm btn-success"><i class="fa fa-user-plus" aria-hidden="true"></i> Follow
+                    </a>
+                    <a href="" ng-click="model.unfollow()" ng-show="model.alreadyFollowing"
+                       class="btn-sm btn-danger"><i class="fa fa-user-times" aria-hidden="true"></i> Unfollow
+                    </a>
+                </div>
+            </div>
         </div>
         <div class="col-xs-4 col-sm-2">
             <a href="#/favorites/{{model.user._id}}">
                 <div class="row">
-                    <h5>
-                        <i class="fa fa-heart" aria-hidden="true" style="color: red;"></i>
-                        Favorites
-                    </h5>
+                    <h5><i class="fa fa-heart" aria-hidden="true" style="color: red;"></i>Favorites</h5>
                 </div>
                 <div class="row">
                     {{model.user.favorites.length}}
@@ -23,10 +31,7 @@
         <div class="col-xs-4 col-sm-2">
             <a href="#/reviews/{{model.user._id}}">
                 <div class="row">
-                    <h5>
-                        <i class="fa fa-comment" aria-hidden="true" style="color: green;"></i>
-                        Reviews
-                    </h5>
+                    <h5><i class="fa fa-comment" aria-hidden="true" style="color: green;"></i>Reviews</h5>
                 </div>
                 <div class="row">
                     {{model.reviews.length}}
@@ -36,10 +41,7 @@
         <div class="col-xs-4 col-sm-2">
             <a href="#/followers/{{model.user._id}}">
                 <div class="row">
-                    <h5>
-                        <i class="fa fa-users" aria-hidden="true"></i>
-                        Followers
-                    </h5>
+                    <h5><i class="fa fa-users" aria-hidden="true"></i>Followers</h5>
                 </div>
                 <div class="row">
                     {{model.user.follower.length}}
@@ -49,10 +51,7 @@
         <div class="col-xs-4 col-sm-2">
             <a href="#/following/{{model.user._id}}">
                 <div class="row">
-                    <h5>
-                        <i class="fa fa-users" aria-hidden="true"></i>
-                        Following
-                    </h5>
+                    <h5><i class="fa fa-users" aria-hidden="true"></i>Following</h5>
                 </div>
                 <div class="row">
                     {{model.user.following.length}}
@@ -61,20 +60,6 @@
         </div>
     </div>
     <hr>
-    <div ng-hide="!model.navigateUserId || model.loggedInUserId == model.navigateUserId">
-        <div ng-show="model.loggedInUserId != model.navigateUserId">
-            <a href=""
-               ng-click="model.follow()"
-               ng-hide="model.alreadyFollowing"
-               class="btn-sm btn-success"><i class="fa fa-user-plus" aria-hidden="true"></i> Follow
-            </a>
-            <a href=""
-               ng-click="model.unfollow()"
-               ng-show="model.alreadyFollowing"
-               class="btn-sm btn-danger"><i class="fa fa-user-times" aria-hidden="true"></i> Unfollow
-            </a>
-        </div>
-    </div>
     <div ng-show="model.success" class="alert alert-success" role="alert">
         {{model.success}}
     </div>
@@ -82,40 +67,57 @@
         {{model.error}}
     </div>
     <h1 class="text-center">Profile</h1>
+    <br>
         <div class="form-group">
             <div class="input-group margin-bottom-sm">
                 <span class="input-group-addon"><i class="fa fa-user-o fa-fw"></i></span>
-                <input ng-model="model.user.username" readonly type="text" class="form-control" id="username" placeholder="Username">
+                <input ng-model="model.user.username" readonly type="text" class="form-control" id="username"
+                       placeholder="Username">
             </div>
         </div>
         <div class="form-group">
             <div class="input-group margin-bottom-sm">
                 <span class="input-group-addon"><i class="fa fa-user-circle-o"></i></span>
-                <input ng-model="model.user.firstName" type="text" class="form-control" id="firstname" placeholder="First Name">
+                <input ng-model="model.user.firstName" type="text" class="form-control"
+                       placeholder="First Name" ng-show="model.loggedInUserId != model.navigateUserId" readonly>
+                <input ng-model="model.user.firstName" type="text" class="form-control" id="firstname"
+                       placeholder="First Name" ng-show="model.loggedInUserId == model.navigateUserId">
             </div>
         </div>
         <div class="form-group">
             <div class="input-group margin-bottom-sm">
                 <span class="input-group-addon"><i class="fa fa-user-circle-o"></i></span>
-                <input ng-model="model.user.lastName" type="text" class="form-control" id="lastname" placeholder="Last Name">
+                <input ng-model="model.user.lastName" type="text" class="form-control"
+                       placeholder="Last Name" ng-show="model.loggedInUserId != model.navigateUserId" readonly>
+                <input ng-model="model.user.lastName" type="text" class="form-control" id="lastname"
+                       placeholder="Last Name" ng-show="model.loggedInUserId == model.navigateUserId">
             </div>
         </div>
         <div class="form-group">
             <div class="input-group margin-bottom-sm">
                 <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i></span>
-                <input ng-model="model.user.email" type="text" class="form-control" id="email" placeholder="Email Address">
+                <input ng-model="model.user.email" type="text" class="form-control"
+                       placeholder="Email Address" ng-show="model.loggedInUserId != model.navigateUserId" readonly>
+                <input ng-model="model.user.email" type="text" class="form-control" id="email"
+                       placeholder="Email Address" ng-show="model.loggedInUserId == model.navigateUserId">
             </div>
         </div>
         <div class="form-group">
             <div class="input-group margin-bottom-sm">
                 <span class="input-group-addon"><i class="fa fa-phone fa-fw" aria-hidden="true"></i></span>
-                <input ng-model="model.user.phone" type="text" class="form-control" id="phone" placeholder="Phone Number">
+                <input ng-model="model.user.phone" type="text" class="form-control"
+                       placeholder="Phone Number" ng-show="model.loggedInUserId != model.navigateUserId" readonly>
+                <input ng-model="model.user.phone" type="text" class="form-control" id="phone"
+                       placeholder="Phone Number" ng-show="model.loggedInUserId == model.navigateUserId">
             </div>
         </div>
         <div class="form-group">
             <div class="input-group margin-bottom-sm">
                 <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                <input ng-model="model.user.birthDate" datetime="yyyy-MM-dd" type="text" class="form-control" id="birthDate" placeholder="Birth Date">
+                <input ng-model="model.user.birthDate" datetime="yyyy-MM-dd" type="text" class="form-control" readonly
+                       placeholder="Birth Date" ng-show="model.loggedInUserId != model.navigateUserId">
+                <input ng-model="model.user.birthDate" datetime="yyyy-MM-dd" type="text" class="form-control" id="birthDate"
+                       placeholder="Birth Date" ng-show="model.loggedInUserId == model.navigateUserId">
             </div>
         </div>
         <div class="form-group" ng-hide="model.loggedInUserId != model.navigateUserId">

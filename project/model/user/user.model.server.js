@@ -38,22 +38,22 @@ module.exports = function () {
         return UserModel.find();
     }
 
-    function favoriteMusic(userId, musicId) {
+    function favoriteMusic(userId, albumId) {
         return UserModel
             .update({
                     _id : userId
                 },
                 {
-                    $addToSet: {favorites: musicId}
+                    $addToSet: {favorites: albumId}
                 });
     }
 
-    function undoFavoriteMusic(userId, musicId) {
-        return UserModel.update({_id: userId}, {$pullAll: {favorites: [musicId]}});
+    function undoFavoriteMusic(userId, albumId) {
+        return UserModel.update({_id: userId}, {$pullAll: {favorites: [albumId]}});
     }
 
-    function findMusicByFavorite(userId, musicId) {
-        return UserModel.findOne({_id: userId, favorites: {$in: [musicId]}});
+    function findMusicByFavorite(userId, albumId) {
+        return UserModel.findOne({_id: userId, favorites: {$in: [albumId]}});
     }
 
     function addFollowingUser(followerId, followingId) {

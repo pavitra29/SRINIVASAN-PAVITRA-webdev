@@ -29,8 +29,8 @@
                         vm.user = user;
                     }
                 })
-                .error(function () {
-
+                .error(function (err) {
+                    console.log(err);
                 });
 
             MusicService
@@ -62,7 +62,7 @@
         }
         init();
 
-        function musicAvgRatingByMusicId(reviews) {
+        function findAvgRatingByAlbumId(reviews) {
             var avgRating = 0;
             for (var i = 0; i < reviews.length; i++) {
                 avgRating += parseInt(reviews[i].rating);
@@ -81,7 +81,7 @@
                         vm.reviews = response.data;
 
                         findUserByReviewUserId(vm.reviews);
-                        musicAvgRatingByMusicId(vm.reviews);
+                        findAvgRatingByAlbumId(vm.reviews);
                         isMusicFavorite();
                     }
                 });
@@ -113,7 +113,7 @@
                         vm.reviews.push(response.data);
 
                         findUserByReviewUserId(vm.reviews);
-                        musicAvgRatingByMusicId(vm.reviews);
+                        findAvgRatingByAlbumId(vm.reviews);
 
                         return MusicService.addMusic(vm.music);
                     }
@@ -130,7 +130,7 @@
                 "title": vm.reviews[index]["title"],
                 "description": vm.reviews[index]["description"],
                 "timestamp": vm.reviews[index]["timestamp"],
-                "musicId": vm.reviews[index]["albumId"],
+                "albumId": vm.reviews[index]["albumId"],
                 "userId": vm.reviews[index]["userId"],
                 "rating": vm.reviews[index]["rating"]
             };
@@ -147,7 +147,7 @@
                         vm.selectedIndex = -1;
                         vm.review = {};
                         findUserByReviewUserId(vm.reviews);
-                        musicAvgRatingByMusicId(vm.reviews);
+                        findAvgRatingByAlbumId(vm.reviews);
                     }
                 });
         }
@@ -163,7 +163,7 @@
                         vm.selectedIndex = -1;
                         vm.review = {};
                         findUserByReviewUserId(vm.reviews);
-                        musicAvgRatingByMusicId(vm.reviews);
+                        findAvgRatingByAlbumId(vm.reviews);
                     }
                 });
         }

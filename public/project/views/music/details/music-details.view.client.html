@@ -26,48 +26,35 @@
                 <div class="visible-inline-block">
                     <h1>{{model.music.name}}</h1>
                     <span ng-show="currentUser._id">
-                        <a href=""
-                           ng-click="model.favoriteMusic()"
-                           ng-hide="model.isFavorite">
+                        <a href="" ng-click="model.favoriteMusic()" ng-hide="model.isFavorite">
                             <i class="fa fa-heart"></i>
                         </a>
-                        <a href=""
-                           ng-click="model.undoFavoriteMusic()"
-                           ng-show="model.isFavorite">
+                        <a href="" ng-click="model.undoFavoriteMusic()" ng-show="model.isFavorite">
                             <i class="fa fa-heart" style="color: red"></i>
                         </a>
                     </span>
                     <span ng-show="!currentUser._id">
-                        <a href=""
-                           data-toggle="tooltip"
-                           data-placement="top"
-                           title="Please login to add to favorites!"
+                        <a href="" data-toggle="tooltip" data-placement="top" title="Please login to add to favorites!"
                            ng-disabled="!currentUser._id">
                             <i class="fa fa-heart" style="color: lightgrey"></i>
                         </a>
                     </span>
                 </div>
-                <div>
 
-                </div>
                 <div>
                     <span class="caption">Release: </span>
                     {{model.music.release_date}}
                 </div>
+
                 <div>
-                <span class="caption" ng-show="model.avgRating != 0">
-            Average Rating:
-                <ng-rating ng-model="model.avgRating"
-                           editable="false"
-                           show-grade="true">
-                </ng-rating>
-        </span>
+                    <span class="caption" ng-show="model.avgRating != 0">
+                        Average Rating:
+                        <ng-rating ng-model="model.avgRating" editable="false" show-grade="true"></ng-rating>
+                    </span>
                 </div>
 
                 <div class="caption">Genres:
-                    <span class="h4" ng-repeat="genre in model.artist.genres">
-                        {{"#" + genre}} &nbsp;
-                    </span>
+                    <span class="h4" ng-repeat="genre in model.artist.genres">{{"#" + genre}} &nbsp;</span>
                 </div>
                 <div>
                     Spotify URL: <a href="{{model.music.external_urls.spotify}}">Click to listen on Spotify</a>
@@ -79,7 +66,7 @@
             <div class="panel-body">
                 <div class="media bottom-margin">
                     <div class="media-left">
-                        <img class="media-object cast-object" ng-src="{{model.artist.images[2].url}}" alt="">
+                        <img class="media-object img-rounded profile-image" ng-src="{{model.artist.images[1].url}}" alt="">
                     </div>
                     <div class="media-body">
                         <h6 class="media-heading">Artist : {{model.artist.name}}</h6>
@@ -102,6 +89,7 @@
                                            editable="true">
                                 </ng-rating>
                             </p>
+                            <br>
                             <form>
                                 <div class="form-group">
                                     <input type="text" class="form-control"
@@ -119,7 +107,6 @@
                             <a class="pull-left" href="">
                                 <img class="img-responsive img-thumbnail profile-image"
                                      src="/homepage/images/comingSoon.jpeg"
-                                     alt=""
                                      ng-show="!review.imageUrl">
                                 <img class="img-responsive img-thumbnail profile-image"
                                      ng-src="{{review.imageUrl}}"
@@ -181,13 +168,13 @@
                             <a href="" class="btn btn-warning" role="button"
                                ng-if="model.selectedIndex !== $index && currentUser._id == review.userId"
                                ng-click="model.selectReview($index)">
-                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                 Edit
                             </a>
                             <a href="" class="btn btn-danger" role="button"
                                ng-if="model.selectedIndex !== $index && currentUser._id == review.userId"
                                ng-click="model.deleteReview($index)">
-                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                <i class="fa fa-trash" aria-hidden="true"></i>
                                 Delete
                             </a>
                         </div>
@@ -197,26 +184,24 @@
 
                 <div class="panel-body">
                     <div class="well">
-                        <h4>Write a Review:</h4>
+                        <h4>Review this Album:</h4>
                         <p>
-                            <ng-rating ng-model="model.review.rating"
-                                       editable="true">
-                            </ng-rating>
+                            <ng-rating ng-model="model.review.rating" editable="true"></ng-rating>
                         </p>
+                        <br>
                         <form>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Please enter title of the review"
+                                <input type="text" class="form-control" placeholder="Please enter title"
                                        ng-model="model.review.title"/>
                             </div>
                             <div class="form-group">
-                    <textarea class="form-control" rows="3" placeholder="Please enter description of the review"
+                    <textarea class="form-control" rows="3" placeholder="Please enter description"
                               ng-model="model.review.description"></textarea>
                             </div>
                             <a href="" class="btn btn-success" ng-show="currentUser._id"
-                               ng-click="model.addReview(model.review)"
-                               role="button">Submit</a>
-                            <a href="" class="btn btn-warning" ng-show="!currentUser._id" ng-disabled="!currentUser._id"
-                               role="button" title="Please login to review!">Submit</a>
+                               ng-click="model.addReview(model.review)" role="button">Submit</a>
+                            <a href="" class="btn btn-warning" ng-show="!currentUser._id"
+                               ng-disabled="!currentUser._id" role="button" title="Please login to review!">Submit</a>
                         </form>
                     </div>
                 </div>
@@ -297,7 +282,7 @@
                         <div class="caption">
                             <h5>{{item.name | limitTo:50}}{{item.name.length > 50 ? "..." : ""}}</h5>
                         </div>
-                        <img class="img-responsive" ng-src="{{item.images[1].url}}" width="100%" height="100%"/>
+                        <img class="img-responsive img-rounded" ng-src="{{item.images[1].url}}" width="100%" height="100%"/>
                     </div>
                 </div>
             </div>

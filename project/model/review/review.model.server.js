@@ -14,13 +14,13 @@ module.exports = function () {
     };
     return api;
 
-    function findAllReviewsByMusicId(musicId) {
-        return ReviewModel.find({musicId: musicId});
+    function findAllReviewsByMusicId(albumId) {
+        return ReviewModel.find({albumId: albumId});
     }
 
-    function addReview(userId, musicId, review) {
+    function addReview(userId, albumId, review) {
         review.userId = userId;
-        review.musicId = musicId;
+        review.albumId = albumId;
         return ReviewModel.create(review);
     }
 
