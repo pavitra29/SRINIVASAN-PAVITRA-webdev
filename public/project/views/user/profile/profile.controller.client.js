@@ -115,6 +115,7 @@
             UserService
                 .deleteUser(vm.user._id)
                 .success(function () {
+                    $rootScope.currentUser = null;
                     $location.url("/login");
                 })
                 .error(function () {
