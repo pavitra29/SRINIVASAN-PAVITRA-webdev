@@ -73,7 +73,6 @@
                         }
                     });
 
-
             }
 
         }
@@ -128,8 +127,18 @@
             UserService
                 .follow(vm.loggedInUserId, vm.navigateUserId)
                 .then(function (response) {
+
+                    console.log(response);
+
                     var status = response.data;
                     vm.alreadyFollowing = (status.n == 1 || status.nModified == 1) && status.ok == 1 ? true : false;
+
+                    UserService
+                        .findUserById(vm.navigateUserId)
+                        .success(function (user) {
+                            vm.user = user;
+                        })
+
                 });
         }
 
@@ -139,7 +148,14 @@
                 .then(function (response) {
                     var status = response.data;
                     vm.alreadyFollowing = (status.n == 1 || status.nModified == 1) && status.ok == 1 ? false : true;
+
+                    UserService
+                        .findUserById(vm.navigateUserId)
+                        .success(function (user) {
+                            vm.user = user;
+                        })
                 });
+
         }
 
         function isAlreadyFollowing() {

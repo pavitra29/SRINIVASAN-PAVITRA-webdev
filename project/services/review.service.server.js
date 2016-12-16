@@ -16,7 +16,7 @@ module.exports = function (app, model) {
                     res.json(reviews);
                 },
                 function (err) {
-                    res.status(400).send(err);
+                    res.sendStatus(400).send(err);
                 }
             );
     }
@@ -33,7 +33,7 @@ module.exports = function (app, model) {
                     res.json(review);
                 },
                 function (err) {
-                    res.status(400).send(err);
+                    res.sendStatus(400).send(err);
                 }
             );
     }
@@ -49,7 +49,7 @@ module.exports = function (app, model) {
                     res.json(response);
                 },
                 function (err) {
-                    res.status(400).send(err);
+                    res.sendStatus(400).send(err);
                 }
             );
     }
@@ -64,7 +64,7 @@ module.exports = function (app, model) {
                     res.json(response);
                 },
                 function (err) {
-                    res.status(400).send(err);
+                    res.sendStatus(400).send(err);
                 }
             );
     }
@@ -84,7 +84,7 @@ module.exports = function (app, model) {
                             .push(
                                 model
                                     .musicModel
-                                    .findMusicById(element.albumId)
+                                    .findAlbumById(element.albumId)
                                     .then(
                                         function (music) {
                                             if (music) {
@@ -106,7 +106,7 @@ module.exports = function (app, model) {
                     });
                 },
                 function (err) {
-                    res.status(400).send(err);
+                    res.sendStatus(400).send(err);
                 }
             );
     }

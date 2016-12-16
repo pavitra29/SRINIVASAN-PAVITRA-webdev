@@ -77,7 +77,10 @@ html,body,div,span,h1,h6,p,a,ul,li,audio {
     vertical-align:baseline;
 }
 
-body { line-height:1; }
+body {
+    line-height:1;
+    overflow-x: hidden;
+}
 ul { list-style:none; }
 
 

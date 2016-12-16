@@ -1,18 +1,18 @@
 module.exports = function (app,model) {
 
-    app.post("/api/music", addMusic);
+    app.post("/api/music", addAlbum);
 
-    function addMusic(req, res) {
+    function addAlbum(req, res) {
         var music = req.body;
         model
             .musicModel
-            .addMusic(music)
+            .addAlbum(music)
             .then(
                 function (response) {
                     res.json(response);
                 },
                 function (err) {
-                    res.status(400).send(err);
+                    res.sendStatus(400).send(err);
                 }
             );
     }

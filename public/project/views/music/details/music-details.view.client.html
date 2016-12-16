@@ -26,10 +26,10 @@
                 <div class="visible-inline-block">
                     <h1>{{model.music.name}}</h1>
                     <span ng-show="currentUser._id">
-                        <a href="" ng-click="model.favoriteMusic()" ng-hide="model.isFavorite">
+                        <a href="" ng-click="model.favoriteMusic()" ng-hide="model.isFavorite" title="Add to favorites!">
                             <i class="fa fa-heart"></i>
                         </a>
-                        <a href="" ng-click="model.undoFavoriteMusic()" ng-show="model.isFavorite">
+                        <a href="" ng-click="model.undoFavoriteMusic()" ng-show="model.isFavorite" title="Remove from favorites!">
                             <i class="fa fa-heart" style="color: red"></i>
                         </a>
                     </span>
@@ -79,7 +79,7 @@
             <div>
                 <hr>
                 <div class="panel-heading">
-                    <h4>Reviews</h4>
+                    <h3>Reviews</h3>
                 </div>
                 <div ng-repeat="review in model.reviews">
                     <div class="panel-body">
@@ -93,11 +93,11 @@
                             <form>
                                 <div class="form-group">
                                     <input type="text" class="form-control"
-                                           placeholder="Please enter title of the review"
+                                           placeholder="Please enter title"
                                            ng-model="model.editReview.title"/>
                                 </div>
                                 <div class="form-group">
-                    <textarea class="form-control" rows="3" placeholder="Please enter description of the review"
+                    <textarea class="form-control" rows="3" placeholder="Please enter description"
                               ng-model="model.editReview.description"></textarea>
                                 </div>
                             </form>

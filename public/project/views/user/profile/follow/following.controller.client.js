@@ -134,7 +134,15 @@
                     var status = response.data;
                     console.log(status);
                     vm.users[index].alreadyFollowing = (status.n == 1 || status.nModified == 1) && status.ok == 1 ? true : false;
+
+                    UserService
+                        .findUserById(vm.loggedInUserId)
+                        .success(function (user) {
+                            vm.user = user;
+                        })
                 });
+
+            UserService.findAllFollowingUsers(vm.loggedInUserId);
         }
 
         function unfollow(index) {
@@ -148,7 +156,15 @@
                     var status = response.data;
                     console.log(status);
                     vm.users[index].alreadyFollowing = (status.n == 1 || status.nModified == 1) && status.ok == 1 ? false : true;
+
+                    UserService
+                        .findUserById(vm.loggedInUserId)
+                        .success(function (user) {
+                            vm.user = user;
+                        })
                 });
+
+            UserService.findAllFollowingUsers(vm.loggedInUserId);
         }
     }
 

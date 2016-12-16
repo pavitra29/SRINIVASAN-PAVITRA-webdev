@@ -6,13 +6,13 @@ module.exports = function () {
     var MusicModel = mongoose.model("MusicModel", MusicSchema);
 
     var api = {
-        addMusic: addMusic,
-        findMusicById: findMusicById,
+        addAlbum: addAlbum,
+        findAlbumById: findAlbumById,
         findAllFavoriteMusic: findAllFavoriteMusic
     };
     return api;
 
-    function addMusic(music) {
+    function addAlbum(music) {
         var newMusicObj = {
             "name": music.name,
             "imageUrl": music.imageUrl
@@ -24,7 +24,7 @@ module.exports = function () {
             newMusicObj, {upsert: true});
     }
 
-    function findMusicById(albumId) {
+    function findAlbumById(albumId) {
         return MusicModel.findById(albumId);
     }
 

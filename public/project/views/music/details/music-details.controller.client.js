@@ -115,7 +115,7 @@
                         findUserByReviewUserId(vm.reviews);
                         findAvgRatingByAlbumId(vm.reviews);
 
-                        return MusicService.addMusic(vm.music);
+                        return MusicService.addAlbum(vm.music);
                     }
                 })
                 .then(function (response) {
@@ -183,7 +183,7 @@
                     var status = response.data;
                     if ((status.n == 1 || status.nModified == 1) && status.ok == 1) {
                         vm.isFavorite = true;
-                        return MusicService.addMusic(vm.music);
+                        return MusicService.addAlbum(vm.music);
                     }
                 })
                 .then(function (response) {

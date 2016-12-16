@@ -144,7 +144,7 @@ module.exports = function(app, model) {
                     res.json(response);
                 },
                 function (err) {
-                    res.status(400).send(err);
+                    res.sendStatus(400).send(err);
                 }
             );
     }
@@ -160,7 +160,7 @@ module.exports = function(app, model) {
                     res.json(response);
                 },
                 function (err) {
-                    res.status(400).send(err);
+                    res.sendStatus(400).send(err);
                 }
             );
     }
@@ -176,7 +176,7 @@ module.exports = function(app, model) {
                     res.json(user);
                 },
                 function (err) {
-                    res.status(400).send(err);
+                    res.sendStatus(400).send(err);
                 }
             );
     }
@@ -195,7 +195,7 @@ module.exports = function(app, model) {
                         .addFollowerUser(followerId, followingId);
                 },
                 function (err) {
-                    res.status(400).send(err);
+                    res.sendStatus(400).send(err);
                 }
             )
             .then(
@@ -203,7 +203,7 @@ module.exports = function(app, model) {
                     res.json(response);
                 },
                 function (err) {
-                    res.status(400).send(err);
+                    res.sendStatus(400).send(err);
                 });
     }
 
@@ -220,7 +220,7 @@ module.exports = function(app, model) {
                         .removeFollowerUser(followerId, followingId);
                 },
                 function (err) {
-                    res.status(400).send(err);
+                    res.sendStatus(400).send(err);
                 }
             )
             .then(
@@ -228,7 +228,7 @@ module.exports = function(app, model) {
                     res.json(response);
                 },
                 function (err) {
-                    res.status(400).send(err);
+                    res.sendStatus(400).send(err);
                 });
     }
 
@@ -243,7 +243,7 @@ module.exports = function(app, model) {
                     res.json(user);
                 },
                 function (err) {
-                    res.status(400).send(err);
+                    res.sendStatus(400).send(err);
                 }
             );
     }
@@ -257,7 +257,7 @@ module.exports = function(app, model) {
                     return model.userModel.findAllFollowingUsers(user.following);
                 },
                 function (err) {
-                    res.status(400).send(err);
+                    res.sendStatus(400).send(err);
                 }
             )
             .then(
@@ -265,7 +265,7 @@ module.exports = function(app, model) {
                     res.json(users);
                 },
                 function (err) {
-                    res.status(400).send(err);
+                    res.sendStatus(400).send(err);
                 }
             );
     }
@@ -279,7 +279,7 @@ module.exports = function(app, model) {
                     return model.userModel.findAllFollowersUsers(user.follower);
                 },
                 function (err) {
-                    res.status(400).send(err);
+                    res.sendStatus(400).send(err);
                 }
             )
             .then(
@@ -287,7 +287,7 @@ module.exports = function(app, model) {
                     res.json(users);
                 },
                 function (err) {
-                    res.status(400).send(err);
+                    res.sendStatus(400).send(err);
                 }
             );
     }
@@ -304,7 +304,7 @@ module.exports = function(app, model) {
                         .findAllFavoriteMusic(user.favorites);
                 },
                 function (err) {
-                    res.status(400).send(err);
+                    res.sendStatus(400).send(err);
                 }
             )
             .then(
@@ -312,7 +312,7 @@ module.exports = function(app, model) {
                     res.json(music);
                 },
                 function (err) {
-                    res.status(400).send(err);
+                    res.sendStatus(400).send(err);
                 }
             );
     }
@@ -524,7 +524,7 @@ module.exports = function(app, model) {
                 if(user){
                     req.login(user, function(err) {
                         if(err) {
-                            res.status(400).send(err);
+                            res.sendStatus(400).send(err);
                         } else {
                             res.json(user);
                         }

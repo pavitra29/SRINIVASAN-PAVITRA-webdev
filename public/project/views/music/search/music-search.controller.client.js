@@ -23,11 +23,19 @@
 
         function searchMusicByTitle(title) {
 
+            vm.error = "";
+
             MusicService
                 .searchMusicByTitle(title)
                 .success(function (result) {
-                    vm.music = result.albums.items;
-                    $location.url("/search/"+title);
+
+                    if(result.albums.items.length > 0) {
+                        vm.music = result.albums.items;
+                        $location.url("/search/" + title);
+                    }
+                    else {
+                        vm.error = "No Search Results returned for this title!"
+                    }
                 });
 
         }

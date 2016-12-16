@@ -13,11 +13,11 @@
             "searchMusicByAlbumID": searchMusicByAlbumID,
             "searchMusicByArtistID": searchMusicByArtistID,
             "findSimilarMusic": findSimilarMusic,
-            "addMusic": addMusic
+            "addAlbum": addAlbum
         };
         return api;
 
-        function addMusic(music) {
+        function addAlbum(music) {
             return $http.post("/api/music", music);
         }
 

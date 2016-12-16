@@ -1,5 +1,7 @@
-<div class="container-fluid">
+<div class="container-fluid" id="searchPage">
 
+    <h1 class="text-center">SpotTunes - Where Music is Life</h1>
+    <br>
     <h1 class="text-center">Search</h1>
     <br>
     <div class="input-group">
@@ -13,6 +15,13 @@
         </span>
     </div>
     <br>
+
+    <div ng-show="model.error">
+        <div class="alert alert-warning alert-box" role="alert"><b>Warning! </b>
+            {{model.error}}
+        </div>
+    </div>
+
     <div class="row">
         <div ng-repeat="music in model.music">
             <div class="col-sm-6 col-md-4">
