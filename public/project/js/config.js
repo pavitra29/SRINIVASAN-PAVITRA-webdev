@@ -22,8 +22,8 @@
                 controllerAs: "model"
             })
             .when("/", {
-                templateUrl: "views/user/login/login.view.client.html",
-                controller: "LoginController",
+                templateUrl: "views/music/search/music-search.view.client.html",
+                controller: "MusicSearchController",
                 controllerAs: "model"
             })
             .when("/register", {
