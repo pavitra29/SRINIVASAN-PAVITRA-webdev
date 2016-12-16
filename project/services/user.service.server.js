@@ -39,11 +39,14 @@ module.exports = function(app, model) {
     app.post('/api/checkAdmin', checkAdmin);
     app.post('/api/logout', logout);
     app.get('/api/user', findUser);
-    app.get('/api/admin/user', findAllUsers);
     app.get('/api/user/:uid', findUserById);
     app.post('/api/user',createUser);
     app.put('/api/user/:uid', loggedInAndSelf, updateUser);
     app.delete('/api/user/:uid', loggedInAndSelf, deleteUser);
+
+    // Admin function
+    app.get('/api/admin/user', findAllUsers);
+    app.delete('/api/admin/user/:uid', adminDeleteUser);
 
     app.put("/api/user/:userId/music/:albumId/favorite", favoriteMusic);
     app.put("/api/user/:userId/music/:albumId/undofavorite", undoFavoriteMusic);
@@ -599,6 +602,23 @@ module.exports = function(app, model) {
     }
 
     function deleteUser(req,res) {
+        var uid = req.params['uid'];
+
+        model
+            .userModel
+            .deleteUser(uid)
+            .then(
+                function (status) {
+                    res.sendStatus(200);
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                }
+            );
+
+    }
+
+    function adminDeleteUser(req,res) {
         var uid = req.params['uid'];
 
         model

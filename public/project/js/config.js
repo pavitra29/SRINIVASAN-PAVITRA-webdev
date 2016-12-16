@@ -5,6 +5,9 @@
 
     function Config($routeProvider) {
         $routeProvider
+            .when("/description", {
+                templateUrl: "views/content/description.view.client.html"
+            })
             .when("/admin", {
                 templateUrl: "views/admin/user-list.view.client.html",
                 controller: "AdminController",

@@ -2,7 +2,7 @@
     <h1>Admin</h1>
     <br>
     <div ng-repeat="user in model.users">
-        <div class="media">
+        <div class="media well" ng-if="user.role!='ADMIN'">
             <a class="pull-left" href="">
                 <img class="img-responsive img-thumbnail profile-image" src="/homepage/images/user_icon.jpg"
                      ng-show="!user.imageUrl">
@@ -19,8 +19,14 @@
                 <h3 class="media-heading">
                     {{user.email}}
                 </h3>
+                <a ng-click="model.adminDeleteUser($index)">
+                    <i class="fa fa-times" aria-hidden="true" style="color: red"></i>
+                </a>
+                <a ng-click="model.updateUser()">
+                    <i class="fa fa-cog" aria-hidden="true" style="color: dodgerblue"></i>
+                </a>
+
             </div>
         </div>
-        <hr>
     </div>
 </div>

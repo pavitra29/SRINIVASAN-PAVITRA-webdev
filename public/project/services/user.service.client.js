@@ -27,7 +27,8 @@
             findAllFollowingUsers: findAllFollowingUsers,
             findAllFollowersUsers: findAllFollowersUsers,
             findAllFavoriteMusic: findAllFavoriteMusic,
-            findAllUsers: findAllUsers
+            findAllUsers: findAllUsers,
+            adminDeleteUser: adminDeleteUser
         };
         return api;
 
@@ -131,6 +132,11 @@
 
         function deleteUser(userId) {
             var url = "/api/user/" + userId;
+            return $http.delete(url);
+        }
+
+        function adminDeleteUser(userId) {
+            var url = "/api/admin/user/" + userId;
             return $http.delete(url);
         }
     }

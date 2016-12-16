@@ -8,6 +8,11 @@
     margin-left: 10px;
 }
 
+#searchPage {
+    background: url('../../homepage/images/searchBackground.jpg') ;
+    background-size: cover;
+    background-size: 100% 100%;
+}
 .navbar-text {
     vertical-align: middle;
 }
@@ -95,6 +100,8 @@ html,body {
     font:20px/24px "Yanone Kaffeesatz", HelveticaNeue, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight:300;
     padding:5px 0;
+    padding-top: 35px;
+    padding-bottom: 50px;
 }
 
 * {

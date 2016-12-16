@@ -1,7 +1,8 @@
-<div class="container-fluid" id="searchPage">
-
-    <h1 class="text-center">SpotTunes - Where Music is Life</h1>
-    <br>
+<div class="container-fluid">
+    <div id="searchPage">
+        <h1 class="text-center">SpotTunes - Where Music is Life</h1>
+        <br><br><br><br><br><br><br><br><br><br><br>
+    </div>
     <h1 class="text-center">Search</h1>
     <br>
     <div class="input-group">
@@ -30,7 +31,7 @@
                         <div class="caption">
                             <h3>{{music.name | limitTo:30}}{{music.name.length > 30 ? "..." : ""}}</h3>
                         </div>
-                        <img class="img-responsive" ng-src="{{music.images[0].url}}"/>
+                        <img class="img-responsive" ng-src="{{music.images[0].url || '/homepage/images/'}}"/>
                     </a>
                     <div class="caption">
                         <h5>Album Type: {{music.album_type.toUpperCase()}}</h5>
