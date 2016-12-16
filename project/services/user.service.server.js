@@ -338,7 +338,9 @@ module.exports = function(app, model) {
                     user.imageUrl = "/project/upload/" + filename;
                     model.userModel.updateUser(userId,user)
                         .then(function(status){
-                                res.redirect("/project/#/user/" + userId);
+                                // console.log(req.header('Referer'));
+                                // console.log(req.header('Referer') + "#/user/" + userId);
+                                res.redirect(req.header('Referer') + "#/user/" + userId);
                             },
                             function(error){
                                 res.statusCode(400).send(error);
